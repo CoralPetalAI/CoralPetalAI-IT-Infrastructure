@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://coralpetal.ai/</loc><lastmod>2026-10-09</lastmod></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://coralpetal.ai/</loc></url>
+  <url><loc>https://coralpetal.ai/about/</loc></url>
+  <url><loc>https://coralpetal.ai/academy/</loc></url>
+  <url><loc>https://coralpetal.ai/careers/</loc></url>
+  <url><loc>https://coralpetal.ai/contact/</loc></url>
+  <url><loc>https://coralpetal.ai/industries/</loc></url>
+  <url><loc>https://coralpetal.ai/insights/</loc></url>
+  <url><loc>https://coralpetal.ai/services/</loc></url>
+</urlset>
