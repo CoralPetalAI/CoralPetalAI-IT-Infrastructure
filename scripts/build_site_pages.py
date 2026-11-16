@@ -29,10 +29,10 @@ CSS_VERSION = "20261116a"
 NAV = [
     ("services", "/services/", "Services"),
     ("industries", "/industries/", "Industries"),
-    ("academy", "/academy/", "Academy"),
+    ("academy", "/learn/", "Academy"),
     ("about", "/about/", "About"),
     ("insights", "/insights/", "Insights"),
-    ("careers", "/careers/", "Careers"),
+    ("careers", "/join-us/", "Careers"),
 ]
 
 
