@@ -41,8 +41,9 @@ NAV = [
         ("/industries/#insurance", "Insurance"),
         ("/industries/#telecom", "Telecom"),
     ]),
-    ("academy", "Academy", "/learn/", [
-        ("/learn/", "The Signature Course"),
+    ("academy", "Academy", "https://academy.coralpetal.ai/", [
+        ("https://academy.coralpetal.ai/courses/gen-agentic-ai/", "The Signature Course"),
+        ("https://academy.coralpetal.ai/courses/", "Course catalog"),
         ("https://academy.coralpetal.ai/", "Go to the Academy"),
     ]),
     ("insights", "Insights", "/insights/", []),
