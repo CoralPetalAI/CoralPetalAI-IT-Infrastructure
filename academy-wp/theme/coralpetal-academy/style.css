@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 0.4.2
+Version: 0.5.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -83,3 +83,34 @@ body.home main { margin-top: 0 !important; }
 /* Left-align every hero child to the 1200px column (constrained layout centres narrower blocks). */
 .cp-hero > * { margin-left: max(0px, calc((100% - 1200px) / 2)) !important; margin-right: auto !important; }
 .cp-hero { padding-top: 96px !important; }
+
+/* ==== Visual pass, light (2026-11-18): hero graphic + light CTA, same system as coralpetal.ai ==== */
+:root { --ink:#111111; --muted:#4A4A4A; --faint:#8D8D8D; --line:#E8E8E8; --serif:"Newsreader", Georgia, serif; }
+.cp-vhero { position: relative; max-width: 1200px; margin: 0 auto; padding: 96px 24px 72px; }
+.cp-vhero::before { content: ""; position: absolute; z-index: -1; width: 900px; height: 900px; right: -420px; top: -520px; background: radial-gradient(circle, rgba(255,111,97,.20), rgba(255,111,97,0) 60%); pointer-events: none; }
+.cp-vgrid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+.cp-vhero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.375rem, 3.6vw, 3.25rem); line-height: 1.05; letter-spacing: -.02em; max-width: 16ch; margin: 14px 0 16px; color: var(--ink); }
+.cp-chip { display: inline-block; margin: 0; padding: 6px 12px; border-radius: 999px; background: rgba(17,17,17,.05); color: var(--ink); font-size: 13px; line-height: 16px; font-weight: 500; }
+.cp-lede { font-size: 1.125rem; line-height: 1.55; color: var(--muted); max-width: 46ch; }
+.cp-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.cp-btn { display: inline-flex; padding: 13px 22px; border-radius: 14px; background: var(--ink); color: #fff !important; text-decoration: none !important; font-weight: 500; border: 1px solid var(--ink); }
+.cp-btn:hover { background: #000; }
+.cp-ghost { background: transparent; color: var(--ink) !important; border-color: rgba(17,17,17,.22); }
+.cp-ghost:hover { background: rgba(17,17,17,.05); }
+.viz { position: relative; margin: 0; background: #FFFFFF; border: 1px solid var(--line); border-radius: 22px; padding: 22px; box-shadow: 0 1px 2px rgba(17,17,17,.04), 0 40px 80px -40px rgba(17,17,17,.35); font-size: 13.5px; color: var(--ink); }
+.viz-h { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; font-weight: 600; }
+.pill-s { display: inline-flex; font-size: 11.5px; font-weight: 500; padding: 3px 9px; border-radius: 999px; }
+.p-coral { background: #FFEDEA; color: #B23A31; } .p-grey { background: #F2F2F2; color: #4A4A4A; } .p-green { background: #E8F5EE; color: #1E7F4F; }
+.vz-mod { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #F1F1F1; }
+.vz-mod small { color: var(--muted); font-size: 12px; }
+.vz-mod .n { width: 22px; height: 22px; border-radius: 7px; background: #F2F2F2; display: grid; place-items: center; font-size: 11px; font-weight: 600; }
+.vz-mod .n.done { background: #1E7F4F; color: #fff; } .vz-mod .n.now { background: #FF6F61; color: #fff; }
+.vz-bar { height: 6px; border-radius: 999px; background: #EDEDED; overflow: hidden; margin-top: 5px; }
+.vz-bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #FF8A7A, #FF6F61); }
+.vz-checks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+/* Light CTA (replaces the black box) */
+.cp-cta { background: radial-gradient(700px 320px at 85% 0%, rgba(255,111,97,.16), transparent 65%), #FFFFFF !important; border: 1px solid var(--line); }
+.cp-cta h2 { color: var(--ink) !important; } .cp-cta p { color: var(--muted) !important; opacity: 1; }
+.cp-cta .wp-block-button__link { background: var(--ink) !important; color: #FFFFFF !important; }
+body.home .wp-block-post-title { display: none; }
+@media (max-width: 960px) { .cp-vgrid { grid-template-columns: 1fr; gap: 36px; } .cp-vhero { padding-top: 72px; } }
