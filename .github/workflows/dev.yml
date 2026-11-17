@@ -37,6 +37,7 @@ jobs:
       HOSTINGER_USER: ${{ vars.HOSTINGER_USER }}
       DEV_AUTH_USER: ${{ secrets.DEV_AUTH_USER }}
       DEV_AUTH_PASS: ${{ secrets.DEV_AUTH_PASS }}
+      DEV_PASSWORD: "off"   # Rohit 2026-11-18: dev sites open for now (noindex kept); "on" restores the login
     steps:
       - uses: actions/checkout@v4
       - name: Checks

@@ -5,6 +5,18 @@
 # /.well-known/ stays open so Hostinger can renew the SSL certificates.
 set -euo pipefail
 : "${HOSTINGER_USER:?HOSTINGER_USER is required}"
+# DEV_PASSWORD=off (set in dev.yml) drops the login and keeps only noindex (Rohit, 2026-11-18: "remove the password for now").
+if [ "${DEV_PASSWORD:-on}" = "off" ]; then
+cat <<BLOCK
+# BEGIN DEV ACCESS (dev sites only, never prod; managed by scripts/dev_access_block.sh)
+# Password OFF for now (DEV_PASSWORD=off in .github/workflows/dev.yml); set it back to "on" to restore the login.
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+# END DEV ACCESS
+BLOCK
+exit 0
+fi
 cat <<BLOCK
 # BEGIN DEV ACCESS (dev sites only, never prod; managed by scripts/dev_access_block.sh)
 SetEnvIf Request_URI "^/\.well-known/" CP_WELLKNOWN
