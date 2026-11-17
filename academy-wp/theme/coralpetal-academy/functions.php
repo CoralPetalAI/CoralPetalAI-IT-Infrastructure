@@ -11,3 +11,11 @@ add_action( 'wp_head', function () {
 	echo '<meta name="theme-color" content="#0B1F33">' . "\n";
 	echo '<link rel="icon" href="' . esc_url( get_stylesheet_directory_uri() . '/assets/logo.svg' ) . '" type="image/svg+xml">' . "\n";
 } );
+
+// Light reading surface on Tutor LMS pages (see style.css).
+add_filter( 'body_class', function ( $classes ) {
+	if ( is_singular( 'courses' ) || is_post_type_archive( 'courses' ) || is_page( array( 'dashboard', 'student-registration' ) ) ) {
+		$classes[] = 'cp-light';
+	}
+	return $classes;
+} );

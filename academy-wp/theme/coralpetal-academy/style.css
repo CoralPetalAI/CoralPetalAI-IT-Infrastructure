@@ -2,21 +2,26 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). Signature dark navy + coral, Inter.
 Template: twentytwentyfive
-Version: 0.1.0
+Version: 0.2.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
 
-/* Tutor LMS in the brand colors */
+/* Tutor LMS pages (course, dashboard, sign-up) use a light reading surface between the
+   navy header and footer: Tutor's components are built for light backgrounds. */
 :root {
-  --tutor-color-primary: #FF6F61;
-  --tutor-color-primary-rgb: 255, 111, 97;
-  --tutor-color-primary-hover: #E8505B;
+  --tutor-color-primary: #E8505B;
+  --tutor-color-primary-rgb: 232, 80, 91;
+  --tutor-color-primary-hover: #D43F4B;
 }
-.tutor-wrap, .tutor-course-details-page, .tutor-dashboard { color: #E6ECF2; }
-.tutor-card, .tutor-course-card, .tutor-accordion-item { background: #13304D; border-color: #23415F; color: #E6ECF2; }
-.tutor-course-name a, .tutor-course-details-title, .tutor-accordion-item-header { color: #FFFFFF; }
-.tutor-color-secondary, .tutor-color-muted, .tutor-meta { color: #A9B7C6 !important; }
+body.cp-light { background: #F5F7FA; color: #1B2B3C; }
+body.cp-light h1, body.cp-light h2, body.cp-light h3, body.cp-light h4, body.cp-light h5, body.cp-light h6 { color: #0B1F33; }
+body.cp-light main a:not(.tutor-btn), body.cp-light .tutor-wrap a:not(.tutor-btn) { color: #D43F4B; }
+.cp-header a, .cp-header .wp-block-navigation-item__content { color: #E6ECF2; }
+.cp-header .cp-nav-cta .wp-block-navigation-item__content { background: #FF6F61; color: #0B1F33; padding: 8px 16px; border-radius: 10px; font-weight: 600; }
+.cp-header .cp-nav-cta .wp-block-navigation-item__content:hover { background: #FF8A7A; }
+.cp-footer, .cp-footer p { color: #A9B7C6; }
+.cp-footer a { color: #FF8A7A; }
 
 .cp-card { background: #13304D; border: 1px solid #23415F; border-radius: 16px; padding: 28px; height: 100%; }
 .cp-card::before { content: ""; display: block; width: 32px; height: 3px; border-radius: 2px; background: #FF6F61; margin-bottom: 18px; }
