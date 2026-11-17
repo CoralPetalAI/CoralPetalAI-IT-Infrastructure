@@ -383,3 +383,62 @@ a:hover { color: var(--clay-text); }
   .nav .pill { justify-content: space-between; }
   .nav .submenu { position: static; box-shadow: none; border: 0; padding: 4px 0 4px 8px; min-width: 0; background: transparent; }
 }
+
+/* ==== tana.inc theme (2026-11-18, Rohit: "change it to tana.inc theme"; replaces the Anthropic block) ====
+   Near-white #FBFBFB page, ink #202020, grey #646464, serif headlines, floating glass nav island
+   with plain text items + chevron dropdowns, 14px ink buttons, white hairline cards, faint coral glow. */
+:root {
+  --paper: #FBFBFB; --paper-2: #F4F4F3; --ink: #202020; --text: #202020;
+  --muted: #646464; --faint: #8D8D8D; --card: #FFFFFF; --line: #E8E8E8;
+  --clay: #FF6F61; --clay-text: #D9473F; --coral-2: #D9473F;
+}
+.site-header, .site-footer { --muted: #646464; --faint: #8D8D8D; --line: #E8E8E8; --coral-2: #D9473F; }
+body { background: var(--paper); }
+
+/* Floating glass island */
+.site-header { background: transparent; border-bottom: 0; padding-top: 14px; }
+.site-header .nav {
+  height: 60px; padding: 0 10px 0 18px; border-radius: 18px;
+  background: color-mix(in srgb, var(--paper) 60%, transparent);
+  backdrop-filter: saturate(180%) blur(28px); -webkit-backdrop-filter: saturate(180%) blur(28px);
+  box-shadow: 0 0 0 1px rgba(32,32,32,.06), 0 8px 30px -12px rgba(32,32,32,.18);
+}
+.nav ul#primary-nav { gap: 2px; }
+.nav .pill, .nav li a.pill {
+  background: transparent; border: 1px solid transparent; border-radius: 10px;
+  padding: 7px 12px; color: var(--muted); font-weight: 500;
+}
+.nav .pill:hover, .nav li a.pill:hover, .nav details[open] > .pill { background: rgba(32,32,32,.05); border-color: transparent; color: var(--ink); }
+.nav .pill[aria-current="page"] { color: var(--ink); border-color: transparent; background: rgba(32,32,32,.05); }
+.nav .submenu { background: #FFFFFF; border-color: var(--line); border-radius: 16px; top: calc(100% + 14px); }
+.nav .submenu a:hover { background: rgba(32,32,32,.05); }
+
+/* Buttons */
+.btn, .nav li a.btn { border-radius: 14px; background: var(--ink); border-color: var(--ink); color: #FFFFFF; }
+.btn:hover, .nav li a.btn:hover { background: #000; border-color: #000; color: #FFFFFF; }
+.nav li a.btn { border-radius: 12px; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: rgba(32,32,32,.22); }
+.btn-ghost:hover { background: rgba(32,32,32,.05); color: var(--ink); }
+
+/* Hero glow, cards, accents */
+.hero, .page-hero { background: var(--paper); }
+.hero { padding: 160px 0 110px; }
+.page-hero { padding: 140px 0 56px; }
+.hero::before, .page-hero::before {
+  display: block; width: 900px; height: 900px; right: -420px; top: -520px;
+  background: radial-gradient(circle, rgba(255,111,97,.10), rgba(255,111,97,0) 60%);
+}
+.section-alt { background: var(--paper-2); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; }
+.section-alt .card { background: var(--card); }
+.card-hl { border-color: var(--line); box-shadow: inset 0 3px 0 var(--clay); }
+.chips li { background: var(--card); border-color: var(--line); }
+.cta-band { background: var(--ink); border-radius: 28px; }
+.cta-band .btn { background: #FFFFFF; border-color: #FFFFFF; color: var(--ink); }
+.cta-band .btn:hover { background: #F0F0F0; color: var(--ink); }
+
+@media (max-width: 960px) {
+  .nav ul#primary-nav { top: 74px; left: 16px; right: 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 18px 40px -20px rgba(32,32,32,.25); }
+  .nav .pill { width: 100%; }
+}
+@media (max-width: 640px) { .hero { padding: 116px 0 72px; } .page-hero { padding: 108px 0 40px; } }
