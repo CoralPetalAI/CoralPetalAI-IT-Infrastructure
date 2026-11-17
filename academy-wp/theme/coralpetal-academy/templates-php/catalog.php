@@ -44,8 +44,16 @@ $cp_tints = array(
 		<h1><?php echo $cp_current ? esc_html( $cp_current->name ) : 'Course catalog'; ?></h1>
 		<p class="cp-lede"><?php echo $cp_current ? esc_html( $cp_current->description ? $cp_current->description : 'All courses in ' . $cp_current->name . '.' ) : 'Six sections, from statistics to agents in production. Start anywhere; the Signature Course brings it all together.'; ?></p>
 		<?php if ( ! $cp_current && $cp_sections ) : ?>
-		<nav class="cp-cat-jump" aria-label="Sections">
-			<?php if ( ! $cp_current ) :
+		<nav class="cp-cat-jump" aria-label="Filter by section">
+			<button type="button" class="is-on" data-filter="all">All sections</button>
+			<?php foreach ( $cp_sections as $s ) : ?>
+				<button type="button" data-filter="<?php echo esc_attr( $s->slug ); ?>"><i class="dot-<?php echo esc_attr( $cp_tints[ $s->slug ] ?? 'coral' ); ?>"></i><?php echo esc_html( $s->name ); ?></button>
+			<?php endforeach; ?>
+		</nav>
+		<?php endif; ?>
+	</section>
+
+	<?php if ( ! $cp_current ) :
 		$cp_all = new WP_Query( array( 'post_type' => 'courses', 'post_status' => 'publish', 'posts_per_page' => -1, 'orderby' => array( 'menu_order' => 'ASC', 'title' => 'ASC' ) ) );
 		$cp_lv  = array( 'beginner' => 'Beginner', 'intermediate' => 'Intermediate', 'expert' => 'Expert', 'all_levels' => 'All levels' );
 		if ( $cp_all->have_posts() ) : ?>
@@ -61,9 +69,10 @@ $cp_tints = array(
 			<?php while ( $cp_all->have_posts() ) : $cp_all->the_post();
 				$terms = get_the_terms( get_the_ID(), 'course-category' );
 				$sec   = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '';
+				$secs  = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->slug : '';
 				$lv    = get_post_meta( get_the_ID(), '_tutor_course_level', true );
 				$mods  = count( get_posts( array( 'post_type' => 'topics', 'post_parent' => get_the_ID(), 'numberposts' => -1, 'fields' => 'ids' ) ) ); ?>
-				<tr>
+				<tr data-sec="<?php echo esc_attr( $secs ); ?>">
 					<td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
 					<td><?php echo esc_html( $sec ); ?></td>
 					<td><span class="pill-s lv-<?php echo esc_attr( $lv ); ?>"><?php echo esc_html( $cp_lv[ $lv ] ?? 'All levels' ); ?></span></td>
@@ -76,13 +85,6 @@ $cp_tints = array(
 	</section>
 	<?php endif; endif; ?>
 
-	<?php foreach ( $cp_sections as $s ) : ?>
-				<a href="#<?php echo esc_attr( $s->slug ); ?>"><i class="dot-<?php echo esc_attr( $cp_tints[ $s->slug ] ?? 'coral' ); ?>"></i><?php echo esc_html( $s->name ); ?></a>
-			<?php endforeach; ?>
-		</nav>
-		<?php endif; ?>
-	</section>
-
 	<?php foreach ( $cp_sections as $s ) :
 		$q = new WP_Query( array(
 			'post_type'      => 'courses',
@@ -94,7 +96,7 @@ $cp_tints = array(
 		if ( ! $q->have_posts() ) { continue; }
 		$tint = $cp_tints[ $s->slug ] ?? 'coral';
 		?>
-	<section class="cp-cat-sec" id="<?php echo esc_attr( $s->slug ); ?>">
+	<section class="cp-cat-sec" id="<?php echo esc_attr( $s->slug ); ?>" data-sec="<?php echo esc_attr( $s->slug ); ?>">
 		<div class="cp-cat-head">
 			<span class="cp-ico is-<?php echo esc_attr( $tint ); ?>"><i class="dot-<?php echo esc_attr( $tint ); ?>"></i></span>
 			<h2><?php echo esc_html( $s->name ); ?></h2>
@@ -121,6 +123,23 @@ $cp_tints = array(
 </main>
 <?php block_template_part( 'footer' ); ?>
 </div>
+<script>
+(function () {
+	var chips = document.querySelectorAll('.cp-cat-jump [data-filter]');
+	chips.forEach(function (c) {
+		c.addEventListener('click', function () {
+			var f = c.getAttribute('data-filter');
+			chips.forEach(function (x) { x.classList.toggle('is-on', x === c); });
+			document.querySelectorAll('.cp-cat-sec[data-sec], .cp-compare tr[data-sec]').forEach(function (el) {
+				el.hidden = (f !== 'all' && el.getAttribute('data-sec') !== f);
+			});
+			var n = document.querySelectorAll('.cp-compare tbody tr:not([hidden])').length;
+			var sm = document.querySelector('.cp-compare .cp-cc-txt small');
+			if (sm) { sm.textContent = n + (n === 1 ? ' course' : ' courses') + ' · level, modules and what you’ll be able to do'; }
+		});
+	});
+})();
+</script>
 <?php wp_footer(); ?>
 </body>
 </html>
