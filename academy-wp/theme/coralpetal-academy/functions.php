@@ -401,3 +401,17 @@ add_filter( 'body_class', function ( $c ) {
 	}
 	return $c;
 } );
+
+// Course duration on the course page (Rohit 2026-11-18: 20 h fundamentals, 50 h Signature).
+// Tutor 4 stores it (_course_duration) but only shows it inside the learning area.
+add_filter( 'the_content', function ( $content ) {
+	if ( ! is_singular( 'courses' ) || ! in_the_loop() || ! function_exists( 'tutor_utils' ) ) {
+		return $content;
+	}
+	$d = tutor_utils()->get_course_duration( get_the_ID(), true );
+	$h = (int) ( $d['durationHours'] ?? 0 );
+	if ( ! $h ) {
+		return $content;
+	}
+	return '<p class="cp-duration"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><b>' . $h . ' hours</b> of learning</span></p>' . $content;
+}, 6 );

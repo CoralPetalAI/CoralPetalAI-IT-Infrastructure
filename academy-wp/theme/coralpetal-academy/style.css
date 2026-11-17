@@ -700,3 +700,7 @@ body.cp-landing main > .wp-block-group:first-child { padding-top: 0 !important; 
 .cp-access-list li a { color: #111111 !important; font-weight: 600; text-decoration: none !important; }
 .cp-access-list li span { color: #6E6E6E; font-variant-numeric: tabular-nums; }
 .cp-access-list li.soon span { color: #8A5A00; font-weight: 600; }
+/* Course duration chip (Rohit 2026-11-18) */
+.cp-duration { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; padding: 7px 14px; border-radius: 999px; background: #FFF1EE; border: 1px solid #FFD9D3; color: #111111; font-size: 14px; }
+.cp-duration svg { width: 16px; height: 16px; fill: none; stroke: #D9473F; stroke-width: 2; stroke-linecap: round; }
+.cp-duration b { font-weight: 600; }
