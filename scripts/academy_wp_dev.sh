@@ -22,8 +22,12 @@ REMOTE="${HOSTINGER_USER}@${HOSTINGER_HOST}"
 $SSH "$REMOTE" "test -f '$WP/wp-config.php'" || { echo "no WordPress at $WP" >&2; exit 5; }
 $SSH "$REMOTE" "mkdir -p '$THEME' '$MU' '$CONTENT'"
 
-rsync -rlz --checksum --delete --chmod=D755,F644 -e "$SSH" academy-wp/theme/coralpetal-academy/ "$REMOTE:$THEME/"
-rsync -rlz --checksum --chmod=D755,F644 -e "$SSH" academy-wp/mu-plugins/ "$REMOTE:$MU/"
-rsync -rlz --checksum --chmod=D755,F644 -e "$SSH" academy-wp/content/ academy-wp/remote_setup.sh "$REMOTE:$CONTENT/"
+# Dev copy with every prod link pointed at its dev twin (scripts/dev_links.sh).
+SRC="$(mktemp -d)/academy-wp"; cp -R academy-wp "$SRC"
+bash "$(dirname "$0")/dev_links.sh" "$SRC"
+
+rsync -rlz --checksum --delete --chmod=D755,F644 -e "$SSH" "$SRC/theme/coralpetal-academy/" "$REMOTE:$THEME/"
+rsync -rlz --checksum --chmod=D755,F644 -e "$SSH" "$SRC/mu-plugins/" "$REMOTE:$MU/"
+rsync -rlz --checksum --chmod=D755,F644 -e "$SSH" "$SRC/content/" "$SRC/remote_setup.sh" "$REMOTE:$CONTENT/"
 
 $SSH "$REMOTE" "bash '$CONTENT/remote_setup.sh' '$WP' '$CONTENT'"

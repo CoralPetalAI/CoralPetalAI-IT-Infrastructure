@@ -19,4 +19,5 @@ printf 'User-agent: *\nDisallow: /\n' > "$OUT/robots.txt"
 AUTH="$(bash "$(dirname "$0")/dev_access_block.sh")"
 { printf '%s\n\n' "$AUTH"; cat "$OUT/.htaccess"; } > "$OUT/.htaccess.new"
 mv "$OUT/.htaccess.new" "$OUT/.htaccess"
+bash "$(dirname "$0")/dev_links.sh" "$OUT"   # dev pages link to dev, not prod
 echo "built dev $WHAT → $OUT"
