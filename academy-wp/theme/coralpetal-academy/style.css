@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.2.0
+Version: 1.2.1
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -391,3 +391,10 @@ body.cp-auth-page main { margin-top: 0 !important; }
 .cp-notice.ok { background: #E8F5EE; border-color: #A6E3C4; } .cp-notice.bad { background: #FFF5DD; border-color: #FFD79A; }
 .tutor-login-error, .tutor-alert-warning { border-radius: 12px !important; }
 @media (max-width: 900px) { .cp-auth { grid-template-columns: 1fr; margin: 16px; } .cp-auth-side, .cp-auth-form { padding: 28px; } }
+
+/* Hugging Face + GitHub in the Academy footer (2026-11-18, Rohit) */
+.cp-foot-right { display: inline-flex; align-items: center; gap: 16px; }
+.cp-social { display: inline-flex; gap: 8px; }
+.cp-social a { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: #111111 !important; background: #FFFFFF; border: 1px solid #E8E8E8; text-decoration: none !important; transition: background-color .2s, border-color .2s, color .2s, transform .2s; }
+.cp-social a svg { width: 18px; height: 18px; }
+.cp-social a:hover { background: #FFF1EE; border-color: #FF8A7A; color: #D9473F !important; transform: translateY(-2px); }
