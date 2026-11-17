@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 0.9.3
+Version: 1.0.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -282,3 +282,31 @@ a.cp-course:hover .cp-ico, .cp-tile:hover .cp-ico { background: #FFFFFF; }
 
 /* Trademark mark on the wordmark (2026-11-18, Rohit) */
 .tm { font-size: .55em; font-weight: 500; vertical-align: super; line-height: 0; margin-left: 1px; color: inherit; }
+
+/* ==== Academy brand hero (2026-11-18, Rohit: make "Coral Petal AI Academy" bigger, better graphics) ==== */
+.cp-lockup { display: flex; align-items: center; gap: 18px; margin-bottom: 26px; }
+.cp-lockup img { width: 72px; height: auto; filter: drop-shadow(0 10px 18px rgba(255,111,97,.35)); }
+.cp-lockup > div { display: grid; line-height: 1; }
+.cp-l1 { font-size: 1.05rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); }
+.cp-l1 .tm { font-size: .6em; }
+.cp-l2 { font-family: var(--serif); font-size: clamp(3rem, 5vw, 4.25rem); font-weight: 400; letter-spacing: -.03em; line-height: .95; margin-top: 4px;
+  background: linear-gradient(90deg, #E8505B, #FF8A7A); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cp-vhero h1 { font-size: clamp(1.9rem, 2.8vw, 2.5rem) !important; margin-top: 0 !important; }
+.cp-proof { display: flex; flex-wrap: wrap; gap: 8px 18px; list-style: none; margin: 26px 0 0; padding: 0; color: var(--muted); font-size: .93rem; }
+.cp-proof b { color: var(--ink); font-weight: 600; }
+.cp-proof li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #FF6F61; margin-right: 8px; vertical-align: middle; }
+.cp-stack { position: relative; margin: 0; height: 440px; }
+.cp-stack::before { content: ""; position: absolute; inset: 6% 4% 4% 10%; border-radius: 40px; background: radial-gradient(closest-side, rgba(255,138,122,.45), rgba(255,138,122,0)); filter: blur(18px); }
+.cp-stack img { position: absolute; width: 74%; border-radius: 18px; border: 1px solid rgba(17,17,17,.06); box-shadow: 0 30px 60px -28px rgba(17,17,17,.45); background: #fff; transition: transform .3s; }
+.cp-stack .s1 { left: 0; top: 0; transform: rotate(-7deg); }
+.cp-stack .s2 { right: 0; top: 30px; transform: rotate(6deg); }
+.cp-stack .s3 { left: 4%; top: 170px; transform: rotate(-3deg); }
+.cp-stack .s4 { right: 4%; top: 140px; width: 80%; transform: rotate(2deg); z-index: 2; box-shadow: 0 0 0 5px #FFF1EE, 0 40px 80px -30px rgba(232,80,91,.55); }
+.cp-stack:hover .s4 { transform: rotate(0deg) translateY(-6px); }
+.cp-float { position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 14px; background: #FFFFFF; border: 1px solid var(--line); box-shadow: 0 18px 36px -18px rgba(17,17,17,.35); font-size: 13px; }
+.cp-float b { display: block; font-size: 13px; } .cp-float small { color: var(--muted); font-size: 12px; }
+.cp-float .n { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; background: #1E7F4F; color: #fff; font-weight: 700; }
+.cp-f1 { left: -10px; bottom: 30px; }
+.cp-f2 { right: -6px; top: 6px; }
+.cp-medal { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #FFC94D, #F08C00); color: #fff; font-size: 14px; }
+@media (max-width: 960px) { .cp-stack { height: 360px; } .cp-l2 { font-size: 3rem; } }
