@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.4.3
+Version: 1.5.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -456,3 +456,16 @@ body.home main, body.cp-auth-page main { margin-top: 8px !important; }
 /* Filter chip dots: fixed size, never squeezed (2026-11-18) */
 .cp-cat-jump button i, .cp-cat-jump a i { flex: 0 0 10px; width: 10px !important; height: 10px !important; min-width: 10px; border-radius: 3px; }
 .cp-cat-jump button { line-height: 1.2; white-space: nowrap; }
+/* Multi-select section filter (2026-11-18, Rohit) */
+.cp-filter { position: sticky; top: 86px; z-index: 20; margin-top: 26px; padding: 16px 18px; border-radius: 20px; background: rgba(255,255,255,.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid #FFD9D3; box-shadow: 0 18px 40px -28px rgba(255,111,97,.6); }
+.cp-filter-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+.cp-filter-head b { font-size: .95rem; } .cp-filter-head small { color: var(--muted); font-size: .85rem; }
+.cp-filter-clear { margin-left: auto; background: none; border: 0; color: #B23A31; font: inherit; font-weight: 600; font-size: .88rem; cursor: pointer; }
+.cp-filter .cp-cat-jump { margin-top: 0; }
+.cp-cat-jump button em { font-style: normal; font-size: .75rem; font-weight: 600; min-width: 20px; padding: 1px 7px; border-radius: 999px; background: #F2F2F2; color: #4A4A4A; text-align: center; }
+.cp-cat-jump button[aria-pressed="true"] { background: #FF8A7A; border-color: #FF8A7A; color: #111111; }
+.cp-cat-jump button[aria-pressed="true"] em { background: rgba(255,255,255,.7); color: #111111; }
+.cp-cat-jump button[aria-pressed="true"]::after { content: "✓"; font-weight: 700; margin-left: 2px; }
+.cp-filter-status { margin: 10px 0 0; font-size: .85rem; color: var(--muted); }
+.cp-cat-sec[hidden] { display: none !important; }
+@media (max-width: 640px) { .cp-filter { top: 76px; padding: 12px; } .cp-cat-jump { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; } }

@@ -44,46 +44,20 @@ $cp_tints = array(
 		<h1><?php echo $cp_current ? esc_html( $cp_current->name ) : 'Course catalog'; ?></h1>
 		<p class="cp-lede"><?php echo $cp_current ? esc_html( $cp_current->description ? $cp_current->description : 'All courses in ' . $cp_current->name . '.' ) : 'Six sections, from statistics to agents in production. Start anywhere; the Signature Course brings it all together.'; ?></p>
 		<?php if ( ! $cp_current && $cp_sections ) : ?>
-		<nav class="cp-cat-jump" aria-label="Filter by section">
-			<button type="button" class="is-on" data-filter="all">All sections</button>
-			<?php foreach ( $cp_sections as $s ) : ?>
-				<button type="button" data-filter="<?php echo esc_attr( $s->slug ); ?>"><i class="dot-<?php echo esc_attr( $cp_tints[ $s->slug ] ?? 'coral' ); ?>"></i><?php echo esc_html( $s->name ); ?></button>
+		<div class="cp-filter" role="group" aria-label="Filter courses by section">
+			<div class="cp-filter-head"><b>Filter by section</b><small>Pick one or more</small><button type="button" class="cp-filter-clear" hidden>Clear</button></div>
+			<div class="cp-cat-jump">
+			<?php foreach ( $cp_sections as $s ) :
+				$cnt = (int) $s->count; ?>
+				<button type="button" aria-pressed="false" data-filter="<?php echo esc_attr( $s->slug ); ?>"><i class="dot-<?php echo esc_attr( $cp_tints[ $s->slug ] ?? 'coral' ); ?>"></i><?php echo esc_html( $s->name ); ?><em><?php echo $cnt; ?></em></button>
 			<?php endforeach; ?>
-		</nav>
+			</div>
+			<p class="cp-filter-status" aria-live="polite">Showing all sections</p>
+		</div>
 		<?php endif; ?>
 	</section>
 
-	<?php if ( ! $cp_current ) :
-		$cp_all = new WP_Query( array( 'post_type' => 'courses', 'post_status' => 'publish', 'posts_per_page' => -1, 'orderby' => array( 'menu_order' => 'ASC', 'title' => 'ASC' ) ) );
-		$cp_lv  = array( 'beginner' => 'Beginner', 'intermediate' => 'Intermediate', 'expert' => 'Expert', 'all_levels' => 'All levels' );
-		if ( $cp_all->have_posts() ) : ?>
-	<section class="cp-compare" aria-label="Compare courses">
-		<button type="button" class="cp-cc-toggle" aria-expanded="false" aria-controls="cp-compare-body" onclick="var o=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',o?'false':'true');this.querySelector('.cp-cc-act span').textContent=o?'Expand':'Collapse';document.getElementById('cp-compare-body').hidden=o;">
-			<span class="cp-cc-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18M9 10v10M15 10v10"/></svg></span>
-			<span class="cp-cc-txt"><b>Compare courses</b><small><?php echo (int) $cp_all->found_posts; ?> courses · level, modules and what you’ll be able to do</small></span>
-			<span class="cp-cc-act"><span>Expand</span></span>
-		</button>
-		<div class="cp-compare-scroll cp-cc-body" id="cp-compare-body" hidden><table>
-			<thead><tr><th>Course</th><th>Section</th><th>Level</th><th>Modules</th><th>Outcome</th></tr></thead>
-			<tbody>
-			<?php while ( $cp_all->have_posts() ) : $cp_all->the_post();
-				$terms = get_the_terms( get_the_ID(), 'course-category' );
-				$sec   = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '';
-				$secs  = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->slug : '';
-				$lv    = get_post_meta( get_the_ID(), '_tutor_course_level', true );
-				$mods  = count( get_posts( array( 'post_type' => 'topics', 'post_parent' => get_the_ID(), 'numberposts' => -1, 'fields' => 'ids' ) ) ); ?>
-				<tr data-sec="<?php echo esc_attr( $secs ); ?>">
-					<td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
-					<td><?php echo esc_html( $sec ); ?></td>
-					<td><span class="pill-s lv-<?php echo esc_attr( $lv ); ?>"><?php echo esc_html( $cp_lv[ $lv ] ?? 'All levels' ); ?></span></td>
-					<td><?php echo (int) $mods; ?></td>
-					<td><?php echo esc_html( wp_trim_words( get_the_excerpt(), 14 ) ); ?></td>
-				</tr>
-			<?php endwhile; wp_reset_postdata(); ?>
-			</tbody>
-		</table></div>
-	</section>
-	<?php endif; endif; ?>
+
 
 	<?php foreach ( $cp_sections as $s ) :
 		$q = new WP_Query( array(
@@ -125,19 +99,27 @@ $cp_tints = array(
 </div>
 <script>
 (function () {
-	var chips = document.querySelectorAll('.cp-cat-jump [data-filter]');
+	var chips = Array.prototype.slice.call(document.querySelectorAll('.cp-cat-jump [data-filter]'));
+	var clear = document.querySelector('.cp-filter-clear');
+	var status = document.querySelector('.cp-filter-status');
+	function apply() {
+		var on = chips.filter(function (c) { return c.getAttribute('aria-pressed') === 'true'; }).map(function (c) { return c.getAttribute('data-filter'); });
+		var n = 0;
+		document.querySelectorAll('.cp-cat-sec[data-sec]').forEach(function (el) {
+			var show = !on.length || on.indexOf(el.getAttribute('data-sec')) > -1;
+			el.hidden = !show;
+			if (show) { n += el.querySelectorAll('.cp-cat-card').length; }
+		});
+		if (clear) { clear.hidden = !on.length; }
+		if (status) { status.textContent = on.length ? ('Showing ' + n + (n === 1 ? ' course' : ' courses') + ' in ' + on.length + (on.length === 1 ? ' section' : ' sections')) : 'Showing all sections'; }
+	}
 	chips.forEach(function (c) {
 		c.addEventListener('click', function () {
-			var f = c.getAttribute('data-filter');
-			chips.forEach(function (x) { x.classList.toggle('is-on', x === c); });
-			document.querySelectorAll('.cp-cat-sec[data-sec], .cp-compare tr[data-sec]').forEach(function (el) {
-				el.hidden = (f !== 'all' && el.getAttribute('data-sec') !== f);
-			});
-			var n = document.querySelectorAll('.cp-compare tbody tr:not([hidden])').length;
-			var sm = document.querySelector('.cp-compare .cp-cc-txt small');
-			if (sm) { sm.textContent = n + (n === 1 ? ' course' : ' courses') + ' · level, modules and what you’ll be able to do'; }
+			c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+			apply();
 		});
 	});
+	if (clear) { clear.addEventListener('click', function () { chips.forEach(function (c) { c.setAttribute('aria-pressed', 'false'); }); apply(); }); }
 })();
 </script>
 <?php wp_footer(); ?>
