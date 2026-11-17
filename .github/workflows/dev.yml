@@ -121,7 +121,7 @@ jobs:
             name=${pair%%|*}; path=${pair#*|}
             curl -s -m 30 -b "$J" "https://dev-academy.coralpetal.ai$path" -o "review/$name.html" || true
           done
-          grep -q "cp-dash-hero" review/dash-home.html && echo "dashboard hero ✓" || echo "::warning::dashboard hero not found"; grep -q "cp-nav-user" review/dash-catalog-signedin.html && echo "header avatar ✓" || echo "::warning::header avatar not found on /courses/"
+          grep -q "cp-dash-hero" review/dash-home.html && echo "dashboard hero ✓" || echo "::warning::dashboard hero not found"; grep -q "cp-wish" review/dash-home.html && echo "wishlist ✓" || echo "::warning::wishlist section not found"; grep -q "cp-nav-user" review/dash-catalog-signedin.html && echo "header avatar ✓" || echo "::warning::header avatar not found on /courses/"
           rm -f "$J"
           ls -la review
       - uses: actions/upload-artifact@v4

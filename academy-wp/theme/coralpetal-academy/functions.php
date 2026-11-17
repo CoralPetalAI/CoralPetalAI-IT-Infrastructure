@@ -323,3 +323,62 @@ add_filter( 'render_block', function ( $html, $block ) {
 	}
 	return '<a class="cp-avatar cp-avatar-m" href="' . esc_url( home_url( '/dashboard/' ) ) . '" aria-label="My dashboard">' . cp_user_avatar_html( wp_get_current_user() ) . '</a>' . $html;
 }, 10, 2 );
+
+/* ==== Dashboard: Wishlist section (Rohit 2026-11-18) ====
+   Courses the student saved with the heart on a course page (Tutor wishlist, usermeta
+   _tutor_course_wishlist). Shown on the dashboard home after Continue Learning, or under the
+   hero when the student has no enrolments yet; plus a "Wishlist" item in the sidebar. */
+function cp_wishlist_url() {
+	return function_exists( 'tutor_utils' ) ? tutor_utils()->tutor_dashboard_url( 'courses/wishlist' ) : home_url( '/dashboard/courses/wishlist/' );
+}
+function cp_dash_wishlist_section() {
+	if ( ! cp_dash_is_home() || ! function_exists( 'tutor_utils' ) ) {
+		return;
+	}
+	$all   = tutor_utils()->get_wishlist( get_current_user_id() );
+	$total = is_array( $all ) ? count( $all ) : 0;
+	$items = $total ? array_slice( $all, 0, 6 ) : array();
+	$heart = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.3 8.4 3 5 6.3 5c2 0 3.2 1.1 3.7 2 .5-.9 1.7-2 3.7-2C17 5 18.7 8.4 17.2 11.4 15 15.6 12 20 12 20z" transform="translate(2 0)"/></svg>';
+	echo '<section class="cp-wish" aria-labelledby="cp-wish-h"><div class="cp-wish-head"><h2 id="cp-wish-h">Wishlist</h2>';
+	echo $total ? '<span class="cp-wish-count">' . (int) $total . '</span><a class="cp-wish-all" href="' . esc_url( cp_wishlist_url() ) . '">See all</a>' : '';
+	echo '</div>';
+	if ( ! $total ) {
+		echo '<div class="cp-wish-empty"><span class="cp-wish-ico">' . $heart . '</span><div><b>No saved courses yet</b><p>Tap the heart on any course page to save it here for later.</p></div><a class="cp-dash-btn cp-dash-btn-line" href="/courses/">Browse courses</a></div></section>';
+		return;
+	}
+	echo '<div class="cp-wish-grid">';
+	foreach ( $items as $c ) {
+		$link  = get_permalink( $c->ID );
+		$img   = get_the_post_thumbnail_url( $c->ID, 'medium_large' );
+		$terms = get_the_terms( $c->ID, 'course-category' );
+		$sec   = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '';
+		$lvl   = get_post_meta( $c->ID, '_tutor_course_level', true );
+		$lvl_l = array( 'beginner' => 'Beginner', 'intermediate' => 'Intermediate', 'expert' => 'Expert', 'all_levels' => 'All levels' );
+		echo '<a class="cp-wish-card" href="' . esc_url( $link ) . '">';
+		echo '<span class="cp-wish-thumb">' . ( $img ? '<img src="' . esc_url( $img ) . '" alt="" loading="lazy">' : '' ) . '<span class="cp-wish-heart" aria-label="Saved">' . $heart . '</span></span>';
+		echo '<span class="cp-wish-body">' . ( $sec ? '<small>' . esc_html( $sec ) . '</small>' : '' ) . '<b>' . esc_html( get_the_title( $c ) ) . '</b>';
+		echo $lvl && isset( $lvl_l[ $lvl ] ) ? '<em class="cp-lvl lv-' . esc_attr( $lvl ) . '">' . esc_html( $lvl_l[ $lvl ] ) . '</em>' : '';
+		echo '</span></a>';
+	}
+	echo '</div></section>';
+}
+add_action( 'tutor_after_continue_learning_section', 'cp_dash_wishlist_section' );
+add_action( 'tutor_before_dashboard_content', function () {
+	if ( ! cp_dash_is_home() || ! function_exists( 'tutor_utils' ) ) {
+		return;
+	}
+	$ids = tutor_utils()->get_enrolled_courses_ids_by_user( get_current_user_id() );
+	if ( empty( $ids ) ) {   // Tutor stops after its empty state, so show the wishlist under the hero
+		cp_dash_wishlist_section();
+	}
+}, 2 );
+add_filter( 'tutor_student_dashboard_nav', function ( $items ) {
+	$new = array();
+	foreach ( $items as $k => $v ) {
+		$new[ $k ] = $v;
+		if ( 'courses' === $k ) {
+			$new['cp-wishlist'] = array( 'title' => 'Wishlist', 'icon' => 'heart', 'active_icon' => 'heart', 'url' => cp_wishlist_url() );
+		}
+	}
+	return $new;
+} );

@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.7.0
+Version: 1.8.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -565,3 +565,26 @@ body.cp-dash .tutor-dashboard-layout { overflow-x: clip; }
 body.cp-dash .tutor-dashboard-page .tutor-stat-card-title { font-family: "Inter", sans-serif !important; font-size: 13px !important; font-weight: 500 !important; color: #6E6E6E !important; letter-spacing: 0; }
 body.cp-dash .tutor-dashboard-page .tutor-progress-card-title { font-family: "Inter", sans-serif !important; font-weight: 600 !important; font-size: 1rem !important; letter-spacing: 0; }
 body.cp-dash .tutor-student-dashboard-courses > .tutor-flex:first-child { border: 0 !important; background: none !important; padding: 0 !important; }
+/* Dashboard Wishlist section (Rohit 2026-11-18) */
+.cp-wish { margin-top: 32px; }
+.cp-wish-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.cp-wish-head h2 { margin: 0; font-family: "Newsreader", Georgia, serif !important; font-weight: 400 !important; font-size: 1.35rem; color: #111111; letter-spacing: -.01em; }
+.cp-wish-count { min-width: 22px; padding: 1px 8px; border-radius: 999px; background: #FFEDEA; color: #B23A31; font-size: 12px; font-weight: 600; text-align: center; }
+.cp-wish-all { margin-left: auto; color: #B23A31 !important; font-size: 13px; font-weight: 500; text-decoration: none !important; }
+.cp-wish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.cp-wish-card { display: flex; flex-direction: column; border: 1px solid #E8E8E8; border-radius: 20px; background: #FFFFFF; overflow: hidden; text-decoration: none !important; color: #111111 !important; transition: border-color .2s, transform .2s; }
+.cp-wish-card:hover { border-color: #FFB3A8; transform: translateY(-2px); }
+.cp-wish-thumb { position: relative; display: block; aspect-ratio: 16 / 9; background: #FFF1EE; }
+.cp-wish-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cp-wish-heart { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.92); }
+.cp-wish svg { width: 16px; height: 16px; fill: #FF6F61; }
+.cp-wish-body { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px; }
+.cp-wish-body small { color: #B23A31; font-size: 12px; font-weight: 600; }
+.cp-wish-body b { font-size: .98rem; font-weight: 600; line-height: 1.35; }
+.cp-wish-body em { align-self: flex-start; font-style: normal; font-size: 12px; font-weight: 500; padding: 2px 9px; border-radius: 999px; }
+.cp-wish-empty { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 18px 20px; border: 1px dashed #FFC2B8; border-radius: 20px; background: #FFFFFF; }
+.cp-wish-empty > div { flex: 1 1 220px; min-width: 0; }
+.cp-wish-empty b { display: block; color: #111111; }
+.cp-wish-empty p { margin: 2px 0 0; font-size: 14px; color: #6E6E6E; }
+.cp-wish-ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: #FFEDEA; }
+.cp-wish-ico svg { width: 20px; height: 20px; }
