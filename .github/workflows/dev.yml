@@ -91,7 +91,7 @@ jobs:
           done
       - name: Verify dev-academy (home + course behind the login)
         run: |
-          curl -s -m 20 -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" https://dev-academy.coralpetal.ai/ | grep -q "One course. End-to-end Generative and Agentic AI" || { echo "::error::dev-academy home not updated"; exit 1; }
+          curl -s -m 20 -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" https://dev-academy.coralpetal.ai/ | grep -q "Learn AI the way enterprises build it" || { echo "::error::dev-academy home not updated"; exit 1; }
           code=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" https://dev-academy.coralpetal.ai/courses/gen-agentic-ai/)
           echo "course page → $code"; [ "$code" = 200 ] || { echo "::error::course page $code"; exit 1; }
       - name: Review HTML of the dev pages (Hostinger bot check blocks headless screenshots) (artifact "dev-review")

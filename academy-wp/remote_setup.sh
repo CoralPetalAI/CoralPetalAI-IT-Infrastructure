@@ -61,6 +61,35 @@ if [ -f "$THUMB" ]; then
   fi
 fi
 
+# --- Course catalog: fundamentals (Rohit 2026-11-18: the Academy is more than one course) ----
+# content/catalog/catalog.tsv: order  slug  title  excerpt  thumbnail.png ; body in catalog/<slug>.html
+w post update "$CID" --menu_order=0 >/dev/null
+while IFS=$'\t' read -r ord slug title excerpt img; do
+  [ -n "$slug" ] || continue
+  body="$C/catalog/$slug.html"
+  FID=$(w post list --post_type=courses --name="$slug" --post_status=any --format=ids)
+  if [ -z "$FID" ]; then
+    FID=$(w post create "$body" --post_type=courses --post_status=publish --post_name="$slug" --post_title="$title" --post_excerpt="$excerpt" --menu_order="$ord" --porcelain)
+    echo "catalog course created: $title ($FID)"
+  else
+    w post update "$FID" "$body" --post_title="$title" --post_excerpt="$excerpt" --menu_order="$ord" --post_status=publish >/dev/null
+    echo "catalog course updated: $title ($FID)"
+  fi
+  w post term remove "$FID" course-category uncategorized 2>/dev/null || true
+  w post meta update "$FID" _tutor_course_level beginner
+  w post meta update "$FID" _tutor_course_price_type free
+  T="$C/catalog/$img"
+  if [ -f "$T" ]; then
+    SUM=$(md5sum "$T" | cut -c1-12)
+    if [ "$(w post meta get "$FID" _cp_thumb_md5 2>/dev/null || true)" != "$SUM" ]; then
+      cp "$T" "$C/$slug-thumbnail-$SUM.png"
+      w media import "$C/$slug-thumbnail-$SUM.png" --post_id="$FID" --title="$title" --alt="$title" --featured_image --porcelain >/dev/null
+      w post meta update "$FID" _cp_thumb_md5 "$SUM"
+      echo "thumbnail set: $slug"
+    fi
+  fi
+done < "$C/catalog/catalog.tsv"
+
 # --- Modules = Tutor topics --------------------------------------------------------------
 while IFS=$'\t' read -r n title summary; do
   [ -n "$n" ] || continue
