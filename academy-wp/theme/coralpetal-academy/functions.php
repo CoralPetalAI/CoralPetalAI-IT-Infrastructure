@@ -19,3 +19,14 @@ add_filter( 'body_class', function ( $classes ) {
 	}
 	return $classes;
 } );
+
+// Course catalog grouped by section (Tutor course categories) on /courses/ and section archives.
+add_filter( 'template_include', function ( $template ) {
+	if ( is_post_type_archive( 'courses' ) || is_tax( 'course-category' ) ) {
+		$t = get_stylesheet_directory() . '/templates-php/catalog.php';
+		if ( file_exists( $t ) ) {
+			return $t;
+		}
+	}
+	return $template;
+}, 99 );

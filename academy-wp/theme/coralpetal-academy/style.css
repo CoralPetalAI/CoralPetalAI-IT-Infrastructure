@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 0.7.0
+Version: 0.8.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -158,7 +158,7 @@ body.home .wp-block-post-content > * { margin-block-start: 0; }
 /* The course page doesn't link to itself */
 body.postid-8 .cp-header .wp-block-navigation-item:nth-child(2) { display: none; }
 /* Hide category and every "Free" label */
-.tutor-course-details-info, .tutor-course-single-pricing, .tutor-course-single-btn-group + .tutor-fs-7,
+.tutor-course-single-pricing, .tutor-course-single-btn-group + .tutor-fs-7,
 .tutor-course-loop-price .price, .tutor-course-price, .tutor-meta .tutor-course-category, .tutor-course-card .tutor-meta-value .tutor-course-category { display: none !important; }
 .tutor-course-single-btn-group .tutor-enroll-course-button { margin-top: 0 !important; }
 /* Layout: align with the header column, serif title */
@@ -231,3 +231,33 @@ a.cp-course:hover { transform: translateY(-3px); border-color: #D9D9D9; box-shad
 .tutor-course-card .tutor-btn-outline-primary, .tutor-course-card .tutor-btn { background: #FF8A7A !important; border-color: #FF8A7A !important; color: #111111 !important; border-radius: 12px !important; }
 @media (max-width: 960px) { .cp-featured .cp-feat-card { grid-template-columns: 1fr; padding: 24px; } .cp-tiles-3 { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .cp-tiles-3 { grid-template-columns: 1fr; } }
+
+/* ==== Catalog grouped by section (2026-11-18) ==== */
+.cp-cat { max-width: 1200px; margin: 0 auto; padding: 32px 24px 72px; }
+.cp-cat-hero { position: relative; padding: 40px 0 24px; }
+.cp-cat-hero::before { content: ""; position: absolute; z-index: -1; width: 900px; height: 900px; right: -480px; top: -560px; background: radial-gradient(circle, rgba(255,111,97,.18), rgba(255,111,97,0) 60%); }
+.cp-cat-hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.375rem, 3.6vw, 3.25rem); line-height: 1.05; letter-spacing: -.02em; margin: 14px 0 12px; color: var(--ink); }
+.cp-cat-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.cp-cat-jump a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid var(--line); color: var(--ink) !important; text-decoration: none !important; font-size: .92rem; font-weight: 500; }
+.cp-cat-jump a:hover { border-color: #D0D0D0; }
+.cp-cat-jump i, .cp-cat-head i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.dot-amber { background: #F08C00; } .dot-blue { background: #2463EB; } .dot-violet { background: #7A3FD0; }
+.dot-coral { background: #FF6F61; } .dot-green { background: #1E8E5A; } .dot-teal { background: #138A8A; }
+.cp-cat-sec { padding: 36px 0 8px; scroll-margin-top: 90px; }
+.cp-cat-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.cp-cat-head .cp-ico { width: 40px; height: 40px; border-radius: 12px; }
+.cp-cat-head i { width: 12px; height: 12px; }
+.cp-cat-head h2 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 1.9rem; letter-spacing: -.02em; color: var(--ink); }
+.cp-cat-head small { margin-left: auto; color: var(--muted); font-size: .9rem; }
+.cp-cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cp-cat-card { display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; text-decoration: none !important; color: var(--ink) !important; transition: transform .2s, box-shadow .2s, border-color .2s; }
+.cp-cat-card:hover { transform: translateY(-3px); border-color: #D9D9D9; box-shadow: 0 24px 44px -26px rgba(17,17,17,.35); }
+.cp-cat-card.is-sig { border-color: #FFC9C2; box-shadow: 0 0 0 4px #FFF1EE; }
+.cp-cat-thumb { display: block; aspect-ratio: 16 / 9; background: #F4F4F3; }
+.cp-cat-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cp-cat-body { display: grid; gap: 8px; padding: 18px; }
+.cp-cat-body b { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; line-height: 1.15; }
+.cp-cat-ex { color: var(--muted); font-size: .93rem; line-height: 1.5; }
+.cp-cat-tags { display: flex; gap: 6px; }
+@media (max-width: 960px) { .cp-cat-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .cp-cat-grid { grid-template-columns: 1fr; } }

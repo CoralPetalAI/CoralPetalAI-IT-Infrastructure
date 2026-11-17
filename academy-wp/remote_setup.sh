@@ -64,7 +64,25 @@ fi
 # --- Course catalog: fundamentals (Rohit 2026-11-18: the Academy is more than one course) ----
 # content/catalog/catalog.tsv: order  slug  title  excerpt  thumbnail.png ; body in catalog/<slug>.html
 w post update "$CID" --menu_order=0 >/dev/null
-while IFS=$'\t' read -r ord slug title excerpt img; do
+# Sections = Tutor course categories, in catalog order (Rohit 2026-11-18)
+i=0
+while IFS='|' read -r tslug tname; do
+  [ -n "$tslug" ] || continue
+  i=$((i+1))
+  TID_=$(w term list course-category --slug="$tslug" --field=term_id 2>/dev/null || true)
+  [ -n "$TID_" ] || TID_=$(w term create course-category "$tname" --slug="$tslug" --porcelain)
+  w term meta update "$TID_" cp_order "$i" >/dev/null
+done <<'TERMS'
+statistics|Statistics
+machine-learning|Machine Learning
+deep-learning|Deep Learning
+generative-ai|Generative AI
+agentic-ai|Agentic AI
+cloud-computing|Cloud Computing
+TERMS
+w post term set "$CID" course-category agentic-ai --by=slug   # the Signature Course sits under Agentic AI
+
+while IFS=$'\t' read -r ord slug title excerpt img section; do
   [ -n "$slug" ] || continue
   body="$C/catalog/$slug.html"
   FID=$(w post list --post_type=courses --name="$slug" --post_status=any --format=ids)
@@ -75,7 +93,7 @@ while IFS=$'\t' read -r ord slug title excerpt img; do
     w post update "$FID" "$body" --post_title="$title" --post_excerpt="$excerpt" --menu_order="$ord" --post_status=publish >/dev/null
     echo "catalog course updated: $title ($FID)"
   fi
-  w post term remove "$FID" course-category uncategorized 2>/dev/null || true
+  w post term set "$FID" course-category "$section" --by=slug
   w post meta update "$FID" _tutor_course_level beginner
   w post meta update "$FID" _tutor_course_price_type free
   T="$C/catalog/$img"
