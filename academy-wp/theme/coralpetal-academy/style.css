@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.8.0
+Version: 1.9.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -498,7 +498,7 @@ body.cp-dash .tutor-progress-value, body.cp-dash .tutor-progress-bar .tutor-prog
 body.cp-dash .tutor-btn-primary { background: #111111 !important; border-color: #111111 !important; color: #FFFFFF !important; border-radius: 12px; }
 body.cp-dash .tutor-btn-primary:hover { background: #000000 !important; }
 body.cp-dash .tutor-btn-primary-soft { background: #FFEDEA !important; color: #B23A31 !important; }
-body.cp-dash .tutor-dashboard-page a:not(.tutor-btn):not(.cp-dash-btn) { color: #B23A31; }
+body.cp-dash .tutor-dashboard-page p a:not(.tutor-btn) { color: #B23A31; }
 body.cp-dash .tutor-dashboard-welcome-banner { display: none; }   /* our hero says hello */
 body.cp-dash .tutor-dashboard-header { display: none !important; } /* greeting + avatar now in the site header */
 /* Welcome hero (functions.php) */
@@ -588,3 +588,30 @@ body.cp-dash .tutor-student-dashboard-courses > .tutor-flex:first-child { border
 .cp-wish-empty p { margin: 2px 0 0; font-size: 14px; color: #6E6E6E; }
 .cp-wish-ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: #FFEDEA; }
 .cp-wish-ico svg { width: 20px; height: 20px; }
+/* Full name beside the header avatar (Rohit 2026-11-18) */
+.cp-um summary { gap: 8px; padding: 3px 10px 3px 3px; border-radius: 999px; border: 1px solid transparent; transition: background-color .2s, border-color .2s; }
+.cp-um summary:hover, .cp-um[open] summary { background: #FFF1EE; border-color: #FFD9D3; }
+.cp-um summary:hover .cp-avatar, .cp-um[open] summary .cp-avatar { box-shadow: 0 0 0 1px #FFD9D3; }
+.cp-um-name { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 500; color: #111111; }
+.cp-um-chev { width: 14px; height: 14px; fill: none; stroke: #6E6E6E; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+.cp-um[open] .cp-um-chev { transform: rotate(180deg); }
+/* Tutor brand scale = Coral Petal coral on every Tutor screen (Rohit 2026-11-18: tabs were dark
+   with coral text). Tutor derives tabs, soft buttons and highlights from --tutor-brand-*. */
+body.cp-light, body.cp-dash, body.cp-light [data-tutor-theme], body.cp-dash [data-tutor-theme] {
+  --tutor-brand-100: #FFF7F5; --tutor-brand-200: #FFF1EE; --tutor-brand-300: #FFE4DF; --tutor-brand-400: #FFC2B8; --tutor-brand-450: #FF8A7A;
+  --tutor-brand-500: #FF6F61; --tutor-brand-600: #B23A31; --tutor-brand-700: #9A3029; --tutor-brand-800: #7F2721; --tutor-brand-900: #661F1A; --tutor-brand-950: #3D120F;
+  --tutor-tab-l3: #FFF1EE; --tutor-tab-l3-hover: #FFE4DF; --tutor-tab-l3-active: #FFF1EE; --tutor-tab-l3-active-hover: #F6F6F6;
+  --tutor-tab-sidebar-l2-active: #FFF1EE; --tutor-tab-sidebar-l4-active: #FFF1EE; --tutor-tab-sidebar-l2-hover: #F6F6F6; --tutor-tab-sidebar-l4-hover: #F6F6F6;
+  --tutor-button-primary: #111111; --tutor-button-primary-hover: #000000; --tutor-button-primary-focused: #111111; --tutor-button-primary-disabled: #BDBDBD;
+  --tutor-button-primary-soft: #FFEDEA; --tutor-button-primary-soft-hover: #FFE4DF; --tutor-button-primary-soft-focused: #FFEDEA;
+  --tutor-surface-brand-dark: #111111; --tutor-surface-brand-primary-2: #111111; --tutor-surface-brand-secondary: #FFE4DF; --tutor-surface-brand-quaternary: #FFF1EE;
+  --tutor-text-brand-hover: #9A3029; --tutor-text-brand-secondary: #FF8A7A; --tutor-icon-brand-hover: #9A3029; --tutor-icon-brand-secondary: #FFC2B8;
+  --tutor-border-brand-secondary: #FFD9D3; --tutor-actions-brand-secondary: #FFE4DF; --tutor-actions-brand-tertiary: #FFF1EE;
+  --tutor-visual-brand-1: #FF6F61; --tutor-visual-brand-2: #FFC2B8; --tutor-visual-brand-3: #FFE4DF;
+}
+/* Tabs / sub-navigation (Courses: Enrolled · Wishlist · Quiz Attempts; Settings tabs) */
+body.cp-dash .tutor-nav-item, body.cp-dash .tutor-tabs-tab { color: #4A4A4A !important; background: transparent; border-radius: 10px; }
+body.cp-dash .tutor-nav-item svg, body.cp-dash .tutor-tabs-tab svg { color: #6E6E6E !important; }
+body.cp-dash .tutor-nav-item:hover, body.cp-dash .tutor-tabs-tab:hover { color: #111111 !important; background: #F6F6F6 !important; }
+body.cp-dash .tutor-nav-item.active, body.cp-dash .tutor-tabs-tab-active, body.cp-dash .tutor-nav-item[aria-current="page"] { color: #B23A31 !important; background: #FFF1EE !important; box-shadow: inset 0 0 0 1px #FFD9D3 !important; }
+body.cp-dash .tutor-nav-item.active svg, body.cp-dash .tutor-tabs-tab-active svg { color: #D9473F !important; }
