@@ -31,7 +31,7 @@ add_filter( 'template_include', function ( $template ) {
 	return $template;
 }, 99 );
 
-// Course page: "Course Content" collapses into one expandable row to keep the page short (Rohit 2026-11-18).
+// Course pages: "Course Content" and "Your learning path" collapse into expand cards (Rohit 2026-11-18).
 add_action( 'wp_footer', function () {
 	if ( ! is_singular( 'courses' ) ) {
 		return;
@@ -39,23 +39,37 @@ add_action( 'wp_footer', function () {
 	?>
 <script>
 (function () {
+	var ICONS = {
+		list: '<svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.5"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="4.5" cy="18" r="1.5"/></svg>',
+		path: '<svg viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a4 4 0 0 0 0-8h-2a4 4 0 0 1 0-8h6"/></svg>'
+	};
+	function makeToggle(title, sub, icon, body, replace) {
+		var b = document.createElement('button');
+		b.type = 'button';
+		b.className = 'cp-cc-toggle';
+		b.setAttribute('aria-expanded', 'false');
+		b.innerHTML = '<span class="cp-cc-ico">' + ICONS[icon] + '</span><span class="cp-cc-txt"><b>' + title + '</b><small>' + sub + '</small></span><span class="cp-cc-act"><span>Expand</span></span>';
+		replace.replaceWith(b);
+		body.classList.add('cp-cc-body');
+		body.hidden = true;
+		b.addEventListener('click', function () {
+			var open = b.getAttribute('aria-expanded') === 'true';
+			b.setAttribute('aria-expanded', open ? 'false' : 'true');
+			b.querySelector('.cp-cc-act span').textContent = open ? 'Expand' : 'Collapse';
+			body.hidden = open;
+		});
+	}
 	var t = document.querySelector('.tutor-course-content-title');
-	if (!t) { return; }
-	var acc = t.parentNode.querySelector('.tutor-accordion');
-	if (!acc) { return; }
-	var n = acc.querySelectorAll('.tutor-accordion-item').length;
-	var b = document.createElement('button');
-	b.type = 'button';
-	b.className = 'cp-cc-toggle';
-	b.setAttribute('aria-expanded', 'false');
-	b.innerHTML = '<span><b>Course Content</b><small>' + n + ' modules</small></span><i aria-hidden="true"></i>';
-	t.replaceWith(b);
-	acc.classList.add('cp-cc-body');
-	acc.hidden = true;
-	b.addEventListener('click', function () {
-		var open = b.getAttribute('aria-expanded') === 'true';
-		b.setAttribute('aria-expanded', open ? 'false' : 'true');
-		acc.hidden = open;
+	var acc = t && t.parentNode.querySelector('.tutor-accordion');
+	if (t && acc) {
+		var n = acc.querySelectorAll('.tutor-accordion-item').length;
+		makeToggle('Course Content', n + ' modules · see every lesson', 'list', acc, t);
+	}
+	document.querySelectorAll('.cpc-path').forEach(function (ol) {
+		var h = ol.previousElementSibling;
+		if (!h || !h.classList.contains('cpc-h2')) { return; }
+		var k = ol.querySelectorAll('li').length;
+		makeToggle(h.textContent, k + ' steps · what you learn and build in each', 'path', ol, h);
 	});
 })();
 </script>
