@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 0.9.1
+Version: 0.9.2
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -269,3 +269,13 @@ a.cp-course:hover, .cp-tile:hover, .cp-glance > div:hover, .cp-cat-card:hover, .
 .cp-cat-card:hover .cp-cat-body { background: #FFF1EE; }
 .cp-cat-jump a:hover, .cp-chips li:hover, .cpc-chips li:hover { background: #FFF1EE !important; border-color: #FF8A7A !important; }
 a.cp-course:hover .cp-ico, .cp-tile:hover .cp-ico { background: #FFFFFF; }
+
+/* Collapsible "Course Content" (2026-11-18) */
+.cp-cc-toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 16px; background: #FFFFFF; cursor: pointer; font: inherit; color: var(--ink); text-align: left; transition: background-color .2s, border-color .2s; }
+.cp-cc-toggle:hover, .cp-cc-toggle[aria-expanded="true"] { background: #FFF1EE; border-color: #FF8A7A; }
+.cp-cc-toggle span { display: flex; align-items: baseline; gap: 12px; }
+.cp-cc-toggle b { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; letter-spacing: -.01em; }
+.cp-cc-toggle small { color: var(--muted); font-size: .9rem; }
+.cp-cc-toggle i { width: 12px; height: 12px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform .2s; margin-right: 6px; }
+.cp-cc-toggle[aria-expanded="true"] i { transform: rotate(-135deg); }
+.cp-cc-body { margin-top: 14px !important; }
