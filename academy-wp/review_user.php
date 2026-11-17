@@ -28,4 +28,9 @@ $course = get_page_by_path( 'gen-agentic-ai', OBJECT, 'courses' );
 if ( $course && class_exists( '\Tutor\Models\EnrollmentModel' ) && ! \Tutor\Models\EnrollmentModel::is_enrolled( $course->ID, $uid ) ) {
 	\Tutor\Models\EnrollmentModel::do_enroll( $course->ID, 0, $uid, false );
 }
+// One saved course so the dashboard Wishlist section has something to show.
+$wish = get_page_by_path( 'statistics-fundamentals', OBJECT, 'courses' );
+if ( $wish && ! in_array( (string) $wish->ID, get_user_meta( $uid, '_tutor_course_wishlist', false ), true ) ) {
+	add_user_meta( $uid, '_tutor_course_wishlist', $wish->ID );
+}
 WP_CLI::success( "review account ready ($uid)" );
