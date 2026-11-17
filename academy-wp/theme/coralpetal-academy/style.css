@@ -688,3 +688,15 @@ body.cp-landing main > .wp-block-group:first-child { padding-top: 0 !important; 
 .cp-live-list { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 8px; }
 .cp-live-list li { position: relative; padding-left: 24px; color: #4A4A4A; }
 .cp-live-list li::before { content: "✓"; position: absolute; left: 0; color: #D9473F; font-weight: 700; }
+/* 1-year access (Rohit 2026-11-18) */
+.cp-notice.cp-access { margin: 0 0 18px; padding: 12px 16px; border-radius: 14px; background: #FFF1EE; border: 1px solid #FFD9D3; color: #111111; font-size: 14px; }
+.cp-notice.cp-access.bad { background: #FFF5DD; border-color: #F2D48A; }
+.cp-access-list { margin-top: 32px; }
+.cp-access-list h2 { margin: 0 0 4px; font-family: "Newsreader", Georgia, serif !important; font-weight: 400 !important; font-size: 1.35rem; color: #111111; }
+.cp-access-list > p { margin: 0 0 12px; font-size: 14px; color: #6E6E6E; }
+.cp-access-list ul { list-style: none; margin: 0; padding: 0; border: 1px solid #E8E8E8; border-radius: 20px; background: #FFFFFF; overflow: hidden; }
+.cp-access-list li { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 16px; border-bottom: 1px solid #F1F1F1; font-size: 14px; }
+.cp-access-list li:last-child { border-bottom: 0; }
+.cp-access-list li a { color: #111111 !important; font-weight: 600; text-decoration: none !important; }
+.cp-access-list li span { color: #6E6E6E; font-variant-numeric: tabular-nums; }
+.cp-access-list li.soon span { color: #8A5A00; font-weight: 600; }
