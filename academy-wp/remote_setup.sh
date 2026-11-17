@@ -17,6 +17,8 @@ w option update blogname "Coral Petal AI Academy"
 w option update blogdescription "End-to-end Generative and Agentic AI"
 w option update blog_public 0
 w option update timezone_string "Asia/Kolkata"
+w option update users_can_register 1   # Tutor sign-up needs "Anyone can register"
+w option update default_role subscriber
 [ "$(w option get permalink_structure)" = "/%postname%/" ] || w rewrite structure "/%postname%/"
 
 # --- The course --------------------------------------------------------------------------

@@ -89,17 +89,14 @@ jobs:
           curl -s -m 20 -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" https://dev-academy.coralpetal.ai/ | grep -q "One course. End-to-end Generative and Agentic AI" || { echo "::error::dev-academy home not updated"; exit 1; }
           code=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" https://dev-academy.coralpetal.ai/courses/signature-course/)
           echo "course page → $code"; [ "$code" = 200 ] || { echo "::error::course page $code"; exit 1; }
-      - name: Review screenshots + HTML of the dev pages (artifact "dev-review")
+      - name: Review HTML of the dev pages (Hostinger bot check blocks headless screenshots) (artifact "dev-review")
         if: always()
         run: |
           mkdir -p review
           U="$DEV_AUTH_USER:$DEV_AUTH_PASS"
-          for pair in "academy-home|https://dev-academy.coralpetal.ai/" "academy-course|https://dev-academy.coralpetal.ai/courses/signature-course/" "site-home|https://dev.coralpetal.ai/"; do
+          for pair in "academy-home|https://dev-academy.coralpetal.ai/" "academy-course|https://dev-academy.coralpetal.ai/courses/signature-course/" "academy-dashboard|https://dev-academy.coralpetal.ai/dashboard/" "academy-signup|https://dev-academy.coralpetal.ai/student-registration/" "site-home|https://dev.coralpetal.ai/"; do
             name=${pair%%|*}; url=${pair#*|}
             curl -s -m 30 -u "$U" "$url" -o "review/$name.html" || true
-            authed=$(echo "$url" | sed "s#https://#https://$U@#")
-            google-chrome --headless=new --no-sandbox --disable-gpu --hide-scrollbars --window-size=1440,3000 \
-              --screenshot="$PWD/review/$name.png" "$authed" >/dev/null 2>&1 || echo "screenshot failed: $name"
           done
           ls -la review
       - uses: actions/upload-artifact@v4
