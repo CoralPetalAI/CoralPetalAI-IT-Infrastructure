@@ -1,0 +1,6 @@
+1	Module 01: How machines learn	Supervised, unsupervised, bias and variance.
+2	Module 02: Regression	Linear models, regularisation and errors.
+3	Module 03: Classification	Logistic regression, trees and metrics.
+4	Module 04: Ensembles	Random forests and gradient boosting.
+5	Module 05: Unsupervised learning	Clustering and dimensionality reduction.
+6	Module 06: Features & evaluation	Feature engineering, cross-validation, leakage.

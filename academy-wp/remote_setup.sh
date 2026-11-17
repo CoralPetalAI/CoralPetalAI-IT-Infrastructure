@@ -66,19 +66,20 @@ fi
 w post update "$CID" --menu_order=0 >/dev/null
 # Sections = Tutor course categories, in catalog order (Rohit 2026-11-18)
 i=0
-while IFS='|' read -r tslug tname; do
+while IFS='|' read -r tslug tname tdesc; do
   [ -n "$tslug" ] || continue
   i=$((i+1))
   TID_=$(w term list course-category --slug="$tslug" --field=term_id 2>/dev/null || true)
   [ -n "$TID_" ] || TID_=$(w term create course-category "$tname" --slug="$tslug" --porcelain)
   w term meta update "$TID_" cp_order "$i" >/dev/null
+  w term update course-category "$TID_" --description="$tdesc" >/dev/null
 done <<'TERMS'
-statistics|Statistics
-machine-learning|Machine Learning
-deep-learning|Deep Learning
-generative-ai|Generative AI
-agentic-ai|Agentic AI
-cloud-computing|Cloud Computing
+statistics|Statistics|The maths of data: describe, infer and experiment with confidence.
+machine-learning|Machine Learning|Teach machines to learn from data, and measure them honestly.
+deep-learning|Deep Learning|Neural networks, from first principles to transformers.
+generative-ai|Generative AI|Large language models: prompting, retrieval and fine-tuning.
+agentic-ai|Agentic AI|Agents that reason, plan and act, from fundamentals to production.
+cloud-computing|Cloud Computing|The cloud skills to deploy and run AI.
 TERMS
 w post term set "$CID" course-category agentic-ai --by=slug   # the Signature Course sits under Agentic AI
 
@@ -95,6 +96,21 @@ while IFS=$'\t' read -r ord slug title excerpt img section; do
   fi
   w post term set "$FID" course-category "$section" --by=slug
   w post meta update "$FID" _tutor_course_level beginner
+  [ -f "$C/catalog/$slug.benefits.txt" ] && w post meta update "$FID" _tutor_course_benefits "$(cat "$C/catalog/$slug.benefits.txt")"
+  [ -f "$C/catalog/$slug.audience.txt" ] && w post meta update "$FID" _tutor_course_target_audience "$(cat "$C/catalog/$slug.audience.txt")"
+  # Modules = Tutor topics (same template as the Signature Course)
+  if [ -f "$C/catalog/$slug.modules.tsv" ]; then
+    while IFS=$'\t' read -r n mtitle msum; do
+      [ -n "$n" ] || continue
+      tslug="cp-$slug-m$(printf '%02d' "$n")"
+      MID=$(w post list --post_type=topics --name="$tslug" --post_status=any --format=ids)
+      if [ -z "$MID" ]; then
+        w post create --post_type=topics --post_status=publish --post_parent="$FID" --menu_order="$n" --post_name="$tslug" --post_title="$mtitle" --post_content="$msum" --porcelain >/dev/null
+      else
+        w post update "$MID" --post_parent="$FID" --menu_order="$n" --post_title="$mtitle" --post_content="$msum" >/dev/null
+      fi
+    done < "$C/catalog/$slug.modules.tsv"
+  fi
   w post meta update "$FID" _tutor_course_price_type free
   T="$C/catalog/$img"
   if [ -f "$T" ]; then

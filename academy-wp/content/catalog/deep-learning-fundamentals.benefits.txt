@@ -1,0 +1,4 @@
+How neural networks learn
+Convolutional networks for images
+Sequence models and attention
+Transformers, the basis of LLMs
