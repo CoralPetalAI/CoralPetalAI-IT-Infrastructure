@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.6.0
+Version: 1.7.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -492,7 +492,7 @@ body.cp-dash .tutor-stat-card { border-radius: 20px; border-color: #E8E8E8; back
 body.cp-dash .tutor-stat-card:hover { border-color: #FFB3A8; transform: translateY(-2px); }
 body.cp-dash .tutor-stat-card-icon { background: #FFEDEA; color: #D9473F; border-radius: 12px; padding: 8px; }
 body.cp-dash .tutor-stat-card-value { font-family: "Newsreader", Georgia, serif; font-weight: 400; font-size: 2rem; letter-spacing: -.02em; color: #111111; }
-body.cp-dash .tutor-card, body.cp-dash .tutor-course-card, body.cp-dash .tutor-student-dashboard-courses > *,
+body.cp-dash .tutor-card, body.cp-dash .tutor-course-card, body.cp-dash .tutor-progress-card,
 body.cp-dash .tutor-dashboard-quick-tips-card, body.cp-dash .tutor-dashboard-welcome-card { border: 1px solid #E8E8E8 !important; border-radius: 20px !important; box-shadow: none !important; background: #FFFFFF !important; }
 body.cp-dash .tutor-progress-value, body.cp-dash .tutor-progress-bar .tutor-progress-value, body.cp-dash [class*="progress"] [class*="value"] { background: linear-gradient(90deg, #FF8A7A, #FF6F61) !important; }
 body.cp-dash .tutor-btn-primary { background: #111111 !important; border-color: #111111 !important; color: #FFFFFF !important; border-radius: 12px; }
@@ -500,18 +500,68 @@ body.cp-dash .tutor-btn-primary:hover { background: #000000 !important; }
 body.cp-dash .tutor-btn-primary-soft { background: #FFEDEA !important; color: #B23A31 !important; }
 body.cp-dash .tutor-dashboard-page a:not(.tutor-btn):not(.cp-dash-btn) { color: #B23A31; }
 body.cp-dash .tutor-dashboard-welcome-banner { display: none; }   /* our hero says hello */
+body.cp-dash .tutor-dashboard-header { display: none !important; } /* greeting + avatar now in the site header */
 /* Welcome hero (functions.php) */
-.cp-dash-hero { position: relative; overflow: hidden; margin: 8px 0 28px; padding: 36px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E8E8E8; }
+.cp-dash-hero { position: relative; overflow: hidden; margin: 0 0 24px; padding: 28px 28px 26px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E8E8E8; }
 .cp-dash-hero::before { content: ""; position: absolute; width: 520px; height: 520px; right: -220px; top: -300px; background: radial-gradient(circle, rgba(255,111,97,.22), rgba(255,111,97,0) 62%); pointer-events: none; }
 .cp-dash-hero > * { position: relative; }
 .cp-dash-hero .cp-chip { display: inline-block; margin: 0 0 14px; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 500; }
-.cp-dash-hero h1 { margin: 0 0 10px; font-family: "Newsreader", Georgia, serif !important; font-weight: 400 !important; font-size: clamp(1.9rem, 3.4vw, 2.6rem); line-height: 1.1; letter-spacing: -.02em; color: #111111; }
-.cp-dash-hero p { margin: 0; max-width: 56ch; color: #4A4A4A; }
-.cp-dash-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-.cp-dash-btn { display: inline-flex; align-items: center; padding: 11px 18px; border-radius: 12px; font-weight: 500; text-decoration: none !important; transition: background-color .2s, border-color .2s; }
+.cp-dash-hero h1 { margin: 0 0 10px; font-family: "Newsreader", Georgia, serif !important; font-weight: 400 !important; font-size: clamp(1.7rem, 3vw, 2.2rem); line-height: 1.12; letter-spacing: -.02em; color: #111111; }
+.cp-dash-hero p { margin: 0; max-width: 56ch; color: #4A4A4A; font-size: 1rem; line-height: 1.55; }
+.cp-dash-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.cp-dash-btn { display: inline-flex; align-items: center; padding: 9px 16px; border-radius: 12px; font-size: 15px; line-height: 1.3; font-weight: 500; text-decoration: none !important; transition: background-color .2s, border-color .2s; }
 .cp-dash-btn-ink { background: #111111; color: #FFFFFF !important; } .cp-dash-btn-ink:hover { background: #000000; }
 .cp-dash-btn-line { border: 1px solid rgba(17,17,17,.22); color: #111111 !important; } .cp-dash-btn-line:hover { background: #FFF1EE; border-color: #FF8A7A; }
 @media (max-width: 782px) {
-  body.cp-dash .tutor-dashboard-layout { margin: 12px 12px 48px; }
+  body.cp-dash .tutor-dashboard-layout { width: auto; margin: 12px 0 48px; }
   .cp-dash-hero { padding: 26px 20px; }
 }
+
+/* Dashboard review fixes (Rohit 2026-11-18: "looks very bad") */
+body.cp-dash .tutor-dashboard-layout { grid-template-columns: 240px minmax(0, 1fr); align-items: start; padding-inline: 16px; box-sizing: border-box; }
+body.cp-dash .tutor-dashboard-page { padding-top: 0; }
+body.cp-dash .tutor-dashboard-sidebar { top: 92px !important; }
+body.cp-dash .tutor-see-all-courses { position: static; width: auto; margin: 6px 12px 12px; padding: 10px 16px; border-top: 1px solid #F1F1F1; border-radius: 0; color: #B23A31; font-weight: 500; }
+body.cp-dash .tutor-stat-card { height: auto; min-height: 112px; gap: 14px; padding: 16px; }
+body.cp-dash .tutor-stat-card-title { font-family: "Inter", sans-serif !important; font-size: 13px; font-weight: 500; color: #6E6E6E; }
+body.cp-dash .tutor-student-dashboard-stats { margin-bottom: 8px; }
+body.cp-dash .tutor-student-dashboard-courses { margin-top: 28px; }
+body.cp-dash .tutor-student-dashboard-courses > .tutor-flex:first-child .tutor-small { font-family: "Newsreader", Georgia, serif; font-size: 1.35rem; font-weight: 400; color: #111111; }
+body.cp-dash .tutor-progress-card { padding: 12px; transition: border-color .2s; }
+body.cp-dash .tutor-progress-card:hover { border-color: #FFB3A8 !important; }
+body.cp-dash .tutor-progress-card-thumbnail img { border-radius: 12px; }
+body.cp-dash .tutor-progress-card-title { font-family: "Inter", sans-serif !important; font-weight: 600 !important; font-size: 1rem; letter-spacing: 0; }
+body.cp-dash .tutor-progress-card-category { color: #B23A31; font-size: 12px; font-weight: 600; }
+body.cp-dash .tutor-progress-card-actions { display: flex !important; }
+@media (max-width: 782px) {
+  body.cp-dash .tutor-dashboard-layout { grid-template-columns: minmax(0, 1fr); padding-inline: 12px; }
+  body.cp-dash .tutor-dashboard-sidebar { display: none; }
+  .cp-dash-hero { padding: 22px 18px; }
+}
+/* Profile avatar + account menu in the header, every Academy page (Rohit 2026-11-18) */
+.cp-avatar { width: 34px; height: 34px; border-radius: 50%; display: inline-grid; place-items: center; overflow: hidden; flex: 0 0 34px;
+  background: #FFEDEA; color: #B23A31; font-size: 13px; font-weight: 600; letter-spacing: .02em; box-shadow: 0 0 0 1px #FFD9D3; }
+.cp-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.cp-avatar-m { display: none; text-decoration: none !important; }
+.cp-nav-user { position: relative; list-style: none; }
+.cp-um summary { list-style: none; cursor: pointer; display: flex; align-items: center; padding: 2px; border-radius: 50%; }
+.cp-um summary::-webkit-details-marker { display: none; }
+.cp-um summary:hover .cp-avatar, .cp-um[open] summary .cp-avatar { box-shadow: 0 0 0 2px #FF8A7A; }
+.cp-um summary:focus-visible { outline: 2px solid #FF6F61; outline-offset: 2px; }
+.cp-um-pop { position: absolute; right: 0; top: calc(100% + 10px); z-index: 100; width: 260px; padding: 8px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E8E8E8; box-shadow: 0 18px 40px -16px rgba(17,17,17,.28); }
+.cp-um-head { display: flex; align-items: center; gap: 10px; padding: 10px 10px 12px; border-bottom: 1px solid #F1F1F1; margin-bottom: 6px; }
+.cp-um-head b { display: block; font-size: 14px; color: #111111; }
+.cp-um-head small { display: block; font-size: 12px; color: #6E6E6E; overflow-wrap: anywhere; }
+.cp-um ul { list-style: none; margin: 0; padding: 0; }
+.cp-um li a { display: block; padding: 9px 10px; border-radius: 10px; color: #111111 !important; font-size: 14px; text-decoration: none !important; }
+.cp-um li a:hover { background: #FFF1EE; color: #B23A31 !important; }
+.cp-um .cp-um-out { border-top: 1px solid #F1F1F1; margin-top: 6px; padding-top: 6px; }
+@media (max-width: 599px) {
+  .cp-avatar-m { display: inline-grid; margin-left: auto; margin-right: 6px; }
+  .wp-block-navigation__responsive-container.is-menu-open .cp-um-pop { position: static; width: auto; box-shadow: none; border: 0; padding: 0; }
+}
+body.cp-dash .tutor-dashboard-main, body.cp-dash .tutor-dashboard-body, body.cp-dash .tutor-dashboard-page { min-width: 0; max-width: 100%; box-sizing: border-box; }
+body.cp-dash .tutor-dashboard-layout { overflow-x: clip; }
+body.cp-dash .tutor-dashboard-page .tutor-stat-card-title { font-family: "Inter", sans-serif !important; font-size: 13px !important; font-weight: 500 !important; color: #6E6E6E !important; letter-spacing: 0; }
+body.cp-dash .tutor-dashboard-page .tutor-progress-card-title { font-family: "Inter", sans-serif !important; font-weight: 600 !important; font-size: 1rem !important; letter-spacing: 0; }
+body.cp-dash .tutor-student-dashboard-courses > .tutor-flex:first-child { border: 0 !important; background: none !important; padding: 0 !important; }
