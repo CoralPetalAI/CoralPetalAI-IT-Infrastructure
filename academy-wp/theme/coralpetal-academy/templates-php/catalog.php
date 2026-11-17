@@ -40,9 +40,9 @@ $cp_tints = array(
 <?php block_template_part( 'header' ); ?>
 <main class="cp-cat">
 	<section class="cp-cat-hero">
-		<p class="cp-chip"><?php echo $cp_current ? 'Course catalog' : 'Coral Petal Academy'; ?></p>
+		<p class="cp-chip"><?php if ( $cp_current ) : ?><a href="/courses/" style="color:inherit;text-decoration:none">← Course catalog</a><?php else : ?>Coral Petal Academy<?php endif; ?></p>
 		<h1><?php echo $cp_current ? esc_html( $cp_current->name ) : 'Course catalog'; ?></h1>
-		<p class="cp-lede"><?php echo $cp_current ? 'Courses in this section.' : 'Six sections, from statistics to agents in production. Start anywhere; the Signature Course brings it all together.'; ?></p>
+		<p class="cp-lede"><?php echo $cp_current ? esc_html( $cp_current->description ? $cp_current->description : 'All courses in ' . $cp_current->name . '.' ) : 'Six sections, from statistics to agents in production. Start anywhere; the Signature Course brings it all together.'; ?></p>
 		<?php if ( ! $cp_current && $cp_sections ) : ?>
 		<nav class="cp-cat-jump" aria-label="Sections">
 			<?php foreach ( $cp_sections as $s ) : ?>

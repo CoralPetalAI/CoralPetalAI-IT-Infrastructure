@@ -1,0 +1,2 @@
+ML practitioners going deeper
+Engineers who want to understand LLM internals

@@ -1,0 +1,4 @@
+How LLMs work
+Prompt design that holds up
+Embeddings and retrieval (RAG)
+When and how to fine-tune
