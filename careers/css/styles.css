@@ -654,3 +654,24 @@ a.tile.mail h3 { font-size: 1rem; }
 
 /* Trademark mark on the wordmark (2026-11-18, Rohit) */
 .tm { font-size: .55em; font-weight: 500; vertical-align: super; line-height: 0; margin-left: 1px; color: inherit; }
+
+/* ==== Shared footer look + social, OG, dark mode (2026-11-18) ==== */
+.site-footer .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+.foot-right { display: inline-flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.social { display: inline-flex; gap: 8px; }
+.social a { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: #111111 !important; background: #FFFFFF; border: 1px solid #E8E8E8; transition: background-color .2s, border-color .2s, transform .2s; }
+.social a svg { width: 17px; height: 17px; }
+.social a:hover { background: #FFF1EE; border-color: #FF8A7A; color: #D9473F !important; transform: translateY(-2px); }
+.track:hover, .card:hover { background: #FFF1EE !important; border-color: #FF8A7A !important; }
+@media (prefers-color-scheme: dark) {
+  body { background: #121212 !important; color: #F2F2F2; }
+  h1, h2, h3, .site-header .brand, .site-header .brand span { color: #F2F2F2 !important; }
+  p { color: #B5B5B5; }
+  .site-header .nav { background: color-mix(in srgb, #121212 70%, transparent); box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
+  .site-header nav a { color: #B5B5B5; }
+  .hero, .hero-academy, .site-footer { background: #121212 !important; }
+  .track, .card, .viz, .vz-card, .contact-box, .side-box, .course-block { background: #1C1C1E !important; border-color: #2C2C2E !important; color: #F2F2F2; }
+  .btn, .btn-small { background: #F2F2F2 !important; border-color: #F2F2F2 !important; color: #111 !important; }
+  .btn-ghost { background: transparent !important; color: #F2F2F2 !important; border-color: rgba(255,255,255,.25) !important; }
+  .social a { background: #1C1C1E; color: #F2F2F2 !important; border-color: #2C2C2E; }
+}
