@@ -1,8 +1,8 @@
 /*
 Theme Name: Coral Petal Academy
-Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). Signature dark navy + coral, Inter.
+Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 0.3.0
+Version: 0.4.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -35,3 +35,38 @@ body.cp-light main a:not(.tutor-btn), body.cp-light .tutor-wrap a:not(.tutor-btn
 .cp-cta .wp-block-button__link { background: #0B1F33 !important; color: #FFFFFF !important; }
 .wp-block-button__link { color: #0B1F33; }
 .is-style-outline .wp-block-button__link { color: #0B1F33 !important; border-color: #0B1F33 !important; background: transparent !important; }
+
+/* ==== tana.inc theme (2026-11-18, Rohit: same look as coralpetal.ai on every site) ==== */
+:root { --tutor-color-primary: #111111; --tutor-color-primary-rgb: 17, 17, 17; --tutor-color-primary-hover: #000000; }
+body, body.cp-light { background: #FBFBFB; color: #111111; }
+body.cp-light h1, body.cp-light h2, body.cp-light h3, body.cp-light h4 { color: #111111; }
+body.cp-light main a:not(.tutor-btn), body.cp-light .tutor-wrap a:not(.tutor-btn) { color: #111111; text-decoration: underline; text-decoration-color: rgba(17,17,17,.25); text-underline-offset: 3px; }
+p { color: #4A4A4A; }
+
+/* Floating glass header island */
+.cp-header { position: sticky; top: 0; z-index: 50; background: transparent !important; border-bottom: 0 !important; padding-top: 14px !important; padding-bottom: 0 !important; }
+.cp-header > .wp-block-group { max-width: 1200px; margin-inline: auto; height: 60px; padding: 0 10px 0 18px; border-radius: 18px; align-items: center;
+  background: color-mix(in srgb, #FBFBFB 60%, transparent); backdrop-filter: saturate(180%) blur(28px); -webkit-backdrop-filter: saturate(180%) blur(28px);
+  box-shadow: 0 0 0 1px rgba(17,17,17,.06), 0 8px 30px -12px rgba(17,17,17,.18); }
+.cp-header a, .cp-header .wp-block-navigation-item__content { color: #4A4A4A; }
+.cp-header .wp-block-navigation-item__content { padding: 7px 12px; border-radius: 10px; }
+.cp-header .wp-block-navigation-item__content:hover { color: #111111; background: rgba(17,17,17,.05); }
+.cp-header .cp-nav-cta .wp-block-navigation-item__content { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 500; }
+.cp-header .cp-nav-cta .wp-block-navigation-item__content:hover { background: #000000; color: #FFFFFF; }
+.cp-footer { background: #FBFBFB !important; border-top: 1px solid #E8E8E8 !important; }
+.cp-footer, .cp-footer p { color: #6E6E6E; }
+.cp-footer a { color: #111111; }
+
+/* Hero, eyebrow chip, cards, dark CTA */
+.cp-hero { position: relative; overflow: hidden; background: #FBFBFB !important; border-bottom: 0 !important; }
+.cp-hero::before { content: ""; position: absolute; width: 900px; height: 900px; right: -420px; top: -520px; background: radial-gradient(circle, rgba(255,111,97,.20), rgba(255,111,97,0) 60%); pointer-events: none; }
+.cp-hero > * { position: relative; }
+.cp-eyebrow { display: inline-block; padding: 6px 12px; border-radius: 999px; background: rgba(17,17,17,.05); color: #111111 !important; font-size: 13px !important; line-height: 16px; font-weight: 500; letter-spacing: normal; text-transform: none; }
+.cp-card { border-color: #E8E8E8; border-radius: 20px; }
+.cp-card::before { background: #FF6F61; }
+.cp-cta { background: #111111 !important; border-radius: 28px; max-width: 1200px; margin: 0 auto 72px; }
+.cp-cta h2, .cp-cta p { color: #FFFFFF !important; }
+.cp-cta p { opacity: .75; }
+.cp-cta .wp-block-button__link { background: #FFFFFF !important; color: #111111 !important; }
+.wp-block-button__link { color: #FFFFFF; }
+.is-style-outline .wp-block-button__link { color: #111111 !important; border-color: rgba(17,17,17,.22) !important; background: transparent !important; }

@@ -5,6 +5,7 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 ## [Unreleased]
 
 ### Changed
+- tana.inc theme rolled out to Careers, the static Academy and the WordPress Academy theme (v0.4.0): near-white, ink, Newsreader serif headings, glass nav island, ink buttons, dark CTA, coral accent.
 - Home page made bolder and more visual: dark vision band with big coral stats, coloured service icons, delivery-flow diagram, sector buttons; less body text, higher contrast.
 - Main site restyled as an editorial light theme in the tana.inc style: near-white #FBFBFB, ink #202020, Newsreader serif headlines, floating glass nav island, ink buttons, coral accent; nav with chevron dropdowns (Services, Industries, Academy, Company).
 - Headings resized to the tana.inc scale (hero 52px, sections 40px); home hero gets a product-style agent mockup and a trust strip.
