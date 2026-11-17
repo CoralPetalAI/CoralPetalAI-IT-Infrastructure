@@ -4,6 +4,10 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 
 ## [Unreleased]
 
+### Changed
+- Main site restyled as an editorial light theme inspired by tana.inc and anthropic.com: ivory paper, ink text, Newsreader serif headlines, floating glass nav, ink buttons; coral kept as accent.
+- Learn page: Signature Course module grid removed (module details live on the course page).
+
 ### Added
 - Full main-site build: vision, services, industries, learn (Signature Course), about, insights, join-us, contact; pages generated from `site-data/` by `scripts/build_site_pages.py`.
 - Dev environment: `develop` branch auto-deploys to dev.coralpetal.ai and dev-careers.coralpetal.ai; dev-academy.coralpetal.ai runs WordPress + Tutor LMS; all three password-protected and noindex.
