@@ -776,3 +776,19 @@ body.cp-landing .cp-vhero { padding-top: 120px !important; }
 .cp-lv-cta p { margin: 8px 0 0; } .cp-lv-cta .cp-chip { margin: 0 0 10px; display: inline-block; } .cp-lv-cta .cp-actions { justify-content: flex-end; }
 @media (max-width: 900px) { .cp-lv-grid, .cp-lv-cta { grid-template-columns: 1fr; } .cp-lv-cta .cp-actions { justify-content: flex-start; } .cp-lv-weeks small { display: none; } }
 @media (max-width: 520px) { .cp-lv-meta { grid-template-columns: 1fr 1fr; } .cp-lv-art { height: 190px; padding: 18px; } .cp-lv-body { padding: 22px 20px; } }
+/* Live Sessions hero: a session plan instead of a "Live now" card (Rohit 2026-11-18: it read as a session in progress) */
+.cp-lv-plan-head { display: flex; align-items: center; gap: 12px; }
+.cp-lv-plan-head b { display: block; font-size: 15px; color: #111111; } .cp-lv-plan-head small { color: #6E6E6E; font-size: 13px; }
+.cp-lv-plan-ico { flex: 0 0 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: #FFEDEA; }
+.cp-lv-plan-ico svg { width: 18px; height: 18px; fill: none; stroke: #D9473F; stroke-width: 2; stroke-linecap: round; }
+.cp-lv-plan-bar { display: flex; gap: 4px; height: 8px; }
+.cp-lv-plan-bar i { border-radius: 999px; }
+.cp-lv-plan .c1 { background: #2463EB; } .cp-lv-plan .c2 { background: #FF6F61; } .cp-lv-plan .c3 { background: #1E7F4F; } .cp-lv-plan .c4 { background: #FFB020; }
+.cp-lv-plan .cp-live-agenda .n { color: #FFFFFF; } .cp-lv-plan .cp-live-agenda .n.c2, .cp-lv-plan .cp-live-agenda .n.c4 { color: #111111; }
+.cp-lv-plan-foot { display: flex; align-items: center; gap: 10px; padding-top: 4px; border-top: 1px solid #F1F1F1; }
+.cp-lv-plan-foot small { color: #6E6E6E; font-size: 13px; } .cp-lv-plan-foot b { color: #111111; }
+.cp-lv-avatars { display: flex; padding-top: 10px; }
+.cp-lv-avatars i { width: 28px; height: 28px; margin-left: -6px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 600; border: 2px solid #FFFFFF; background: #FFEDEA; color: #B23A31; }
+.cp-lv-avatars i:first-child { margin-left: 0; } .cp-lv-avatars i:nth-child(2) { background: #EAF2FF; color: #2463EB; } .cp-lv-avatars i:nth-child(3) { background: #E8F5EE; color: #1E7F4F; } .cp-lv-avatars i:nth-child(4) { background: #F2F2F2; color: #4A4A4A; }
+.cp-lv-plan-foot small { padding-top: 10px; }
+.cp-lv-play { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: #FF6F61; color: #111111; font-size: 8px; }
