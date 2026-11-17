@@ -664,3 +664,5 @@ a.tile.mail h3 { font-size: 1rem; }
 .social a:hover { background: #FFF1EE; border-color: #FF8A7A; color: #D9473F !important; transform: translateY(-2px); }
 .track:hover, .card:hover { background: #FFF1EE !important; border-color: #FF8A7A !important; }
 
+/* Label chips in brand coral (2026-11-18) */
+.hero .eyebrow, .hero-academy .eyebrow { background: #FFEDEA !important; color: #B23A31 !important; }

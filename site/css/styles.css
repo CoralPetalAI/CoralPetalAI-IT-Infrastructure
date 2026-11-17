@@ -748,3 +748,5 @@ a.tile.mail h3 { font-size: 1rem; }
 
 
 
+/* Label chips in brand coral instead of grey (Rohit 2026-11-18) */
+.eyebrow.chip, .page-hero .eyebrow, .hero .eyebrow { background: #FFEDEA !important; color: #B23A31 !important; }

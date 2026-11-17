@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.4.2
+Version: 1.4.3
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -446,3 +446,13 @@ body.home main, body.cp-auth-page main { margin-top: 8px !important; }
 /* Compare courses as an expand card (2026-11-18) */
 .cp-compare .cp-cc-toggle { margin-bottom: 0; }
 .cp-compare .cp-cc-body { margin-top: 14px; }
+/* Section filter chips (2026-11-18): filter both the course list and Compare courses */
+.cp-cat-jump button { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid var(--line); color: var(--ink); font: inherit; font-size: .92rem; font-weight: 500; cursor: pointer; transition: background-color .2s, border-color .2s; }
+.cp-cat-jump button i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.cp-cat-jump button:hover { background: #FFF1EE; border-color: #FF8A7A; }
+.cp-cat-jump button.is-on { background: #FF8A7A; border-color: #FF8A7A; color: #111111; }
+/* Label chips in brand coral instead of grey (Rohit 2026-11-18) */
+.cp-chip, .cp-cat-hero .cp-chip { background: #FFEDEA !important; color: #B23A31 !important; }
+/* Filter chip dots: fixed size, never squeezed (2026-11-18) */
+.cp-cat-jump button i, .cp-cat-jump a i { flex: 0 0 10px; width: 10px !important; height: 10px !important; min-width: 10px; border-radius: 3px; }
+.cp-cat-jump button { line-height: 1.2; white-space: nowrap; }
