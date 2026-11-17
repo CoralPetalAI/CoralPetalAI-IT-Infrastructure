@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 0.6.1
+Version: 0.7.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -156,7 +156,7 @@ body.home .wp-block-post-content > * { margin-block-start: 0; }
 .cp-header .wp-block-navigation-item:not(.cp-nav-cta) .wp-block-navigation-item__content { color: #4A4A4A !important; font-size: 15px; font-weight: 500; padding: 7px 12px; border-radius: 10px; text-decoration: none !important; }
 .cp-header .wp-block-navigation-item:not(.cp-nav-cta) .wp-block-navigation-item__content:hover { color: #111111 !important; background: rgba(17,17,17,.05); }
 /* The course page doesn't link to itself */
-body.single-courses .cp-header .wp-block-navigation-item:first-child { display: none; }
+body.postid-8 .cp-header .wp-block-navigation-item:nth-child(2) { display: none; }
 /* Hide category and every "Free" label */
 .tutor-course-details-info, .tutor-course-single-pricing, .tutor-course-single-btn-group + .tutor-fs-7,
 .tutor-course-loop-price .price, .tutor-course-price, .tutor-meta .tutor-course-category, .tutor-course-card .tutor-meta-value .tutor-course-category { display: none !important; }
@@ -206,3 +206,28 @@ body.single-courses .cp-header .wp-block-navigation-item:first-child { display: 
 .tutor-course-details-content.tutor-toggle-more-content { height: auto !important; max-height: none !important; overflow: visible !important; }
 .tutor-toggle-more-collapsed::before, .tutor-toggle-more-collapsed::after, .tutor-toggle-more-content::before { display: none !important; content: none !important; }
 .tutor-toggle-more-btn, a[data-tutor-toggle-more] { display: none !important; }
+
+/* ==== Catalog (2026-11-18, Rohit: Academy = Signature Course + fundamentals catalog) ==== */
+.cp-featured .cp-feat-card { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; padding: 36px; border-radius: 28px; border: 1px solid #FFD9D3;
+  background: radial-gradient(700px 320px at 100% 0%, rgba(255,138,122,.22), transparent 65%), #FFFFFF; }
+.cp-featured .cp-h2 { margin-bottom: 12px; }
+.cp-featured .cp-glance { grid-template-columns: 1fr 1fr; }
+.cp-chip-coral { background: #FFEDEA !important; color: #B23A31 !important; }
+.cp-coral { background: #FF8A7A !important; border-color: #FF8A7A !important; color: #111111 !important; font-weight: 600; }
+.cp-coral:hover { background: #FF6F61 !important; border-color: #FF6F61 !important; }
+.cp-head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 4px; }
+.cp-tiles-3 { grid-template-columns: repeat(3, 1fr); }
+a.cp-course { display: block; text-decoration: none !important; color: var(--ink) !important; transition: transform .2s, box-shadow .2s, border-color .2s; }
+a.cp-course:hover { transform: translateY(-3px); border-color: #D9D9D9; box-shadow: 0 24px 44px -26px rgba(17,17,17,.35); }
+.cp-go { display: inline-block; margin-top: 14px; font-size: .9rem; font-weight: 500; color: #B23A31; }
+.is-amber { background: #FFF5DD; } .is-amber svg { stroke: #C47A00; }
+.is-violet { background: #F3ECFD; } .is-violet svg { stroke: #7A3FD0; }
+.is-teal { background: #E4F6F6; } .is-teal svg { stroke: #138A8A; }
+/* Course list (/courses/) */
+.tutor-course-archive-page, .tutor-wrap.tutor-courses-wrap { max-width: 1200px; margin-inline: auto; }
+.tutor-course-card, .tutor-card.tutor-course-card { border: 1px solid var(--line) !important; border-radius: 20px !important; overflow: hidden; background: #FFFFFF !important; box-shadow: none !important; transition: transform .2s, box-shadow .2s; }
+.tutor-course-card:hover { transform: translateY(-3px); box-shadow: 0 24px 44px -26px rgba(17,17,17,.35) !important; }
+.tutor-course-name, .tutor-course-card .tutor-course-name a { font-family: var(--serif) !important; font-weight: 400 !important; font-size: 1.3rem !important; color: var(--ink) !important; text-decoration: none !important; }
+.tutor-course-card .tutor-btn-outline-primary, .tutor-course-card .tutor-btn { background: #FF8A7A !important; border-color: #FF8A7A !important; color: #111111 !important; border-radius: 12px !important; }
+@media (max-width: 960px) { .cp-featured .cp-feat-card { grid-template-columns: 1fr; padding: 24px; } .cp-tiles-3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .cp-tiles-3 { grid-template-columns: 1fr; } }
