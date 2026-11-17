@@ -83,7 +83,7 @@ cloud-computing|Cloud Computing|The cloud skills to deploy and run AI.
 TERMS
 w post term set "$CID" course-category agentic-ai --by=slug   # the Signature Course sits under Agentic AI
 
-while IFS=$'\t' read -r ord slug title excerpt img section; do
+while IFS=$'\t' read -r ord slug title excerpt img section level; do
   [ -n "$slug" ] || continue
   body="$C/catalog/$slug.html"
   FID=$(w post list --post_type=courses --name="$slug" --post_status=any --format=ids)
@@ -95,7 +95,7 @@ while IFS=$'\t' read -r ord slug title excerpt img section; do
     echo "catalog course updated: $title ($FID)"
   fi
   w post term set "$FID" course-category "$section" --by=slug
-  w post meta update "$FID" _tutor_course_level beginner
+  w post meta update "$FID" _tutor_course_level "${level:-beginner}"
   [ -f "$C/catalog/$slug.benefits.txt" ] && w post meta update "$FID" _tutor_course_benefits "$(cat "$C/catalog/$slug.benefits.txt")"
   [ -f "$C/catalog/$slug.audience.txt" ] && w post meta update "$FID" _tutor_course_target_audience "$(cat "$C/catalog/$slug.audience.txt")"
   # Modules = Tutor topics (same template as the Signature Course)
