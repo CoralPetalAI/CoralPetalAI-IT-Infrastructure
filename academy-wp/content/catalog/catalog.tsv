@@ -2,5 +2,4 @@
 2	machine-learning-fundamentals	Machine Learning Fundamentals	How machines learn from data: supervised and unsupervised learning, evaluation and features.	machine-learning.png	machine-learning
 3	deep-learning-fundamentals	Deep Learning Fundamentals	Neural networks from the ground up: training, CNNs, sequence models and transformers.	deep-learning.png	deep-learning
 4	generative-ai-fundamentals	Generative AI Fundamentals	Large language models in practice: prompting, embeddings, retrieval and fine-tuning.	generative-ai.png	generative-ai
-5	agentic-ai-fundamentals	Agentic AI Fundamentals	Agents that reason, plan and use tools, and how to keep them safe.	agentic-ai.png	agentic-ai
 6	cloud-computing-fundamentals	Cloud Computing Fundamentals	The cloud skills AI teams rely on: compute, storage, networking, containers and cost.	cloud-computing.png	cloud-computing
