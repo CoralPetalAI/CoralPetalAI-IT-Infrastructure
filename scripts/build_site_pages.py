@@ -43,8 +43,7 @@ NAV = [
     ]),
     ("academy", "Academy", "https://academy.coralpetal.ai/", [
         ("https://academy.coralpetal.ai/courses/gen-agentic-ai/", "The Signature Course"),
-        ("https://academy.coralpetal.ai/courses/", "Course catalog"),
-        ("https://academy.coralpetal.ai/", "Go to the Academy"),
+        ("https://academy.coralpetal.ai/", "Coral Petal AI Academy"),
     ]),
     ("insights", "Insights", "/insights/", []),
     ("company", "Company", "/about/", [
