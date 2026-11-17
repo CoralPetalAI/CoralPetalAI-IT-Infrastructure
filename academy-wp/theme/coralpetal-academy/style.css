@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 0.4.1
+Version: 0.4.2
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -80,3 +80,6 @@ body.home main { margin-top: 0 !important; }
 .cp-hero h1 { max-width: 18ch; }
 .cp-cta { width: calc(100% - 32px) !important; max-width: 1200px !important; margin-left: auto !important; margin-right: auto !important; padding-left: 56px !important; padding-right: 56px !important; text-align: center; }
 .cp-cta .wp-block-buttons { justify-content: center; }
+/* Left-align every hero child to the 1200px column (constrained layout centres narrower blocks). */
+.cp-hero > * { margin-left: max(0px, calc((100% - 1200px) / 2)) !important; margin-right: auto !important; }
+.cp-hero { padding-top: 96px !important; }
