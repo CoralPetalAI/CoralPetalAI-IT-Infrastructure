@@ -295,8 +295,8 @@ add_filter( 'render_block', function ( $html, $block ) {
 		$li .= '<li><a href="' . esc_url( $it[1] ) . '">' . esc_html( $it[0] ) . '</a></li>';
 	}
 	$li .= '<li class="cp-um-out"><a href="' . esc_url( wp_logout_url( home_url( '/' ) ) ) . '">Log out</a></li>';
-	return '<li class="wp-block-navigation-item cp-nav-user"><details class="cp-um"><summary aria-label="Account menu for ' . esc_attr( $name ) . '"><span class="cp-avatar">' . cp_user_avatar_html( $u ) . '</span><span class="cp-um-name">' . esc_html( $name ) . '</span><svg class="cp-um-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>'
-		. '<div class="cp-um-pop"><div class="cp-um-head"><span class="cp-avatar">' . cp_user_avatar_html( $u ) . '</span><span><b>' . esc_html( $name ) . '</b><small>' . esc_html( $u->user_email ) . '</small></span></div><ul>' . $li . '</ul></div></details></li>';
+	return '<li class="wp-block-navigation-item cp-nav-user"><details class="cp-um"><summary aria-label="Account menu for ' . esc_attr( $name ) . '"><span class="cp-um-name">' . esc_html( $name ) . '</span><svg class="cp-um-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>'
+		. '<div class="cp-um-pop"><div class="cp-um-head"><span><b>' . esc_html( $name ) . '</b><small>' . esc_html( $u->user_email ) . '</small></span></div><ul>' . $li . '</ul></div></details></li>';
 }, 10, 2 );
 // Close the account menu on outside click / Escape.
 add_action( 'wp_footer', function () {
@@ -321,7 +321,9 @@ add_filter( 'render_block', function ( $html, $block ) {
 	if ( 'core/navigation' !== ( $block['blockName'] ?? '' ) || ! is_user_logged_in() ) {
 		return $html;
 	}
-	return '<a class="cp-avatar cp-avatar-m" href="' . esc_url( home_url( '/dashboard/' ) ) . '" aria-label="My dashboard">' . cp_user_avatar_html( wp_get_current_user() ) . '</a>' . $html;
+	$u = wp_get_current_user();
+	$n = trim( $u->first_name . ' ' . $u->last_name ) ?: $u->display_name;
+	return '<a class="cp-name-pill cp-avatar-m" href="' . esc_url( home_url( '/dashboard/' ) ) . '" aria-label="My dashboard">' . esc_html( $n ) . '</a>' . $html;
 }, 10, 2 );
 
 /* ==== Dashboard: Wishlist section (Rohit 2026-11-18) ====
