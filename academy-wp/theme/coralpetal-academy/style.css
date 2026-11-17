@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 0.9.0
+Version: 0.9.1
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -261,3 +261,11 @@ a.cp-course:hover { transform: translateY(-3px); border-color: #D9D9D9; box-shad
 .cp-cat-tags { display: flex; gap: 6px; }
 @media (max-width: 960px) { .cp-cat-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .cp-cat-grid { grid-template-columns: 1fr; } }
+
+/* ==== Hover = light coral, like coralpetal.ai (2026-11-18, Rohit) ==== */
+a.cp-course, .cp-tile, .cp-glance > div, .cp-cat-card, .cp-cat-jump a, .cpc-path li > div, .cpc-box, .cpc-glance > div, .cp-chips li, .cpc-chips li { transition: background-color .2s, border-color .2s, transform .2s, box-shadow .2s; }
+a.cp-course:hover, .cp-tile:hover, .cp-glance > div:hover, .cp-cat-card:hover, .cpc-path li > div:hover, .cpc-box:hover, .cpc-glance > div:hover {
+  background: #FFF1EE !important; border-color: #FF8A7A !important; transform: translateY(-3px); box-shadow: 0 24px 44px -26px rgba(255,111,97,.45); }
+.cp-cat-card:hover .cp-cat-body { background: #FFF1EE; }
+.cp-cat-jump a:hover, .cp-chips li:hover, .cpc-chips li:hover { background: #FFF1EE !important; border-color: #FF8A7A !important; }
+a.cp-course:hover .cp-ico, .cp-tile:hover .cp-ico { background: #FFFFFF; }
