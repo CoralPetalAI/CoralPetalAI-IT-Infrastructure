@@ -42,7 +42,6 @@ NAV = [
         ("/industries/#telecom", "Telecom"),
     ]),
     ("academy", "Academy", "https://academy.coralpetal.ai/", [
-        ("https://academy.coralpetal.ai/courses/gen-agentic-ai/", "The Signature Course"),
         ("https://academy.coralpetal.ai/", "Coral Petal AI Academy"),
     ]),
     ("insights", "Insights", "/insights/", []),
