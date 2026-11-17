@@ -31,7 +31,7 @@ if [ -z "$CID" ]; then
   CID=$(w post create "$C/course.html" --post_type=courses --post_status=publish --post_title="$TITLE" --post_name="$SLUG" --porcelain)
   echo "course created: $CID"
 else
-  w post update "$CID" "$C/course.html" --post_title="$TITLE" --post_name="$SLUG" --post_status=publish
+  w post update "$CID" "$C/course.html" --post_title="$TITLE" --post_name="$SLUG" --post_excerpt="From AI foundations to agents running in production: 8 modules, hands-on builds and an enterprise capstone." --post_status=publish
   echo "course updated: $CID"
 fi
 w post term remove "$CID" course-category uncategorized 2>/dev/null || true
