@@ -695,3 +695,10 @@ a.tile.mail h3 { font-size: 1rem; }
 
 /* Trademark mark on the wordmark (2026-11-18, Rohit) */
 .tm { font-size: .55em; font-weight: 500; vertical-align: super; line-height: 0; margin-left: 1px; color: inherit; }
+
+/* Social icons in the footer (2026-11-18, Rohit) */
+.foot-right { display: inline-flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.social { display: inline-flex; gap: 8px; }
+.social a { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: var(--ink) !important; background: #FFFFFF; border: 1px solid var(--line); transition: background-color .2s, border-color .2s, color .2s, transform .2s; }
+.social a svg { width: 17px; height: 17px; }
+.social a:hover { background: #FFF1EE; border-color: #FF8A7A; color: #D9473F !important; transform: translateY(-2px); }
