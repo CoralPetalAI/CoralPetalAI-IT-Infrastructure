@@ -401,3 +401,48 @@ add_filter( 'body_class', function ( $c ) {
 	}
 	return $c;
 } );
+
+// Course duration on the course page (Rohit 2026-11-18: 20 h fundamentals, 50 h Signature).
+// Tutor 4 stores it (_course_duration) but only shows it inside the learning area.
+add_filter( 'the_content', function ( $content ) {
+	if ( ! is_singular( 'courses' ) || ! in_the_loop() || ! function_exists( 'tutor_utils' ) ) {
+		return $content;
+	}
+	$d = tutor_utils()->get_course_duration( get_the_ID(), true );
+	$h = (int) ( $d['durationHours'] ?? 0 );
+	if ( ! $h ) {
+		return $content;
+	}
+	$facts  = '<p class="cp-duration"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><b>' . $h . ' hours</b> of learning</span></p>';
+	// 1-year access, stated before purchase (Rohit 2026-11-18); enrolled students see their own end date instead.
+	$facts .= '<p class="cp-duration"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>1-year access</b> from the date of purchase</span></p>';
+	return '<div class="cp-facts">' . $facts . '</div>' . $content;
+}, 6 );
+
+// Discount badge next to the price (Rohit 2026-11-18: show the % off in green to sell).
+add_action( 'wp_footer', function () {
+	if ( ! is_singular( 'courses' ) && ! is_post_type_archive( 'courses' ) && ! is_tax( 'course-category' ) ) {
+		return;
+	}
+	?>
+<script>
+(function () {
+	function num(t) { return parseFloat(String(t).replace(/[^0-9.]/g, '')) || 0; }
+	document.querySelectorAll('del').forEach(function (del) {
+		var box = del.parentElement; if (!box || box.querySelector('.cp-save')) { return; }
+		var now = box.querySelector('span'); if (!now) { return; }
+		var was = num(del.textContent), is = num(now.textContent);
+		if (!was || !is || is >= was) { return; }
+		var pct = Math.round((1 - is / was) * 100);
+		var b = document.createElement('span'); b.className = 'cp-save'; b.textContent = pct + '% OFF';
+		del.after(b);
+		if (box.closest('.tutor-course-sidebar-card-pricing')) {
+			var s = document.createElement('p'); s.className = 'cp-save-line';
+			s.innerHTML = '<b>You save $' + (was - is).toFixed(0) + '</b> · Launch offer';
+			box.closest('.tutor-course-sidebar-card-pricing').after(s);
+		}
+	});
+})();
+</script>
+	<?php
+}, 30 );
