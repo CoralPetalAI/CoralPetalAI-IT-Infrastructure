@@ -158,8 +158,8 @@ page() { # slug title content-file-or-text
   echo "$id"
 }
 HOME_ID=$(page academy-home "Coral Petal AI Academy" "$C/home.html")
-DASH_ID=$(page dashboard "Dashboard" "[tutor_dashboard]")
-REG_ID=$(page student-registration "Student registration" "[tutor_student_registration_form]")
+DASH_ID=$(page dashboard "Coral Petal AI Academy" "[tutor_dashboard]")
+REG_ID=$(page student-registration "Join Coral Petal AI Academy" "[tutor_student_registration_form]")
 w option update show_on_front page
 w option update page_on_front "$HOME_ID"
 echo "home=$HOME_ID dashboard=$DASH_ID registration=$REG_ID"

@@ -75,3 +75,38 @@ add_action( 'wp_footer', function () {
 </script>
 	<?php
 } );
+
+// Log in and sign-up pages: brand panel beside the Tutor form (Rohit 2026-11-18).
+add_filter( 'the_content', function ( $content ) {
+	$is_login = is_page( 'dashboard' ) && ! is_user_logged_in();
+	$is_reg   = is_page( 'student-registration' );
+	if ( ! $is_login && ! $is_reg ) {
+		return $content;
+	}
+	$logo = esc_url( get_stylesheet_directory_uri() . '/assets/logo.svg' );
+	if ( $is_reg ) {
+		$kick = 'Join the Academy';
+		$h    = 'Registration to Coral Petal AI<sup class="tm">™</sup> Academy';
+		$p    = 'Create your free account to enrol in courses, track your progress and earn certificates.';
+		$li   = array( 'Fundamentals to the Signature Course', 'Hands-on builds in every module', 'Live classes and bootcamps', 'We’ll email you a link to verify your address' );
+		$alt  = 'Already have an account? <a href="/dashboard/">Log in</a>';
+	} else {
+		$kick = 'Welcome back';
+		$h    = 'Log in to Coral Petal AI<sup class="tm">™</sup> Academy';
+		$p    = 'Pick up where you left off: your courses, progress and certificates are waiting.';
+		$li   = array( 'Continue your courses', 'See your progress', 'Download certificates' );
+		$alt  = 'New here? <a href="/student-registration/">Create an account</a>';
+	}
+	$items = '';
+	foreach ( $li as $x ) {
+		$items .= '<li>' . $x . '</li>';
+	}
+	$side = '<aside class="cp-auth-side"><img src="' . $logo . '" alt="" width="56" height="48"><p class="cp-chip cp-chip-coral">' . $kick . '</p><h1>' . $h . '</h1><p class="cp-auth-p">' . $p . '</p><ul class="cp-auth-list">' . $items . '</ul><p class="cp-auth-alt">' . $alt . '</p></aside>';
+	return '<div class="cp-auth">' . $side . '<div class="cp-auth-form">' . $content . '</div></div>';
+}, 20 );
+add_filter( 'body_class', function ( $c ) {
+	if ( ( is_page( 'dashboard' ) && ! is_user_logged_in() ) || is_page( 'student-registration' ) ) {
+		$c[] = 'cp-auth-page';
+	}
+	return $c;
+} );
