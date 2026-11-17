@@ -354,3 +354,51 @@ a.course-row:hover .course-row-go { transform: translateX(4px); }
 .ref-box.ref-disabled { cursor: not-allowed; opacity: .55; }
 .ref-box.ref-disabled:hover { background: var(--bg-alt); border-color: var(--line); }
 .ref-box.ref-disabled:hover .ref-title { color: var(--ink); }
+
+/* ==== Coral Petal signature theme (2026-11-17, Rohit): dark navy + coral, Inter.
+   Source: Figma investor deck 8nUHGqGgYefrE1W4RQXZGY. Overrides the light palette above;
+   page content is unchanged. ==== */
+:root {
+  --ink: #FFFFFF;
+  --ink-soft: #B8C4D2;
+  --muted: #93A3B6;
+  --bg: #0B1F33;
+  --bg-alt: #102840;
+  --card: #102840;
+  --line: rgba(255, 255, 255, .12);
+  --line-strong: rgba(255, 255, 255, .24);
+  --coral: #FF6F61;
+  --coral-deep: #FF8A7A;
+  --coral-wash: rgba(255, 111, 97, .10);
+  --coral-edge: rgba(255, 111, 97, .38);
+  color-scheme: dark;
+}
+.site-header { background: rgba(11, 31, 51, .86); }
+.skip { background: var(--coral); color: var(--bg); }
+
+.btn, .btn-small, .res-primary, .ref-main { color: var(--bg) !important; }
+.btn:hover { background: var(--coral-deep); border-color: var(--coral-deep); box-shadow: 0 8px 22px rgba(255, 111, 97, .28); }
+.btn-ghost { background: transparent; color: var(--ink) !important; border-color: var(--line-strong); }
+.btn-ghost:hover { background: rgba(255, 255, 255, .06); border-color: var(--line-strong); }
+
+.hero { background: radial-gradient(900px 420px at 85% 0%, rgba(255, 111, 97, .16), transparent 70%), var(--bg); }
+
+.flow, .card, .chips li, .track, .course-row, .res-btn, .related a, .tutorial-box,
+.side-box, .login-card, .flow-ico, #login-form input { background: var(--card); }
+.flow, .tutorial-box, .login-card { box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .55); }
+.flow-step { background: rgba(255, 255, 255, .04); }
+.flow-out .flow-ico { color: #4ADE80; }
+.flow-agent .flow-ico { background: var(--coral); color: var(--bg); }
+
+.card:hover, .course-row:hover, .related a:hover, .res-btn:hover { border-color: var(--line-strong); box-shadow: 0 12px 32px -16px rgba(0, 0, 0, .6); }
+.res-btn:hover { background: rgba(255, 255, 255, .06); }
+.res-primary:hover { background: var(--coral-deep); }
+
+.flow-agent, .contact-box, .status, .side-cta, .access-card { border-color: var(--coral-edge); }
+.soon-box { border-color: var(--line-strong); }
+.tutorial-frame { background: linear-gradient(135deg, #0B1F33, #16314d); }
+.ref-main .ref-sub { color: rgba(11, 31, 51, .8); }
+.ref-main .ref-title, .ref-main:hover .ref-title { color: var(--bg); }
+.ref-box.ref-disabled:hover { background: var(--bg-alt); }
+#login-form input:focus { outline-color: var(--coral-edge); }
+.apply-box h2 { color: var(--ink); }
