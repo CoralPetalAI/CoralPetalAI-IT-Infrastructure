@@ -28,6 +28,21 @@ bash "$(dirname "$0")/dev_links.sh" "$SRC"
 
 rsync -rlz --checksum --delete --chmod=D755,F644 -e "$SSH" "$SRC/theme/coralpetal-academy/" "$REMOTE:$THEME/"
 rsync -rlz --checksum --chmod=D755,F644 -e "$SSH" "$SRC/mu-plugins/" "$REMOTE:$MU/"
-rsync -rlz --checksum --chmod=D755,F644 -e "$SSH" "$SRC/content/" "$SRC/remote_setup.sh" "$REMOTE:$CONTENT/"
+rsync -rlz --checksum --chmod=D755,F644 -e "$SSH" "$SRC/content/" "$SRC/remote_setup.sh" "$SRC/smtp_store.php" "$SRC/review_user.php" "$REMOTE:$CONTENT/"
 
 $SSH "$REMOTE" "bash '$CONTENT/remote_setup.sh' '$WP' '$CONTENT'"
+
+# 5. Mail: Proton SMTP token for academy@coralpetal.ai (repo secrets ACADEMY_SMTP_USER / ACADEMY_SMTP_TOKEN).
+#    Sent over stdin into ~/.coralpetal/academy-smtp.php (600, outside every docroot); never in argv or git.
+if [ -n "${ACADEMY_SMTP_USER:-}" ] && [ -n "${ACADEMY_SMTP_TOKEN:-}" ]; then
+  printf '%s\n%s\n' "$ACADEMY_SMTP_USER" "$ACADEMY_SMTP_TOKEN" | $SSH "$REMOTE" "php '$CONTENT/smtp_store.php'"
+else
+  echo "smtp: secrets not set, Academy mail uses server PHP mail (From is still academy@coralpetal.ai)"
+fi
+
+# 6. Review account for the logged-in dashboard check (dev only): fresh random password each run,
+#    sent over stdin; dev.yml logs in with it, saves the dashboard HTML, then rotates it again.
+if [ -n "${REVIEW_PASS:-}" ]; then
+  printf '%s' "$REVIEW_PASS" | $SSH "$REMOTE" "cd '$WP' && wp --skip-plugins=hostinger-ai-assistant,hostinger-reach eval-file '$CONTENT/review_user.php'"
+fi
+

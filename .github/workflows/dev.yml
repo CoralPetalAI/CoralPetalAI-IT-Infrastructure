@@ -61,8 +61,15 @@ jobs:
           printf '%s\n' "$KNOWN" > ~/.ssh/known_hosts
       - name: Dev password + protect dev-academy
         run: bash scripts/dev_auth_setup.sh
-      - name: Academy WordPress (theme, course, pages) → dev-academy.coralpetal.ai
-        run: bash scripts/academy_wp_dev.sh
+      - name: Academy WordPress (theme, course, pages, mail) → dev-academy.coralpetal.ai
+        env:
+          ACADEMY_SMTP_USER: ${{ secrets.ACADEMY_SMTP_USER }}
+          ACADEMY_SMTP_TOKEN: ${{ secrets.ACADEMY_SMTP_TOKEN }}
+        run: |
+          REVIEW_PASS=$(openssl rand -hex 24); echo "::add-mask::$REVIEW_PASS"
+          echo "REVIEW_PASS=$REVIEW_PASS" >> "$GITHUB_ENV"
+          export REVIEW_PASS
+          bash scripts/academy_wp_dev.sh
       - name: Deploy dev.coralpetal.ai
         run: bash scripts/deploy_dev.sh site _dev_site
       - name: Deploy dev-careers.coralpetal.ai
@@ -103,6 +110,19 @@ jobs:
             name=${pair%%|*}; url=${pair#*|}
             curl -s -m 30 -u "$U" "$url" -o "review/$name.html" || true
           done
+          # Logged-in student dashboard (review account cp-review, password from this run only)
+          J=$(mktemp)
+          curl -s -m 30 -c "$J" -b "$J" https://dev-academy.coralpetal.ai/wp-login.php -o /dev/null || true
+          curl -s -m 30 -c "$J" -b "$J" -o /dev/null -w "login → %{http_code}\n" \
+            --data-urlencode "log=cp-review" --data-urlencode "pwd=$REVIEW_PASS" \
+            --data-urlencode "testcookie=1" --data-urlencode "redirect_to=https://dev-academy.coralpetal.ai/dashboard/" \
+            -b "wordpress_test_cookie=WP%20Cookie%20check" https://dev-academy.coralpetal.ai/wp-login.php || true
+          for pair in "dash-home|/dashboard/" "dash-courses|/dashboard/courses/" "dash-catalog-signedin|/courses/"; do
+            name=${pair%%|*}; path=${pair#*|}
+            curl -s -m 30 -b "$J" "https://dev-academy.coralpetal.ai$path" -o "review/$name.html" || true
+          done
+          grep -q 'cp-dash-hero' review/dash-home.html && echo "dashboard hero ✓" || echo "::warning::dashboard hero not found in review/dash-home.html"
+          rm -f "$J"
           ls -la review
       - uses: actions/upload-artifact@v4
         if: always()
@@ -114,6 +134,13 @@ jobs:
         run: |
           curl -sf -m 10 https://coralpetal.ai/version.json
           for h in academy careers; do curl -s -m 10 -o /dev/null -w "$h %{http_code}\n" https://$h.coralpetal.ai/; done
+      - name: Lock the review account (new random password, never stored)
+        if: always()
+        run: |
+          [ -f ~/.ssh/id ] || exit 0
+          WP="/home/${HOSTINGER_USER}/domains/coralpetal.ai/public_html/dev-academy"
+          openssl rand -hex 32 | ssh -i ~/.ssh/id -p "$HOSTINGER_PORT" -o StrictHostKeyChecking=yes -o BatchMode=yes "$HOSTINGER_USER@$HOSTINGER_HOST" \
+            "cd '$WP' && wp --skip-plugins=hostinger-ai-assistant,hostinger-reach eval-file ~/coralpetal-academy-content/review_user.php" || true
       - name: Remove key
         if: always()
         run: rm -f ~/.ssh/id

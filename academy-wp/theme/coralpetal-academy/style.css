@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.5.0
+Version: 1.6.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -422,15 +422,6 @@ body.home main, body.cp-auth-page main { margin-top: 8px !important; }
 .cp-compare tbody tr:hover { background: #FFF1EE; }
 .cp-compare td a { color: var(--ink) !important; font-weight: 600; text-decoration: none !important; }
 .cp-compare td a:hover { color: #B23A31 !important; }
-/* Logged-in student dashboard in the brand style */
-.tutor-dashboard { max-width: 1200px; margin: 24px auto 72px !important; }
-.tutor-dashboard .tutor-dashboard-left-menu, .tutor-dashboard-left-menu { background: #FFFFFF; border: 1px solid var(--line); border-radius: 20px; padding: 12px !important; }
-.tutor-dashboard-menu-item a, .tutor-dashboard-permalinks a { border-radius: 12px !important; color: var(--ink) !important; }
-.tutor-dashboard-menu-item.active a, .tutor-dashboard-menu-item a:hover, .tutor-dashboard-permalinks li.active a { background: #FFF1EE !important; color: #B23A31 !important; }
-.tutor-dashboard .tutor-card, .tutor-dashboard .tutor-course-card, .tutor-frontend-dashboard-header { border: 1px solid var(--line) !important; border-radius: 20px !important; box-shadow: none !important; background: #FFFFFF !important; }
-.tutor-dashboard .tutor-round-box { background: #FFEDEA !important; color: #D9473F !important; border-radius: 14px !important; }
-.tutor-dashboard .tutor-progress-value, .tutor-progress-bar .tutor-progress-value { background: linear-gradient(90deg, #FF8A7A, #FF6F61) !important; }
-.tutor-dashboard h3, .tutor-dashboard .tutor-fs-5 { font-family: var(--serif) !important; font-weight: 400 !important; }
 /* Mobile: sticky Sign up, bigger tap targets */
 @media (max-width: 782px) {
   .cp-header .wp-block-navigation-item__content { padding: 12px 14px !important; font-size: 16px !important; }
@@ -469,3 +460,58 @@ body.home main, body.cp-auth-page main { margin-top: 8px !important; }
 .cp-filter-status { margin: 10px 0 0; font-size: .85rem; color: var(--muted); }
 .cp-cat-sec[hidden] { display: none !important; }
 @media (max-width: 640px) { .cp-filter { top: 76px; padding: 12px; } .cp-cat-jump { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; } }
+
+/* ==== Student dashboard (Tutor LMS 4) in the site design (Rohit 2026-11-18) ====
+   Same tokens as coralpetal.ai: near-white page, white cards, ink buttons, coral accents,
+   Newsreader headings, Inter body. Light only: Tutor's dark tokens are overridden here. */
+body.cp-dash, body.cp-dash [data-tutor-theme] {
+  --tutor-font-family-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --tutor-font-family-heading: "Newsreader", Georgia, serif;
+  --tutor-surface-base: #FBFBFB; --tutor-surface-l1: #FFFFFF; --tutor-surface-l1-hover: #FFF7F5; --tutor-surface-l2: #F6F6F6;
+  --tutor-surface-sidebar-l1: #FBFBFB; --tutor-surface-dark: #111111;
+  --tutor-text-primary: #111111; --tutor-text-secondary: #4A4A4A; --tutor-text-subdued: #6E6E6E; --tutor-text-brand: #B23A31;
+  --tutor-icon-idle: #4A4A4A; --tutor-icon-secondary: #6E6E6E; --tutor-icon-subdued: #8A8A8A; --tutor-icon-brand: #D9473F;
+  --tutor-border-idle: #E8E8E8; --tutor-border-idle2: #EFEFEF; --tutor-border-hover: #FFB3A8; --tutor-border-brand: #FF8A7A;
+  --tutor-actions-brand-primary: #111111; --tutor-brand-450: #FF8A7A;
+  --tutor-surface-brand-primary: #FFEDEA; --tutor-surface-brand-tertiary: #FFF1EE; --tutor-border-brand-tertiary: #FFD9D3;
+  --tutor-button-radius: 12px; --tutor-input-radius: 12px;
+}
+body.cp-dash .tutor-dashboard-layout { max-width: 1200px; margin: 24px auto 72px; background: transparent; gap: 24px; }
+body.cp-dash .tutor-dashboard-sidebar { background: #FFFFFF; border: 1px solid #E8E8E8; border-radius: 20px; min-height: 0 !important; top: 96px !important; }
+body.cp-dash .tutor-dashboard-sidebar .tutor-dashboard-sidebar-nav { padding: 12px; }
+body.cp-dash .tutor-dashboard-sidebar .tutor-dashboard-sidebar-nav ul li a { border-radius: 12px; padding: 10px 16px; color: #111111; font-weight: 500; }
+body.cp-dash .tutor-dashboard-sidebar .tutor-dashboard-sidebar-nav ul li a:hover { background: rgba(17,17,17,.05); }
+body.cp-dash .tutor-dashboard-sidebar .tutor-dashboard-sidebar-nav ul li a.active { background: #FFF1EE; color: #B23A31; }
+body.cp-dash .tutor-dashboard-sidebar .tutor-dashboard-sidebar-nav ul li a.active svg { color: #D9473F; }
+body.cp-dash .tutor-dashboard-header { background: transparent; border: 0; top: 86px !important; }
+body.cp-dash .tutor-dashboard-header-inner { background: color-mix(in srgb, #FFFFFF 75%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid #E8E8E8; border-radius: 18px; padding: 10px 16px; }
+body.cp-dash .tutor-dashboard-page { max-width: 944px; }
+body.cp-dash .tutor-dashboard-page h1, body.cp-dash .tutor-dashboard-page h2, body.cp-dash .tutor-dashboard-page h3,
+body.cp-dash .tutor-h3, body.cp-dash .tutor-h4, body.cp-dash .tutor-h5 { font-family: "Newsreader", Georgia, serif !important; font-weight: 400 !important; letter-spacing: -.02em; color: #111111; }
+body.cp-dash .tutor-stat-card { border-radius: 20px; border-color: #E8E8E8; background: #FFFFFF; transition: background-color .2s, border-color .2s, transform .2s; }
+body.cp-dash .tutor-stat-card:hover { border-color: #FFB3A8; transform: translateY(-2px); }
+body.cp-dash .tutor-stat-card-icon { background: #FFEDEA; color: #D9473F; border-radius: 12px; padding: 8px; }
+body.cp-dash .tutor-stat-card-value { font-family: "Newsreader", Georgia, serif; font-weight: 400; font-size: 2rem; letter-spacing: -.02em; color: #111111; }
+body.cp-dash .tutor-card, body.cp-dash .tutor-course-card, body.cp-dash .tutor-student-dashboard-courses > *,
+body.cp-dash .tutor-dashboard-quick-tips-card, body.cp-dash .tutor-dashboard-welcome-card { border: 1px solid #E8E8E8 !important; border-radius: 20px !important; box-shadow: none !important; background: #FFFFFF !important; }
+body.cp-dash .tutor-progress-value, body.cp-dash .tutor-progress-bar .tutor-progress-value, body.cp-dash [class*="progress"] [class*="value"] { background: linear-gradient(90deg, #FF8A7A, #FF6F61) !important; }
+body.cp-dash .tutor-btn-primary { background: #111111 !important; border-color: #111111 !important; color: #FFFFFF !important; border-radius: 12px; }
+body.cp-dash .tutor-btn-primary:hover { background: #000000 !important; }
+body.cp-dash .tutor-btn-primary-soft { background: #FFEDEA !important; color: #B23A31 !important; }
+body.cp-dash .tutor-dashboard-page a:not(.tutor-btn):not(.cp-dash-btn) { color: #B23A31; }
+body.cp-dash .tutor-dashboard-welcome-banner { display: none; }   /* our hero says hello */
+/* Welcome hero (functions.php) */
+.cp-dash-hero { position: relative; overflow: hidden; margin: 8px 0 28px; padding: 36px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E8E8E8; }
+.cp-dash-hero::before { content: ""; position: absolute; width: 520px; height: 520px; right: -220px; top: -300px; background: radial-gradient(circle, rgba(255,111,97,.22), rgba(255,111,97,0) 62%); pointer-events: none; }
+.cp-dash-hero > * { position: relative; }
+.cp-dash-hero .cp-chip { display: inline-block; margin: 0 0 14px; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 500; }
+.cp-dash-hero h1 { margin: 0 0 10px; font-family: "Newsreader", Georgia, serif !important; font-weight: 400 !important; font-size: clamp(1.9rem, 3.4vw, 2.6rem); line-height: 1.1; letter-spacing: -.02em; color: #111111; }
+.cp-dash-hero p { margin: 0; max-width: 56ch; color: #4A4A4A; }
+.cp-dash-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.cp-dash-btn { display: inline-flex; align-items: center; padding: 11px 18px; border-radius: 12px; font-weight: 500; text-decoration: none !important; transition: background-color .2s, border-color .2s; }
+.cp-dash-btn-ink { background: #111111; color: #FFFFFF !important; } .cp-dash-btn-ink:hover { background: #000000; }
+.cp-dash-btn-line { border: 1px solid rgba(17,17,17,.22); color: #111111 !important; } .cp-dash-btn-line:hover { background: #FFF1EE; border-color: #FF8A7A; }
+@media (max-width: 782px) {
+  body.cp-dash .tutor-dashboard-layout { margin: 12px 12px 48px; }
+  .cp-dash-hero { padding: 26px 20px; }
+}
