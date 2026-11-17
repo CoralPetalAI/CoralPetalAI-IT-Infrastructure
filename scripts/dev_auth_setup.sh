@@ -25,9 +25,11 @@ fi
 if [ "$OK" = 1 ]; then echo "password file ok"
 else
   printf '%s:%s\n' "$DEV_AUTH_USER" "$(openssl passwd -apr1 "$DEV_AUTH_PASS")" \
-    | $SSH "$REMOTE" "set -e; umask 077; mkdir -p ~/.htpasswds; cat > ~/.htpasswds/coralpetal-dev; chmod 644 ~/.htpasswds/coralpetal-dev"
+    | $SSH "$REMOTE" "set -e; mkdir -p ~/.htpasswds; cat > ~/.htpasswds/coralpetal-dev"
   echo "password file written"
 fi
+# The web server must be able to read the file: folder 755, file 644 (a 700 folder = every login rejected).
+$SSH "$REMOTE" "chmod 755 ~/.htpasswds && chmod 644 ~/.htpasswds/coralpetal-dev"
 
 # 2. dev-academy (WordPress) protection
 printf '%s\n' "$BLOCK" | $SSH "$REMOTE" "set -e; D='$WPDIR'; H=\"\$D/.htaccess\"
