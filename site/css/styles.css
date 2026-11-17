@@ -692,3 +692,6 @@ a.tile.mail h3 { font-size: 1rem; }
   .vz-hub .sat { font-size: 11.5px; padding: 6px 9px; }
 }
 .vz-matrix .lbl-l { transform: translate(calc(-100% - 14px), 50%); }
+
+/* Trademark mark on the wordmark (2026-11-18, Rohit) */
+.tm { font-size: .55em; font-weight: 500; vertical-align: super; line-height: 0; margin-left: 1px; color: inherit; }

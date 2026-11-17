@@ -501,3 +501,6 @@ a:hover { color: #D9473F; }
 .site-footer { background: #FBFBFB !important; border-top: 1px solid #E8E8E8; }
 .site-footer, .site-footer span { color: #6E6E6E; }
 .site-footer a { color: #111111 !important; }
+
+/* Trademark mark on the wordmark (2026-11-18, Rohit) */
+.tm { font-size: .55em; font-weight: 500; vertical-align: super; line-height: 0; margin-left: 1px; color: inherit; }
