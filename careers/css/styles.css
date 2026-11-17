@@ -451,3 +451,59 @@ body { background: #FFFFFF; color: var(--ink); }
 .res-btn:hover { background: var(--coral-wash); }
 .ref-box.ref-disabled:hover { background: var(--bg-alt); }
 .apply-box h2 { color: var(--ink); }
+
+/* ==== tana.inc theme (2026-11-18, Rohit: same look as coralpetal.ai on every site) ====
+   Near-white #FBFBFB, ink #111, grey #4A4A4A, Newsreader serif headlines, Inter body,
+   floating glass nav island, 14px ink buttons, white hairline cards, coral = accent + logo. */
+:root {
+  --ink: #111111; --ink-soft: #4A4A4A; --muted: #6E6E6E; --text: #111111;
+  --bg: #FBFBFB; --bg-alt: #F4F4F3; --card: #FFFFFF; --line: #E8E8E8; --line-strong: #D9D9D9;
+  --coral: #FF6F61; --coral-deep: #D9473F; --coral-wash: #FFF1EE; --coral-edge: #E8E8E8;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+}
+body { background: #FBFBFB; color: #111111; }
+p { color: #4A4A4A; }
+h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.02em; line-height: 1.06; color: #111111; text-wrap: balance; }
+h1 { font-size: clamp(2.375rem, 3.6vw, 3.25rem); }
+h2 { font-size: clamp(1.875rem, 2.8vw, 2.5rem); }
+h3 { color: #111111; }
+a { color: #111111; }
+a:hover { color: #D9473F; }
+
+.site-header, .site-footer { --ink: #111111; --ink-soft: #4A4A4A; --muted: #6E6E6E; --line: #E8E8E8; --line-strong: #D9D9D9; --card: #FFFFFF; color: #111111; }
+.site-header { position: sticky; top: 0; z-index: 50; background: transparent !important; border-bottom: 0 !important; padding-top: 14px; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.site-header .nav { height: 60px; padding: 0 10px 0 18px; border-radius: 18px;
+  background: color-mix(in srgb, #FBFBFB 60%, transparent);
+  backdrop-filter: saturate(180%) blur(28px); -webkit-backdrop-filter: saturate(180%) blur(28px);
+  box-shadow: 0 0 0 1px rgba(17,17,17,.06), 0 8px 30px -12px rgba(17,17,17,.18); }
+.site-header .brand, .site-header .brand span { color: #111111; }
+.site-header .brand .accent { color: #FF6F61; }
+.site-header .brand small { color: #6E6E6E; }
+.site-header nav a { color: #4A4A4A; border-radius: 10px; }
+.site-header nav a:hover { color: #111111; background: rgba(17,17,17,.05); }
+
+.btn, .btn-small, .res-primary, .ref-main { background: #111111 !important; border-color: #111111 !important; color: #FFFFFF !important; border-radius: 14px; box-shadow: none !important; }
+.btn:hover, .btn-small:hover, .res-primary:hover { background: #000000 !important; border-color: #000000 !important; color: #FFFFFF !important; transform: none; }
+.site-header .btn-small { border-radius: 12px; }
+.btn-ghost { background: transparent !important; color: #111111 !important; border-color: rgba(17,17,17,.22) !important; }
+.btn-ghost:hover { background: rgba(17,17,17,.05) !important; color: #111111 !important; }
+
+.hero, .hero-academy { position: relative; background: #FBFBFB !important; border-bottom: 0 !important; overflow: hidden; }
+.hero::before, .hero-academy::before { content: ""; position: absolute; width: 900px; height: 900px; right: -420px; top: -520px;
+  background: radial-gradient(circle, rgba(255,111,97,.20), rgba(255,111,97,0) 60%); pointer-events: none; }
+.hero .wrap, .hero-academy .wrap { position: relative; }
+.hero .eyebrow, .hero-academy .eyebrow { display: inline-block; padding: 6px 12px; border-radius: 999px; background: rgba(17,17,17,.05); color: #111111; font-size: 13px; line-height: 16px; font-weight: 500; letter-spacing: normal; text-transform: none; }
+.eyebrow { color: #D9473F; letter-spacing: .02em; text-transform: none; }
+.eyebrow::before { display: none !important; }
+
+.card, .track, .course-row, .side-box, .flow, .tutorial-box, .login-card, .course-block {
+  background: #FFFFFF; border: 1px solid #E8E8E8 !important; border-radius: 20px; box-shadow: none; }
+.card:hover, .track:hover, .course-row:hover, .related a:hover, .res-btn:hover { border-color: #D0D0D0 !important; box-shadow: 0 24px 44px -26px rgba(17,17,17,.35); transform: translateY(-2px); }
+.contact-box { background: #111111 !important; border: 0 !important; border-radius: 28px; }
+.contact-box h2 { color: #FFFFFF; }
+.contact-box p { color: rgba(255,255,255,.75); }
+.contact-box .btn { background: #FFFFFF !important; border-color: #FFFFFF !important; color: #111111 !important; }
+.section-alt, .flow-step { background: #F4F4F3; }
+.site-footer { background: #FBFBFB !important; border-top: 1px solid #E8E8E8; }
+.site-footer, .site-footer span { color: #6E6E6E; }
+.site-footer a { color: #111111 !important; }
