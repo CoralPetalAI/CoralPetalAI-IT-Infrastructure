@@ -115,11 +115,11 @@ while IFS=$'\t' read -r ord slug title excerpt img section level; do
       fi
     done < "$C/catalog/$slug.modules.tsv"
   fi
-  # Every catalog course: 20 h, USD 20 (Rohit 2026-11-18)
+  # Every catalog course: 20 h, USD 50 → sale USD 20 (Rohit 2026-11-18)
   w post meta update "$FID" _course_duration '{"hours":"20","minutes":"0","seconds":"0"}' --format=json
   w post meta update "$FID" _tutor_course_price_type paid
-  w post meta update "$FID" tutor_course_price 20
-  w post meta delete "$FID" tutor_course_sale_price >/dev/null 2>&1 || true
+  w post meta update "$FID" tutor_course_price 50
+  w post meta update "$FID" tutor_course_sale_price 20
   T="$C/catalog/$img"
   if [ -f "$T" ]; then
     SUM=$(md5sum "$T" | cut -c1-12)
