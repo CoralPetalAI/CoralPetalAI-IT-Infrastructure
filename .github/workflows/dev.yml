@@ -83,7 +83,11 @@ jobs:
           for host in dev.coralpetal.ai dev-careers.coralpetal.ai dev-academy.coralpetal.ai; do
             code=$(curl -s -m 10 -o /dev/null -w '%{http_code}' "https://$host/")
             echo "$host without login → $code"
-            [ "$code" = 401 ] || { echo "::error::$host is not password-protected ($code)"; exit 1; }
+            if [ "$DEV_PASSWORD" = "off" ]; then
+    [ "$code" = 200 ] || { echo "::error::$host should be open with DEV_PASSWORD=off ($code)"; exit 1; }
+  else
+    [ "$code" = 401 ] || { echo "::error::$host is not password-protected ($code)"; exit 1; }
+  fi
           done
       - name: Verify dev-academy (home + course behind the login)
         run: |

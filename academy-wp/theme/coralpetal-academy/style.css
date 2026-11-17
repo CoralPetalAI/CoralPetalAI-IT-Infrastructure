@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 0.4.0
+Version: 0.4.1
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -70,3 +70,13 @@ p { color: #4A4A4A; }
 .cp-cta .wp-block-button__link { background: #FFFFFF !important; color: #111111 !important; }
 .wp-block-button__link { color: #FFFFFF; }
 .is-style-outline .wp-block-button__link { color: #111111 !important; border-color: rgba(17,17,17,.22) !important; background: transparent !important; }
+
+/* Fixes (2026-11-18, Rohit: "academy page is badly formatted") */
+body.home .wp-block-post-title { display: none; }                       /* duplicate page title above the hero */
+body.home main { margin-top: 0 !important; }
+.cp-eyebrow { display: block; padding: 0; background: none; }            /* keep the paragraph aligned with the hero */
+.cp-eyebrow span { display: inline-block; padding: 6px 12px; border-radius: 999px; background: rgba(17,17,17,.05); color: #111111; font-size: 13px; line-height: 16px; font-weight: 500; }
+.cp-hero { padding-top: 140px !important; }
+.cp-hero h1 { max-width: 18ch; }
+.cp-cta { width: calc(100% - 32px) !important; max-width: 1200px !important; margin-left: auto !important; margin-right: auto !important; padding-left: 56px !important; padding-right: 56px !important; text-align: center; }
+.cp-cta .wp-block-buttons { justify-content: center; }
