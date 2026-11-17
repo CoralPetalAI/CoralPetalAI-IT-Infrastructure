@@ -23,14 +23,18 @@ w option update default_role subscriber
 
 # --- The course --------------------------------------------------------------------------
 TITLE="The Coral Petal Signature Course: End-to-end Generative and Agentic AI"
-CID=$(w post list --post_type=courses --name=signature-course --post_status=any --format=ids)
+# URL slug gen-agentic-ai (Rohit 2026-11-18; was signature-course: WordPress keeps the old slug and redirects it).
+SLUG=gen-agentic-ai
+CID=$(w post list --post_type=courses --name="$SLUG" --post_status=any --format=ids)
+[ -n "$CID" ] || CID=$(w post list --post_type=courses --name=signature-course --post_status=any --format=ids)
 if [ -z "$CID" ]; then
-  CID=$(w post create "$C/course.html" --post_type=courses --post_status=publish --post_title="$TITLE" --post_name=signature-course --porcelain)
+  CID=$(w post create "$C/course.html" --post_type=courses --post_status=publish --post_title="$TITLE" --post_name="$SLUG" --porcelain)
   echo "course created: $CID"
 else
-  w post update "$CID" "$C/course.html" --post_title="$TITLE" --post_status=publish
+  w post update "$CID" "$C/course.html" --post_title="$TITLE" --post_name="$SLUG" --post_status=publish
   echo "course updated: $CID"
 fi
+w post term remove "$CID" course-category uncategorized 2>/dev/null || true
 w post meta update "$CID" _tutor_course_level all_levels
 w post meta update "$CID" _tutor_course_price_type free
 w post meta update "$CID" _tutor_course_benefits "$(printf '%s\n' \
