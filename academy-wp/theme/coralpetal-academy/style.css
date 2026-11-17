@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.11.0
+Version: 1.12.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -645,3 +645,18 @@ body.cp-dash label, body.cp-dash .tutor-form-label { color: #111111; font-weight
 .cp-um-head { padding-left: 12px; }
 .cp-avatar-m.cp-name-pill { display: none; max-width: 150px; font-size: 13px; padding: 6px 12px; }
 @media (max-width: 599px) { .cp-avatar-m.cp-name-pill { display: inline-flex; margin-left: auto; margin-right: 6px; } }
+/* Settings/Profile title bar ("← Settings") stays put under the site header instead of
+   sliding transparently over the left tabs while scrolling (Rohit 2026-11-18) */
+body.cp-dash .tutor-profile-header { position: sticky; top: 84px; z-index: 30; background: rgba(251,251,251,.94) !important; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+body.cp-dash .tutor-profile-settings-tab { position: sticky; top: 168px; align-self: flex-start; z-index: 1; }
+/* Change password modal (Rohit 2026-11-18) */
+.tutor-modal-backdrop { background-color: rgba(17,17,17,.35) !important; backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important; }
+.tutor-modal-content { border-radius: 20px !important; border: 1px solid #E8E8E8; box-shadow: 0 30px 70px -20px rgba(17,17,17,.35) !important; }
+.tutor-modal-header .tutor-h5, .tutor-modal-header h5, .tutor-modal-header h4 { font-family: "Newsreader", Georgia, serif !important; font-weight: 400 !important; font-size: 1.3rem !important; color: #111111 !important; }
+.tutor-modal-header svg { color: #D9473F !important; }
+.tutor-modal input[type="password"], .tutor-modal input[type="text"], .tutor-modal input[type="email"] { background: #FFFFFF !important; color: #111111 !important; border: 1px solid #E0E0E0 !important; border-radius: 12px !important; box-shadow: none !important; }
+.tutor-modal input:focus { border-color: #FF8A7A !important; box-shadow: 0 0 0 3px rgba(255,111,97,.18) !important; }
+.tutor-modal label .tutor-text-critical, .tutor-modal .tutor-required, .tutor-modal label span[class*="critical"] { color: #D9473F !important; }
+.tutor-modal .tutor-btn-secondary, body.cp-dash .tutor-btn-secondary { background: #FFFFFF !important; color: #111111 !important; border: 1px solid rgba(17,17,17,.2) !important; border-radius: 12px !important; }
+.tutor-modal .tutor-btn-secondary:hover, body.cp-dash .tutor-btn-secondary:hover { background: #FFF1EE !important; border-color: #FF8A7A !important; }
+.tutor-modal .tutor-btn-primary { background: #111111 !important; color: #FFFFFF !important; border-radius: 12px !important; }
