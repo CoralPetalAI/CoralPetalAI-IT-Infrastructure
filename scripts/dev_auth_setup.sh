@@ -35,7 +35,11 @@ $SSH "$REMOTE" "chmod 755 ~/.htpasswds && chmod 644 ~/.htpasswds/coralpetal-dev"
 printf '%s\n' "$BLOCK" | $SSH "$REMOTE" "set -e; D='$WPDIR'; H=\"\$D/.htaccess\"
   test -d \"\$D\" || { echo 'dev-academy folder missing' >&2; exit 5; }
   B=\$(cat)
-  if [ -f \"\$H\" ] && grep -q 'BEGIN DEV ACCESS' \"\$H\"; then echo 'dev-academy already protected'; exit 0; fi
+  if [ -f \"\$H\" ] && grep -q 'BEGIN DEV ACCESS' \"\$H\"; then
+    CUR=\$(sed -n '/# BEGIN DEV ACCESS/,/# END DEV ACCESS/p' \"\$H\")
+    if [ \"\$CUR\" = \"\$B\" ]; then echo 'dev-academy access block unchanged'; exit 0; fi
+    sed -i '/# BEGIN DEV ACCESS/,/# END DEV ACCESS/d' \"\$H\"
+  fi
   if [ -f \"\$H\" ]; then R=\"\$HOME/retired/dev-academy-htaccess-\$(date +%Y-%m-%d-%H%M%S)\"; mkdir -p \"\$R\"; cp \"\$H\" \"\$R/.htaccess\"; fi
   { printf '%s\n\n' \"\$B\"; if [ -f \"\$H\" ]; then cat \"\$H\"; fi; } > \"\$H.tmp\"
   mv \"\$H.tmp\" \"\$H\"; chmod 644 \"\$H\"
