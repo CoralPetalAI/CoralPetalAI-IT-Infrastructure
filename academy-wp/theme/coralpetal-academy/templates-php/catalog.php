@@ -50,8 +50,12 @@ $cp_tints = array(
 		$cp_lv  = array( 'beginner' => 'Beginner', 'intermediate' => 'Intermediate', 'expert' => 'Expert', 'all_levels' => 'All levels' );
 		if ( $cp_all->have_posts() ) : ?>
 	<section class="cp-compare" aria-label="Compare courses">
-		<div class="cp-cat-head"><h2>Compare courses</h2><small>Level, length and what you’ll be able to do</small></div>
-		<div class="cp-compare-scroll"><table>
+		<button type="button" class="cp-cc-toggle" aria-expanded="false" aria-controls="cp-compare-body" onclick="var o=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',o?'false':'true');this.querySelector('.cp-cc-act span').textContent=o?'Expand':'Collapse';document.getElementById('cp-compare-body').hidden=o;">
+			<span class="cp-cc-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18M9 10v10M15 10v10"/></svg></span>
+			<span class="cp-cc-txt"><b>Compare courses</b><small><?php echo (int) $cp_all->found_posts; ?> courses · level, modules and what you’ll be able to do</small></span>
+			<span class="cp-cc-act"><span>Expand</span></span>
+		</button>
+		<div class="cp-compare-scroll cp-cc-body" id="cp-compare-body" hidden><table>
 			<thead><tr><th>Course</th><th>Section</th><th>Level</th><th>Modules</th><th>Outcome</th></tr></thead>
 			<tbody>
 			<?php while ( $cp_all->have_posts() ) : $cp_all->the_post();
