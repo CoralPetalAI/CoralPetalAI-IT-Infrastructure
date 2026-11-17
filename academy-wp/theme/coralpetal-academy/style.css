@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.2.1
+Version: 1.3.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -398,3 +398,46 @@ body.cp-auth-page main { margin-top: 0 !important; }
 .cp-social a { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: #111111 !important; background: #FFFFFF; border: 1px solid #E8E8E8; text-decoration: none !important; transition: background-color .2s, border-color .2s, color .2s, transform .2s; }
 .cp-social a svg { width: 18px; height: 18px; }
 .cp-social a:hover { background: #FFF1EE; border-color: #FF8A7A; color: #D9473F !important; transform: translateY(-2px); }
+
+/* ==== Audit fixes + suggestions, Academy (2026-11-18) ==== */
+/* Hero/top spacing: WordPress adds a padded wrapper above the content */
+body.home main > .wp-block-group:first-child, body.cp-auth-page main > .wp-block-group:first-child { padding-top: 0 !important; }
+body.home main, body.cp-auth-page main { margin-top: 8px !important; }
+/* Serif section headings inside course descriptions (Tutor resets h2) */
+.tutor-course-details-content .cpc h2.cpc-h2, .cpc .cpc-h2 { font-family: var(--serif) !important; font-weight: 400 !important; font-size: 1.75rem !important; letter-spacing: -.02em !important; color: var(--ink) !important; }
+/* Tutor links in brand colour */
+.tutor-login-wrap a, .cp-auth-form a, .tutor-dashboard a.tutor-btn-link { color: #B23A31 !important; }
+.cp-auth-form .tutor-login-wrap > h2, .cp-auth-form .tutor-login-title { display: none; }
+/* Level pills */
+.lv-beginner { background: #E8F5EE; color: #1E7F4F; } .lv-intermediate { background: #EAF2FF; color: #2463EB; }
+.lv-expert { background: #F3ECFD; color: #7A3FD0; } .lv-all_levels { background: #F2F2F2; color: #4A4A4A; }
+/* Compare courses table */
+.cp-compare { padding: 24px 0 8px; }
+.cp-compare-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 20px; background: #FFFFFF; }
+.cp-compare table { width: 100%; border-collapse: collapse; font-size: .94rem; min-width: 760px; }
+.cp-compare th { text-align: left; font-weight: 600; font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); padding: 14px 16px; background: #FAFAFA; border-bottom: 1px solid var(--line); }
+.cp-compare td { padding: 14px 16px; border-bottom: 1px solid #F1F1F1; color: var(--ink); vertical-align: top; }
+.cp-compare tr:last-child td { border-bottom: 0; }
+.cp-compare tbody tr { transition: background-color .2s; }
+.cp-compare tbody tr:hover { background: #FFF1EE; }
+.cp-compare td a { color: var(--ink) !important; font-weight: 600; text-decoration: none !important; }
+.cp-compare td a:hover { color: #B23A31 !important; }
+/* Logged-in student dashboard in the brand style */
+.tutor-dashboard { max-width: 1200px; margin: 24px auto 72px !important; }
+.tutor-dashboard .tutor-dashboard-left-menu, .tutor-dashboard-left-menu { background: #FFFFFF; border: 1px solid var(--line); border-radius: 20px; padding: 12px !important; }
+.tutor-dashboard-menu-item a, .tutor-dashboard-permalinks a { border-radius: 12px !important; color: var(--ink) !important; }
+.tutor-dashboard-menu-item.active a, .tutor-dashboard-menu-item a:hover, .tutor-dashboard-permalinks li.active a { background: #FFF1EE !important; color: #B23A31 !important; }
+.tutor-dashboard .tutor-card, .tutor-dashboard .tutor-course-card, .tutor-frontend-dashboard-header { border: 1px solid var(--line) !important; border-radius: 20px !important; box-shadow: none !important; background: #FFFFFF !important; }
+.tutor-dashboard .tutor-round-box { background: #FFEDEA !important; color: #D9473F !important; border-radius: 14px !important; }
+.tutor-dashboard .tutor-progress-value, .tutor-progress-bar .tutor-progress-value { background: linear-gradient(90deg, #FF8A7A, #FF6F61) !important; }
+.tutor-dashboard h3, .tutor-dashboard .tutor-fs-5 { font-family: var(--serif) !important; font-weight: 400 !important; }
+/* Mobile: sticky Sign up, bigger tap targets */
+@media (max-width: 782px) {
+  .cp-header .wp-block-navigation-item__content { padding: 12px 14px !important; font-size: 16px !important; }
+  body:not(.logged-in):not(.cp-auth-page) .cp-mobile-cta { display: flex; }
+  .cp-btn, .tutor-btn { min-height: 48px; }
+  .cp-vhero h1 { font-size: 1.9rem !important; }
+}
+.cp-mobile-cta { display: none; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 90; gap: 8px; padding: 8px; border-radius: 18px; background: rgba(255,255,255,.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--line); box-shadow: 0 18px 40px -16px rgba(17,17,17,.35); }
+.cp-mobile-cta a { flex: 1; text-align: center; padding: 12px; border-radius: 12px; font-weight: 600; text-decoration: none !important; }
+.cp-mobile-cta .a1 { background: #FF8A7A; color: #111111 !important; } .cp-mobile-cta .a2 { background: #F2F2F2; color: #111111 !important; }

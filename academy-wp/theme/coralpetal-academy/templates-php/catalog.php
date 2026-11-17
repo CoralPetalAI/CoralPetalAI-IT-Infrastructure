@@ -45,7 +45,34 @@ $cp_tints = array(
 		<p class="cp-lede"><?php echo $cp_current ? esc_html( $cp_current->description ? $cp_current->description : 'All courses in ' . $cp_current->name . '.' ) : 'Six sections, from statistics to agents in production. Start anywhere; the Signature Course brings it all together.'; ?></p>
 		<?php if ( ! $cp_current && $cp_sections ) : ?>
 		<nav class="cp-cat-jump" aria-label="Sections">
-			<?php foreach ( $cp_sections as $s ) : ?>
+			<?php if ( ! $cp_current ) :
+		$cp_all = new WP_Query( array( 'post_type' => 'courses', 'post_status' => 'publish', 'posts_per_page' => -1, 'orderby' => array( 'menu_order' => 'ASC', 'title' => 'ASC' ) ) );
+		$cp_lv  = array( 'beginner' => 'Beginner', 'intermediate' => 'Intermediate', 'expert' => 'Expert', 'all_levels' => 'All levels' );
+		if ( $cp_all->have_posts() ) : ?>
+	<section class="cp-compare" aria-label="Compare courses">
+		<div class="cp-cat-head"><h2>Compare courses</h2><small>Level, length and what you’ll be able to do</small></div>
+		<div class="cp-compare-scroll"><table>
+			<thead><tr><th>Course</th><th>Section</th><th>Level</th><th>Modules</th><th>Outcome</th></tr></thead>
+			<tbody>
+			<?php while ( $cp_all->have_posts() ) : $cp_all->the_post();
+				$terms = get_the_terms( get_the_ID(), 'course-category' );
+				$sec   = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '';
+				$lv    = get_post_meta( get_the_ID(), '_tutor_course_level', true );
+				$mods  = count( get_posts( array( 'post_type' => 'topics', 'post_parent' => get_the_ID(), 'numberposts' => -1, 'fields' => 'ids' ) ) ); ?>
+				<tr>
+					<td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
+					<td><?php echo esc_html( $sec ); ?></td>
+					<td><span class="pill-s lv-<?php echo esc_attr( $lv ); ?>"><?php echo esc_html( $cp_lv[ $lv ] ?? 'All levels' ); ?></span></td>
+					<td><?php echo (int) $mods; ?></td>
+					<td><?php echo esc_html( wp_trim_words( get_the_excerpt(), 14 ) ); ?></td>
+				</tr>
+			<?php endwhile; wp_reset_postdata(); ?>
+			</tbody>
+		</table></div>
+	</section>
+	<?php endif; endif; ?>
+
+	<?php foreach ( $cp_sections as $s ) : ?>
 				<a href="#<?php echo esc_attr( $s->slug ); ?>"><i class="dot-<?php echo esc_attr( $cp_tints[ $s->slug ] ?? 'coral' ); ?>"></i><?php echo esc_html( $s->name ); ?></a>
 			<?php endforeach; ?>
 		</nav>
