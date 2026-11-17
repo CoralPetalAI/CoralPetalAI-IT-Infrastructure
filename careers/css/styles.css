@@ -651,3 +651,6 @@ a.tile.mail h3 { font-size: 1rem; }
 .contact-box .btn { background: #111111 !important; border-color: #111111 !important; color: #FFFFFF !important; }
 :root { --paper: #FBFBFB; --paper-2: #F4F4F3; --faint: #8D8D8D; }
 @media (max-width: 960px) { .cp-vgrid { grid-template-columns: 1fr; gap: 36px; } }
+
+/* Trademark mark on the wordmark (2026-11-18, Rohit) */
+.tm { font-size: .55em; font-weight: 500; vertical-align: super; line-height: 0; margin-left: 1px; color: inherit; }
