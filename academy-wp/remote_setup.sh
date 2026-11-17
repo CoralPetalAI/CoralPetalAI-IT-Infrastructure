@@ -36,7 +36,11 @@ else
 fi
 w post term remove "$CID" course-category uncategorized 2>/dev/null || true
 w post meta update "$CID" _tutor_course_level all_levels
-w post meta update "$CID" _tutor_course_price_type free
+# Duration + price (Rohit 2026-11-18): Signature 50 h, USD 100 with 20% off = USD 80. Payments set up later.
+w post meta update "$CID" _course_duration '{"hours":"50","minutes":"0","seconds":"0"}' --format=json
+w post meta update "$CID" _tutor_course_price_type paid
+w post meta update "$CID" tutor_course_price 100
+w post meta update "$CID" tutor_course_sale_price 80
 w post meta update "$CID" _tutor_course_benefits "$(printf '%s\n' \
   'Build full-stack Agentic AI systems, from data to deployed agents' \
   'Ground models in enterprise data with retrieval' \
@@ -111,7 +115,11 @@ while IFS=$'\t' read -r ord slug title excerpt img section level; do
       fi
     done < "$C/catalog/$slug.modules.tsv"
   fi
-  w post meta update "$FID" _tutor_course_price_type free
+  # Every catalog course: 20 h, USD 20 (Rohit 2026-11-18)
+  w post meta update "$FID" _course_duration '{"hours":"20","minutes":"0","seconds":"0"}' --format=json
+  w post meta update "$FID" _tutor_course_price_type paid
+  w post meta update "$FID" tutor_course_price 20
+  w post meta delete "$FID" tutor_course_sale_price >/dev/null 2>&1 || true
   T="$C/catalog/$img"
   if [ -f "$T" ]; then
     SUM=$(md5sum "$T" | cut -c1-12)
@@ -160,6 +168,7 @@ page() { # slug title content-file-or-text
 HOME_ID=$(page academy-home "Coral Petal AI Academy" "$C/home.html")
 DASH_ID=$(page dashboard "Coral Petal AI Academy" "[tutor_dashboard]")
 REG_ID=$(page student-registration "Join Coral Petal AI Academy" "[tutor_student_registration_form]")
+LIVE_ID=$(page live-sessions "Live Sessions" "$C/live-sessions.html")
 w option update show_on_front page
 w option update page_on_front "$HOME_ID"
 echo "home=$HOME_ID dashboard=$DASH_ID registration=$REG_ID"
@@ -168,7 +177,7 @@ echo "home=$HOME_ID dashboard=$DASH_ID registration=$REG_ID"
 if w option get tutor_option >/dev/null 2>&1; then
   # Student dashboard in the site design (Rohit 2026-11-18): site header + footer around it,
   # brand colour deep coral (white text passes contrast), styled further by the theme.
-  for kv in "tutor_dashboard_page_id $DASH_ID" "student_register_page $REG_ID" "brand_color #B23A31" "show_dashboard_site_header on" "show_dashboard_site_footer on" "default_theme light"; do
+  for kv in "tutor_dashboard_page_id $DASH_ID" "student_register_page $REG_ID" "brand_color #B23A31" "show_dashboard_site_header on" "show_dashboard_site_footer on" "default_theme light" "monetize_by tutor" "currency_code USD" "currency_position left"; do
     set -- $kv
     w option patch update tutor_option "$1" "$2" 2>/dev/null || w option patch insert tutor_option "$1" "$2" || true
   done

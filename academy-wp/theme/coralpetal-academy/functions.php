@@ -393,3 +393,11 @@ add_filter( 'tutor_user_preference_data', function ( $prefs ) {
 	}
 	return $prefs;
 }, 99 );
+
+// Live Sessions page (Rohit 2026-11-18): landing layout like the Academy home.
+add_filter( 'body_class', function ( $c ) {
+	if ( is_page( 'live-sessions' ) ) {
+		$c[] = 'cp-landing';
+	}
+	return $c;
+} );

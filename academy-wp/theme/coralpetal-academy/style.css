@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.12.0
+Version: 1.13.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -660,3 +660,43 @@ body.cp-dash .tutor-profile-settings-tab { position: sticky; top: 168px; align-s
 .tutor-modal .tutor-btn-secondary, body.cp-dash .tutor-btn-secondary { background: #FFFFFF !important; color: #111111 !important; border: 1px solid rgba(17,17,17,.2) !important; border-radius: 12px !important; }
 .tutor-modal .tutor-btn-secondary:hover, body.cp-dash .tutor-btn-secondary:hover { background: #FFF1EE !important; border-color: #FF8A7A !important; }
 .tutor-modal .tutor-btn-primary { background: #111111 !important; color: #FFFFFF !important; border-radius: 12px !important; }
+/* Live Sessions page (Rohit 2026-11-18) */
+body.cp-landing .wp-block-post-title { display: none; }
+body.cp-landing main, body.cp-landing .wp-block-post-content { margin-top: 0 !important; padding-top: 0 !important; }
+body.cp-landing .wp-block-post-content > * { margin-block-start: 0; }
+body.cp-landing main > .wp-block-group:first-child { padding-top: 0 !important; }
+.cp-header .cp-nav-live .wp-block-navigation-item__content { color: #B23A31; font-weight: 600; }
+.cp-header .cp-nav-live .wp-block-navigation-item__content::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: #FF6F61; box-shadow: 0 0 0 3px rgba(255,111,97,.22); vertical-align: 1px; }
+.cp-live-card { margin: 0; padding: 20px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E8E8E8; box-shadow: 0 30px 60px -30px rgba(17,17,17,.25); display: grid; gap: 14px; align-self: center; }
+.cp-live-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cp-live-top b { font-size: 14px; color: #B23A31; }
+.cp-live-top small { color: #6E6E6E; font-size: 13px; }
+.cp-live-dot { width: 9px; height: 9px; border-radius: 50%; background: #FF6F61; box-shadow: 0 0 0 4px rgba(255,111,97,.22); animation: cpPulse 1.8s ease-in-out infinite; }
+@keyframes cpPulse { 50% { box-shadow: 0 0 0 8px rgba(255,111,97,0); } }
+@media (prefers-reduced-motion: reduce) { .cp-live-dot { animation: none; } }
+.cp-live-agenda { display: grid; gap: 8px; }
+.cp-live-agenda > div { display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 14px; border: 1px solid #F1F1F1; }
+.cp-live-agenda > div.on { background: #FFF1EE; border-color: #FFD9D3; }
+.cp-live-agenda .n { flex: 0 0 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 600; background: #F2F2F2; color: #4A4A4A; }
+.cp-live-agenda .on .n { background: #FF6F61; color: #111111; }
+.cp-live-agenda .n.done { background: #E8F5EE; color: #1E7F4F; }
+.cp-live-agenda p { margin: 0; } .cp-live-agenda b { display: block; font-size: 14px; color: #111111; } .cp-live-agenda small { color: #6E6E6E; font-size: 12px; }
+.cp-live-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 22px; }
+.cp-live-format { padding: 26px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E8E8E8; display: grid; gap: 10px; align-content: start; }
+.cp-live-format .cp-chip { justify-self: start; margin: 4px 0 0; }
+.cp-live-format h3 { margin: 0; font-family: "Newsreader", Georgia, serif; font-weight: 400; font-size: 1.5rem; letter-spacing: -.01em; color: #111111; }
+.cp-live-list { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 8px; }
+.cp-live-list li { position: relative; padding-left: 24px; color: #4A4A4A; }
+.cp-live-list li::before { content: "✓"; position: absolute; left: 0; color: #D9473F; font-weight: 700; }
+/* 1-year access (Rohit 2026-11-18) */
+.cp-notice.cp-access { margin: 0 0 18px; padding: 12px 16px; border-radius: 14px; background: #FFF1EE; border: 1px solid #FFD9D3; color: #111111; font-size: 14px; }
+.cp-notice.cp-access.bad { background: #FFF5DD; border-color: #F2D48A; }
+.cp-access-list { margin-top: 32px; }
+.cp-access-list h2 { margin: 0 0 4px; font-family: "Newsreader", Georgia, serif !important; font-weight: 400 !important; font-size: 1.35rem; color: #111111; }
+.cp-access-list > p { margin: 0 0 12px; font-size: 14px; color: #6E6E6E; }
+.cp-access-list ul { list-style: none; margin: 0; padding: 0; border: 1px solid #E8E8E8; border-radius: 20px; background: #FFFFFF; overflow: hidden; }
+.cp-access-list li { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 16px; border-bottom: 1px solid #F1F1F1; font-size: 14px; }
+.cp-access-list li:last-child { border-bottom: 0; }
+.cp-access-list li a { color: #111111 !important; font-weight: 600; text-decoration: none !important; }
+.cp-access-list li span { color: #6E6E6E; font-variant-numeric: tabular-nums; }
+.cp-access-list li.soon span { color: #8A5A00; font-weight: 600; }
