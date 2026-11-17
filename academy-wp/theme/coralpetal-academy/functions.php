@@ -30,3 +30,34 @@ add_filter( 'template_include', function ( $template ) {
 	}
 	return $template;
 }, 99 );
+
+// Course page: "Course Content" collapses into one expandable row to keep the page short (Rohit 2026-11-18).
+add_action( 'wp_footer', function () {
+	if ( ! is_singular( 'courses' ) ) {
+		return;
+	}
+	?>
+<script>
+(function () {
+	var t = document.querySelector('.tutor-course-content-title');
+	if (!t) { return; }
+	var acc = t.parentNode.querySelector('.tutor-accordion');
+	if (!acc) { return; }
+	var n = acc.querySelectorAll('.tutor-accordion-item').length;
+	var b = document.createElement('button');
+	b.type = 'button';
+	b.className = 'cp-cc-toggle';
+	b.setAttribute('aria-expanded', 'false');
+	b.innerHTML = '<span><b>Course Content</b><small>' + n + ' modules</small></span><i aria-hidden="true"></i>';
+	t.replaceWith(b);
+	acc.classList.add('cp-cc-body');
+	acc.hidden = true;
+	b.addEventListener('click', function () {
+		var open = b.getAttribute('aria-expanded') === 'true';
+		b.setAttribute('aria-expanded', open ? 'false' : 'true');
+		acc.hidden = open;
+	});
+})();
+</script>
+	<?php
+} );
