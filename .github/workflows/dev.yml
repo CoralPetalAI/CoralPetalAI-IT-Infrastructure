@@ -3,9 +3,9 @@
 #   feature/* → PR into develop → Site checks → merge → THIS WORKFLOW
 #     dev.coralpetal.ai          ← site/      (scripts/deploy_dev.sh site)
 #     dev-careers.coralpetal.ai  ← careers/   (scripts/deploy_dev.sh careers)
-#     dev-academy.coralpetal.ai  = WordPress + Tutor LMS (installed in hPanel; its code
-#                                  lives in the CoralPetalAI/coralpetal-academy repo).
-#                                  This workflow only keeps it password-protected.
+#     dev-academy.coralpetal.ai  = WordPress + Tutor LMS (installed in hPanel). Theme, the one
+#                                  course + 8 modules and the home page come from academy-wp/
+#                                  via scripts/academy_wp_dev.sh (moves to the CoralPetalAI repo later).
 #
 # All three dev sites need the dev login (secrets DEV_AUTH_USER / DEV_AUTH_PASS) and send
 # "noindex". Prod is released separately: release PR develop → main (deploy.yml, approval).
@@ -43,7 +43,7 @@ jobs:
         run: |
           python3 scripts/check_site.py site
           python3 scripts/check_site.py careers
-          for f in scripts/build_dev.sh scripts/deploy_dev.sh scripts/dev_auth_setup.sh scripts/dev_access_block.sh; do bash -n "$f"; done
+          for f in scripts/build_dev.sh scripts/deploy_dev.sh scripts/dev_auth_setup.sh scripts/dev_access_block.sh scripts/academy_wp_dev.sh academy-wp/remote_setup.sh; do bash -n "$f"; done
       - name: Build dev copies
         run: |
           bash scripts/build_dev.sh site _dev_site
@@ -60,6 +60,8 @@ jobs:
           printf '%s\n' "$KNOWN" > ~/.ssh/known_hosts
       - name: Dev password + protect dev-academy
         run: bash scripts/dev_auth_setup.sh
+      - name: Academy WordPress (theme, course, pages) → dev-academy.coralpetal.ai
+        run: bash scripts/academy_wp_dev.sh
       - name: Deploy dev.coralpetal.ai
         run: bash scripts/deploy_dev.sh site _dev_site
       - name: Deploy dev-careers.coralpetal.ai
@@ -82,6 +84,11 @@ jobs:
             echo "$host without login → $code"
             [ "$code" = 401 ] || { echo "::error::$host is not password-protected ($code)"; exit 1; }
           done
+      - name: Verify dev-academy (home + course behind the login)
+        run: |
+          curl -s -m 20 -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" https://dev-academy.coralpetal.ai/ | grep -q "One course. End-to-end Generative and Agentic AI" || { echo "::error::dev-academy home not updated"; exit 1; }
+          code=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" https://dev-academy.coralpetal.ai/courses/signature-course/)
+          echo "course page → $code"; [ "$code" = 200 ] || { echo "::error::course page $code"; exit 1; }
       - name: Check prod is untouched
         run: |
           curl -sf -m 10 https://coralpetal.ai/version.json
