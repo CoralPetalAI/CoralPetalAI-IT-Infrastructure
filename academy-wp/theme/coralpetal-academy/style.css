@@ -704,3 +704,4 @@ body.cp-landing main > .wp-block-group:first-child { padding-top: 0 !important; 
 .cp-duration { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; padding: 7px 14px; border-radius: 999px; background: #FFF1EE; border: 1px solid #FFD9D3; color: #111111; font-size: 14px; }
 .cp-duration svg { width: 16px; height: 16px; fill: none; stroke: #D9473F; stroke-width: 2; stroke-linecap: round; }
 .cp-duration b { font-weight: 600; }
+.cp-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; } .cp-facts .cp-duration { margin: 0; }
