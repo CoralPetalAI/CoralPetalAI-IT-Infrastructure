@@ -124,6 +124,12 @@ while IFS=$'\t' read -r ord slug title excerpt img section; do
   fi
 done < "$C/catalog/catalog.tsv"
 
+# Retired catalog courses: unpublished (set to draft), never deleted (Rohit 2026-11-18: Agentic AI section = Signature Course only)
+for rslug in agentic-ai-fundamentals; do
+  RID=$(w post list --post_type=courses --name="$rslug" --post_status=publish --format=ids)
+  [ -z "$RID" ] || { w post update "$RID" --post_status=draft >/dev/null; echo "unpublished: $rslug"; }
+done
+
 # --- Modules = Tutor topics --------------------------------------------------------------
 while IFS=$'\t' read -r n title summary; do
   [ -n "$n" ] || continue
