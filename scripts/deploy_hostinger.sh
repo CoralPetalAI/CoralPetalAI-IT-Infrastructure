@@ -27,7 +27,7 @@ $SSH "$REMOTE" "test -d '$TARGET'" || { echo "target missing on server: $TARGET"
 # touch them. Add a name here whenever a new subdomain is created. `career` stays listed after
 # the subdomain was replaced by `careers` (2026-10-10): its folder is still on the server, and
 # dropping it from the list would let --delete remove it for good.
-SUBDOMAIN_FOLDERS=(academy career careers)
+SUBDOMAIN_FOLDERS=(academy career careers dev dev-academy dev-careers)
 for d in "${SUBDOMAIN_FOLDERS[@]}"; do
   [ ! -e "$SRC/$d" ] || { echo "build must not contain /$d — it belongs to $d.coralpetal.ai" >&2; exit 6; }
 done
