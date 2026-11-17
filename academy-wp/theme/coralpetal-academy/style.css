@@ -1,0 +1,24 @@
+/*
+Theme Name: Coral Petal Academy
+Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). Signature dark navy + coral, Inter.
+Template: twentytwentyfive
+Version: 0.1.0
+Requires at least: 6.7
+Text Domain: coralpetal-academy
+*/
+
+/* Tutor LMS in the brand colors */
+:root {
+  --tutor-color-primary: #FF6F61;
+  --tutor-color-primary-rgb: 255, 111, 97;
+  --tutor-color-primary-hover: #E8505B;
+}
+.tutor-wrap, .tutor-course-details-page, .tutor-dashboard { color: #E6ECF2; }
+.tutor-card, .tutor-course-card, .tutor-accordion-item { background: #13304D; border-color: #23415F; color: #E6ECF2; }
+.tutor-course-name a, .tutor-course-details-title, .tutor-accordion-item-header { color: #FFFFFF; }
+.tutor-color-secondary, .tutor-color-muted, .tutor-meta { color: #A9B7C6 !important; }
+
+.cp-card { background: #13304D; border: 1px solid #23415F; border-radius: 16px; padding: 28px; height: 100%; }
+.cp-card::before { content: ""; display: block; width: 32px; height: 3px; border-radius: 2px; background: #FF6F61; margin-bottom: 18px; }
+.cp-eyebrow { color: #FF6F61; letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; font-weight: 600; }
+.cp-brand img { display: block; }
