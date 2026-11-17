@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css?v=20261118f">
+  <link rel="stylesheet" href="/css/styles.css?v=20261118g">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -82,45 +82,31 @@
 
   <main id="main">
 <section class="page-hero">
-      <div class="wrap">
-        <p class="eyebrow">Industries</p>
-        <h1>Domain first, technology second.</h1>
-        <p class="lede">AI only pays off when it understands the business it serves. We start from your domain’s data, rules and risks, then choose the technology.</p>
+      <div class="wrap ph-grid">
+        <div>
+          <p class="eyebrow">Industries</p>
+          <h1>Domain first, technology second.</h1>
+          <p class="lede">We start from your domain’s data, rules and risks, then choose the technology.</p>
+        </div>
+        <figure class="viz" aria-label="Illustration: one Agentic AI practice serving six sectors">
+          <div class="viz-h"><span>Where agents are at work</span><small>6 sectors</small></div>
+          <div class="vz-hub">
+            <svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="50" y1="50" x2="18" y2="16" stroke="#E2E2E2" stroke-width=".5" stroke-dasharray="1.5 1.5"/><line x1="50" y1="50" x2="82" y2="16" stroke="#E2E2E2" stroke-width=".5" stroke-dasharray="1.5 1.5"/><line x1="50" y1="50" x2="10" y2="50" stroke="#E2E2E2" stroke-width=".5" stroke-dasharray="1.5 1.5"/><line x1="50" y1="50" x2="90" y2="50" stroke="#E2E2E2" stroke-width=".5" stroke-dasharray="1.5 1.5"/><line x1="50" y1="50" x2="18" y2="84" stroke="#E2E2E2" stroke-width=".5" stroke-dasharray="1.5 1.5"/><line x1="50" y1="50" x2="82" y2="84" stroke="#E2E2E2" stroke-width=".5" stroke-dasharray="1.5 1.5"/></svg>
+            <div class="core"><img src="/img/logo.svg" alt=""></div>
+            <span class="sat" style="left:18%;top:16%"><i style="background:#FFB020"></i>Energy</span><span class="sat" style="left:82%;top:16%"><i style="background:#FF6F61"></i>Oil &amp; Gas</span><span class="sat" style="left:10%;top:50%"><i style="background:#5E6AD2"></i>Government</span><span class="sat" style="left:90%;top:50%"><i style="background:#1E8E5A"></i>Banking</span><span class="sat" style="left:18%;top:84%"><i style="background:#2684FC"></i>Insurance</span><span class="sat" style="left:82%;top:84%"><i style="background:#9B51E0"></i>Telecom</span>
+          </div>
+        </figure>
       </div>
     </section>
 
     <section class="section">
-      <div class="wrap grid g3">
-        <article id="energy" class="card card-hl">
-          <span class="label">Our first product focus</span>
-          <h3>Energy</h3>
-          <p>Agents for forecasting, asset operations, trading support and the energy transition. Energy is where our own domain Agentic AI products start.</p>
-        </article>
-        <article id="oil-gas" class="card">
-          <span class="label">Upstream to downstream</span>
-          <h3>Oil &amp; Gas</h3>
-          <p>Document-heavy engineering, maintenance and supply-chain workflows turned into agent-assisted processes.</p>
-        </article>
-        <article id="government" class="card">
-          <span class="label">Public sector</span>
-          <h3>Government</h3>
-          <p>Citizen services, case handling and policy research with the transparency and controls public bodies need.</p>
-        </article>
-        <article id="banking" class="card">
-          <span class="label">BFSI</span>
-          <h3>Banking &amp; financial services</h3>
-          <p>Operations, compliance and customer-service agents with audit trails and human review built in.</p>
-        </article>
-        <article id="insurance" class="card">
-          <span class="label">BFSI</span>
-          <h3>Insurance</h3>
-          <p>Claims, underwriting support and policy servicing, sped up without giving up oversight.</p>
-        </article>
-        <article id="telecom" class="card">
-          <span class="label">Networks &amp; customers</span>
-          <h3>Telecom</h3>
-          <p>Customer care, network operations and order-to-activate workflows run with agents.</p>
-        </article>
+      <div class="wrap grid g3 tiles">
+        <article id="energy" class="tile"><span class="ico-soft is-amber"><svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg></span><h3>Energy</h3><p>Forecasting, asset operations, trading support. Our first product focus.</p><span class="pill-s p-coral tag">Product focus</span></article>
+        <article id="oil-gas" class="tile"><span class="ico-soft is-coral"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></span><h3>Oil &amp; Gas</h3><p>Engineering documents, maintenance and supply chain, agent-assisted.</p></article>
+        <article id="government" class="tile"><span class="ico-soft is-violet"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V10M18 20V10M12 4l8 5H4z"/><path d="M10 20v-5h4v5"/></svg></span><h3>Government</h3><p>Citizen services and case handling with full transparency.</p></article>
+        <article id="banking" class="tile"><span class="ico-soft is-green"><svg viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span><h3>Banking &amp; financial services</h3><p>Operations and compliance agents with audit trails.</p></article>
+        <article id="insurance" class="tile"><span class="ico-soft is-blue"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v6a2 2 0 0 0 4 0"/></svg></span><h3>Insurance</h3><p>Claims and underwriting, faster without losing oversight.</p></article>
+        <article id="telecom" class="tile"><span class="ico-soft is-teal"><svg viewBox="0 0 24 24"><path d="M5 20v-4M10 20v-8M15 20v-12M20 20V4"/></svg></span><h3>Telecom</h3><p>Customer care, network ops and order-to-activate.</p></article>
       </div>
     </section>
 
@@ -128,7 +114,7 @@
       <div class="wrap">
         <div class="cta-band">
           <h2>Don’t see your sector?</h2>
-          <p>The methods carry across industries. Tell us about your business and we’ll tell you where agents fit.</p>
+          <p>The methods carry across industries. Tell us where you’d like agents to help.</p>
           <div class="cta-row"><a class="btn" href="/contact/">Contact us</a></div>
         </div>
       </div>
