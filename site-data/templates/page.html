@@ -88,6 +88,19 @@
         var open = m.classList.toggle('open');
         b.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
+      // Dropdowns: one open at a time; close on outside click or Escape.
+      var ds = document.querySelectorAll('.nav details');
+      ds.forEach(function (d) {
+        d.addEventListener('toggle', function () {
+          if (d.open) ds.forEach(function (o) { if (o !== d) o.open = false; });
+        });
+      });
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.nav details')) ds.forEach(function (d) { d.open = false; });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') ds.forEach(function (d) { d.open = false; });
+      });
     })();
   </script>
 </body>
