@@ -253,19 +253,61 @@ add_action( 'tutor_before_dashboard_content', function () {
 </section>
 	<?php
 }, 1 );
-// Header for signed-in students: "Log in" becomes "My dashboard", "Sign up" becomes "Log out".
-add_filter( 'render_block_data', function ( $block ) {
+// Header for signed-in students (Rohit 2026-11-18): on EVERY Academy page the "Log in" item
+// becomes the student's profile avatar with a menu, and "Sign up" disappears.
+function cp_user_avatar_html( $u ) {
+	$pid = (int) get_user_meta( $u->ID, '_tutor_profile_photo', true );
+	$img = $pid ? wp_get_attachment_image_url( $pid, 'thumbnail' ) : '';
+	if ( $img ) {
+		return '<img src="' . esc_url( $img ) . '" alt="" width="34" height="34">';
+	}
+	$parts = preg_split( '/\s+/', trim( $u->first_name . ' ' . $u->last_name ) ?: $u->display_name );
+	$ini   = strtoupper( mb_substr( $parts[0] ?? '', 0, 1 ) . mb_substr( $parts[1] ?? '', 0, 1 ) );
+	return '<span aria-hidden="true">' . esc_html( $ini ?: '?' ) . '</span>';
+}
+function cp_account_url( $page ) {
+	if ( class_exists( '\TUTOR\Dashboard' ) && method_exists( '\TUTOR\Dashboard', 'get_account_page_url' ) ) {
+		return \TUTOR\Dashboard::get_account_page_url( $page );
+	}
+	return home_url( '/dashboard/' . $page . '/' );
+}
+add_filter( 'render_block', function ( $html, $block ) {
 	if ( 'core/navigation-link' !== ( $block['blockName'] ?? '' ) || ! is_user_logged_in() ) {
-		return $block;
+		return $html;
 	}
 	$url = $block['attrs']['url'] ?? '';
-	if ( '/dashboard/' === $url ) {
-		$block['attrs']['label'] = 'My dashboard';
-	} elseif ( '/student-registration/' === $url ) {
-		$block['attrs']['label'] = 'Log out';
-		$block['attrs']['url']   = wp_logout_url( home_url( '/' ) );
+	if ( '/student-registration/' === $url ) {
+		return '';
 	}
-	return $block;
+	if ( '/dashboard/' !== $url ) {
+		return $html;
+	}
+	$u    = wp_get_current_user();
+	$name = trim( $u->first_name . ' ' . $u->last_name ) ?: $u->display_name;
+	$items = array(
+		array( 'My dashboard', home_url( '/dashboard/' ) ),
+		array( 'My courses', home_url( '/dashboard/courses/' ) ),
+		array( 'Profile', cp_account_url( 'profile' ) ),
+		array( 'Settings', cp_account_url( 'settings' ) ),
+	);
+	$li = '';
+	foreach ( $items as $it ) {
+		$li .= '<li><a href="' . esc_url( $it[1] ) . '">' . esc_html( $it[0] ) . '</a></li>';
+	}
+	$li .= '<li class="cp-um-out"><a href="' . esc_url( wp_logout_url( home_url( '/' ) ) ) . '">Log out</a></li>';
+	return '<li class="wp-block-navigation-item cp-nav-user"><details class="cp-um"><summary aria-label="Account menu for ' . esc_attr( $name ) . '"><span class="cp-avatar">' . cp_user_avatar_html( $u ) . '</span></summary>'
+		. '<div class="cp-um-pop"><div class="cp-um-head"><span class="cp-avatar">' . cp_user_avatar_html( $u ) . '</span><span><b>' . esc_html( $name ) . '</b><small>' . esc_html( $u->user_email ) . '</small></span></div><ul>' . $li . '</ul></div></details></li>';
+}, 10, 2 );
+// Close the account menu on outside click / Escape.
+add_action( 'wp_footer', function () {
+	if ( ! is_user_logged_in() ) {
+		return;
+	}
+	echo "<script>document.addEventListener('click',function(e){document.querySelectorAll('details.cp-um[open]').forEach(function(d){if(!d.contains(e.target)){d.removeAttribute('open');}});});document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('details.cp-um[open]').forEach(function(d){d.removeAttribute('open');});}});</script>";
+} );
+// Students never see the WordPress admin bar (admins still do).
+add_filter( 'show_admin_bar', function ( $show ) {
+	return current_user_can( 'edit_posts' ) ? $show : false;
 } );
 // Signed-in students who open the sign-up page go to their dashboard.
 add_action( 'template_redirect', function () {
@@ -274,3 +316,10 @@ add_action( 'template_redirect', function () {
 		exit;
 	}
 }, 5 );
+// Phones: the navigation collapses into a menu button, so show the avatar next to it as well.
+add_filter( 'render_block', function ( $html, $block ) {
+	if ( 'core/navigation' !== ( $block['blockName'] ?? '' ) || ! is_user_logged_in() ) {
+		return $html;
+	}
+	return '<a class="cp-avatar cp-avatar-m" href="' . esc_url( home_url( '/dashboard/' ) ) . '" aria-label="My dashboard">' . cp_user_avatar_html( wp_get_current_user() ) . '</a>' . $html;
+}, 10, 2 );
