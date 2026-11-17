@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.0.1
+Version: 1.1.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -329,3 +329,37 @@ a.cp-course:hover .cp-ico, .cp-tile:hover .cp-ico { background: #FFFFFF; }
 .cp-sec-card:hover .cp-sec-foot i { transform: translateX(4px); }
 @media (max-width: 960px) { .cp-sec-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .cp-sec-grid { grid-template-columns: 1fr; } }
+
+/* ==== 2026-11-18 batch: hero up, single brand mention, Academy Home nav, path sub-courses, expand cards ==== */
+.cp-vhero { padding-top: 24px !important; }
+.cp-vgrid { align-items: start; }
+.cp-lockup { margin: 18px 0 8px; display: block; }
+.cp-l2 { font-size: clamp(3.6rem, 6vw, 5rem); display: inline-block; padding-bottom: 6px; }
+.cp-stack { margin-top: 10px; }
+body.home .cp-header .wp-block-navigation-item:first-child { display: none; }
+body.postid-8 .cp-header .wp-block-navigation-item:nth-child(2) { display: list-item; }
+body.postid-8 .cp-header .wp-block-navigation-item:nth-child(3) { display: none; }
+/* Sub-courses on the certification path page */
+.cpc-subs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cpc-sub { display: grid; gap: 8px; padding: 20px; border-radius: 18px; background: #FFFFFF; border: 1px solid var(--line); text-decoration: none !important; color: var(--ink) !important; transition: background-color .2s, border-color .2s, transform .2s; }
+.cpc-sub b { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; line-height: 1.15; }
+.cpc-sub > span:not(.pill-s) { color: var(--muted); font-size: .95rem; }
+.cpc-sub i { font-style: normal; font-weight: 600; color: #B23A31; font-size: .92rem; }
+.cpc-sub:hover { background: #FFF1EE; border-color: #FF8A7A; transform: translateY(-3px); }
+.pill-s.p-blue { background: #EAF2FF; color: #2463EB; } .pill-s { justify-self: start; }
+/* Expand cards (Course Content + Your learning path) */
+.cp-cc-toggle { padding: 18px 18px 18px 18px !important; border-radius: 20px !important; gap: 16px !important;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF6F4 100%) !important; border: 1px solid #FFD3CC !important; box-shadow: 0 14px 30px -22px rgba(255,111,97,.6); }
+.cp-cc-toggle .cp-cc-ico { width: 48px; height: 48px; border-radius: 14px; flex: none; display: grid; place-items: center; background: #FFEDEA; }
+.cp-cc-toggle .cp-cc-ico svg { width: 24px; height: 24px; fill: none; stroke: #D9473F; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cp-cc-toggle .cp-cc-txt { flex: 1; display: grid !important; gap: 2px; }
+.cp-cc-toggle .cp-cc-txt b { font-size: 1.45rem !important; }
+.cp-cc-toggle .cp-cc-txt small { font-size: .9rem; }
+.cp-cc-toggle .cp-cc-act { flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 12px; background: #FF8A7A; color: #111111; font-weight: 600; font-size: .9rem; }
+.cp-cc-toggle .cp-cc-act::after { content: ""; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s; }
+.cp-cc-toggle[aria-expanded="true"] .cp-cc-act::after { transform: rotate(-135deg) translateY(-2px); }
+.cp-cc-toggle > i { display: none !important; }
+.cp-cc-toggle:hover { border-color: #FF8A7A !important; background: #FFF1EE !important; }
+.cp-cc-toggle:hover .cp-cc-act { background: #FF6F61; }
+.cpc .cp-cc-toggle { margin: 36px 0 0; }
+@media (max-width: 640px) { .cp-cc-toggle .cp-cc-act span { display: none; } .cpc-subs { grid-template-columns: 1fr; } }

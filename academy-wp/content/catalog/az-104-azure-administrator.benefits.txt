@@ -1,0 +1,4 @@
+Manage identities and governance
+Run storage, compute and networking
+Monitor and back up workloads
+Prepare for exam AZ-104

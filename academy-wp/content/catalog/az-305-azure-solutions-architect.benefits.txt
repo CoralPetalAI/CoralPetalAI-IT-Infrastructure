@@ -1,0 +1,4 @@
+Design identity and governance
+Design data storage solutions
+Plan business continuity
+Prepare for exam AZ-305
