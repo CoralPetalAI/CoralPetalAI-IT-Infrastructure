@@ -42,6 +42,21 @@ w post meta update "$CID" _tutor_course_target_audience "$(printf '%s\n' \
   'Engineers and data scientists moving into Generative and Agentic AI' \
   'Teams that want to build AI systems, not just use them')"
 
+# Course thumbnail (video preview / course cards). Source: Figma "Coral Petal Academy"
+# A0CUypsHbIod38rh1G1C29, node 1:2. Re-imported only when the file's checksum changes.
+THUMB="$C/course-thumbnail.png"
+if [ -f "$THUMB" ]; then
+  SUM=$(md5sum "$THUMB" | cut -c1-12)
+  if [ "$(w post meta get "$CID" _cp_thumb_md5 2>/dev/null || true)" != "$SUM" ]; then
+    cp "$THUMB" "$C/signature-course-thumbnail-$SUM.png"
+    AID=$(w media import "$C/signature-course-thumbnail-$SUM.png" --post_id="$CID" --title="The Coral Petal Signature Course" --alt="The Coral Petal Signature Course: End-to-end Generative and Agentic AI" --featured_image --porcelain)
+    w post meta update "$CID" _cp_thumb_md5 "$SUM"
+    echo "thumbnail set: attachment $AID"
+  else
+    echo "thumbnail ok"
+  fi
+fi
+
 # --- Modules = Tutor topics --------------------------------------------------------------
 while IFS=$'\t' read -r n title summary; do
   [ -n "$n" ] || continue
