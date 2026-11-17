@@ -382,3 +382,12 @@ add_filter( 'tutor_student_dashboard_nav', function ( $items ) {
 	}
 	return $new;
 } );
+
+// Tutor screens (dashboard, profile, settings, quiz attempts, learning area) are LIGHT ONLY
+// (Rohit 2026-11-18): Tutor defaults to "system", so a Mac in dark mode got dark inputs, chips and tabs.
+add_filter( 'tutor_user_preference_data', function ( $prefs ) {
+	if ( is_array( $prefs ) ) {
+		$prefs['theme'] = 'light';
+	}
+	return $prefs;
+}, 99 );

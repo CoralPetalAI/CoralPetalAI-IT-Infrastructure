@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.9.0
+Version: 1.10.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -615,3 +615,23 @@ body.cp-dash .tutor-nav-item svg, body.cp-dash .tutor-tabs-tab svg { color: #6E6
 body.cp-dash .tutor-nav-item:hover, body.cp-dash .tutor-tabs-tab:hover { color: #111111 !important; background: #F6F6F6 !important; }
 body.cp-dash .tutor-nav-item.active, body.cp-dash .tutor-tabs-tab-active, body.cp-dash .tutor-nav-item[aria-current="page"] { color: #B23A31 !important; background: #FFF1EE !important; box-shadow: inset 0 0 0 1px #FFD9D3 !important; }
 body.cp-dash .tutor-nav-item.active svg, body.cp-dash .tutor-tabs-tab-active svg { color: #D9473F !important; }
+/* Profile + Settings (Rohit 2026-11-18): light only, coral cover, no theme picker */
+.tutor-preferences-setting-item:has(select[name="theme"]), .tutor-preferences-setting-item:has([name="theme"]) { display: none !important; }
+[style*="cover-photo.webp"] { background-image: radial-gradient(circle at 85% -10%, rgba(255,111,97,.45), rgba(255,111,97,0) 55%), linear-gradient(135deg, #FFF1EE 0%, #FFE4DF 55%, #FFD9D3 100%) !important; }
+body.cp-dash .tutor-profile-card { border: 1px solid #E8E8E8; border-radius: 20px; background: #FFFFFF; box-shadow: none; }
+body.cp-dash .tutor-profile-card-header, body.cp-dash .tutor-account-cover-photo { border-radius: 16px; }
+body.cp-dash .tutor-avatar { background: #FFEDEA; color: #B23A31; box-shadow: 0 0 0 4px #FFFFFF; border: 0; }
+body.cp-dash .tutor-avatar-initials { color: #B23A31; font-weight: 600; }
+body.cp-dash .tutor-edit-profile-btn, body.cp-dash .tutor-account-cover-photo-action button { background: rgba(255,255,255,.92) !important; color: #111111 !important; border: 1px solid #E8E8E8 !important; border-radius: 12px; }
+body.cp-dash .tutor-edit-profile-btn svg, body.cp-dash .tutor-account-cover-photo-action svg { color: #111111 !important; }
+body.cp-dash .tutor-account-avatar img:not([src]), body.cp-dash .tutor-account-avatar img[src=""] { opacity: 0; }
+body.cp-dash .tutor-account-avatar { background: #FFEDEA; border-color: #FFFFFF !important; }
+body.cp-dash .tutor-profile-header { background: transparent; border-bottom: 1px solid #E8E8E8; }
+body.cp-dash .tutor-profile-header-title, body.cp-dash .tutor-profile-card h3, body.cp-dash .tutor-profile-card .tutor-h4 { font-family: "Newsreader", Georgia, serif !important; font-weight: 400 !important; }
+/* Form fields */
+body.cp-dash input[type="text"], body.cp-dash input[type="email"], body.cp-dash input[type="tel"], body.cp-dash input[type="password"], body.cp-dash input[type="url"], body.cp-dash textarea, body.cp-dash select, body.cp-dash .tutor-input, body.cp-dash .tutor-form-control {
+  background: #FFFFFF !important; color: #111111 !important; border: 1px solid #E0E0E0 !important; border-radius: 12px !important; box-shadow: none !important; font-family: "Inter", sans-serif !important; }
+body.cp-dash input:focus, body.cp-dash textarea:focus, body.cp-dash select:focus { border-color: #FF8A7A !important; box-shadow: 0 0 0 3px rgba(255,111,97,.18) !important; outline: none; }
+body.cp-dash input[readonly], body.cp-dash input:disabled { background: #F6F6F6 !important; color: #6E6E6E !important; }
+body.cp-dash ::placeholder { color: #9A9A9A !important; font-family: "Inter", sans-serif; }
+body.cp-dash label, body.cp-dash .tutor-form-label { color: #111111; font-weight: 500; }
