@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). Signature dark navy + coral, Inter.
 Template: twentytwentyfive
-Version: 0.2.0
+Version: 0.3.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -14,16 +14,24 @@ Text Domain: coralpetal-academy
   --tutor-color-primary-rgb: 232, 80, 91;
   --tutor-color-primary-hover: #D43F4B;
 }
-body.cp-light { background: #F5F7FA; color: #1B2B3C; }
+body.cp-light { background: #F7F8FA; color: #1B2B3C; }
 body.cp-light h1, body.cp-light h2, body.cp-light h3, body.cp-light h4, body.cp-light h5, body.cp-light h6 { color: #0B1F33; }
 body.cp-light main a:not(.tutor-btn), body.cp-light .tutor-wrap a:not(.tutor-btn) { color: #D43F4B; }
 .cp-header a, .cp-header .wp-block-navigation-item__content { color: #E6ECF2; }
 .cp-header .cp-nav-cta .wp-block-navigation-item__content { background: #FF6F61; color: #0B1F33; padding: 8px 16px; border-radius: 10px; font-weight: 600; }
 .cp-header .cp-nav-cta .wp-block-navigation-item__content:hover { background: #FF8A7A; }
-.cp-footer, .cp-footer p { color: #A9B7C6; }
+.cp-footer, .cp-footer p { color: #B8C4D2; }
 .cp-footer a { color: #FF8A7A; }
 
-.cp-card { background: #13304D; border: 1px solid #23415F; border-radius: 16px; padding: 28px; height: 100%; }
+.cp-card { background: #FFFFFF; border: 1px solid #E6E9EF; border-radius: 16px; padding: 28px; height: 100%; }
 .cp-card::before { content: ""; display: block; width: 32px; height: 3px; border-radius: 2px; background: #FF6F61; margin-bottom: 18px; }
-.cp-eyebrow { color: #FF6F61; letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; font-weight: 600; }
+.cp-eyebrow { color: #D43F4B; letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; font-weight: 600; }
 .cp-brand img { display: block; }
+
+/* Coral-forward light theme (2026-11-17): soft-coral hero, coral CTA band. */
+.cp-hero { background: radial-gradient(1000px 520px at 88% -12%, rgba(255,111,97,.30), transparent 65%), linear-gradient(180deg, #FFF1EE, #FFF8F6); border-bottom: 1px solid #FBD9D3; }
+.cp-cta { background: radial-gradient(ellipse at top right, rgba(255,255,255,.35), transparent 60%), linear-gradient(135deg, #FF6F61, #FF8A7A); }
+.cp-cta h2, .cp-cta p { color: #0B1F33 !important; }
+.cp-cta .wp-block-button__link { background: #0B1F33 !important; color: #FFFFFF !important; }
+.wp-block-button__link { color: #0B1F33; }
+.is-style-outline .wp-block-button__link { color: #0B1F33 !important; border-color: #0B1F33 !important; background: transparent !important; }

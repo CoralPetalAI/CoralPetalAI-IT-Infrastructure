@@ -408,3 +408,46 @@ a.course-row:hover .course-row-go { transform: translateX(4px); }
 .ref-box.ref-disabled:hover { background: var(--bg-alt); }
 #login-form input:focus { outline-color: var(--coral-edge); }
 .apply-box h2 { color: var(--ink); }
+
+/* ==== Coral-forward light theme (2026-11-17, Rohit): replaces the dark override above.
+   White page, soft-coral hero, coral CTAs/labels; navy only for text, header and footer. ==== */
+:root {
+  --ink: #0B1F33;
+  --ink-soft: #46566A;
+  --muted: #6B7A8C;
+  --bg: #FFFFFF;
+  --bg-alt: #FFF7F5;
+  --card: #FFFFFF;
+  --line: #E6E9EF;
+  --line-strong: #D5DBE3;
+  --coral: #FF6F61;
+  --coral-deep: #D43F4B;
+  --coral-wash: #FFF1EE;
+  --coral-edge: rgba(255, 111, 97, .45);
+  color-scheme: light;
+}
+body { background: #FFFFFF; color: var(--ink); }
+.site-header, .site-footer {
+  --ink: #FFFFFF; --ink-soft: #B8C4D2; --muted: #93A3B6;
+  --line: rgba(255, 255, 255, .12); --line-strong: rgba(255, 255, 255, .24); --card: #102840;
+  color: var(--ink);
+}
+.site-header { background: rgba(11, 31, 51, .95); }
+.site-footer { background: #0B1F33; }
+.site-footer a { color: #FF8A7A; }
+.hero, .hero-academy {
+  background: radial-gradient(900px 440px at 88% -10%, rgba(255, 111, 97, .30), transparent 65%),
+              linear-gradient(180deg, #FFF1EE, #FFF8F6);
+  border-bottom: 1px solid #FBD9D3;
+}
+.btn, .btn-small, .res-primary, .ref-main { color: #0B1F33 !important; }
+.btn:hover, .res-primary:hover { background: #FF8A7A; border-color: #FF8A7A; box-shadow: 0 8px 22px rgba(255, 111, 97, .28); }
+.btn-ghost { color: #0B1F33 !important; border-color: var(--line-strong); }
+.btn-ghost:hover { background: var(--coral-wash); border-color: var(--coral); }
+.site-header .btn-ghost { color: #FFFFFF !important; }
+.flow, .tutorial-box, .login-card { box-shadow: 0 24px 60px -28px rgba(11, 31, 51, .22); }
+.flow-step { background: #FFF7F5; }
+.card:hover, .course-row:hover, .related a:hover, .res-btn:hover { border-color: var(--coral); box-shadow: 0 12px 32px -16px rgba(11, 31, 51, .2); }
+.res-btn:hover { background: var(--coral-wash); }
+.ref-box.ref-disabled:hover { background: var(--bg-alt); }
+.apply-box h2 { color: var(--ink); }

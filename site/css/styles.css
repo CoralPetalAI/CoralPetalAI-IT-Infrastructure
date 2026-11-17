@@ -184,3 +184,52 @@ a.card:hover { border-color: rgba(255, 111, 97, .55); transform: translateY(-2px
   .card { padding: 24px; }
   .foot-grid { grid-template-columns: 1fr; }
 }
+
+/* ==== Coral-forward light theme (2026-11-17, Rohit) ====
+   White page, soft-coral hero bands, coral logo/CTAs/labels/highlights; navy only for text,
+   the header bar and the footer. Coral #FF6F61 never carries white text (contrast). */
+:root {
+  --text: #0B1F33;
+  --muted: #46566A;
+  --faint: #6B7A8C;
+  --card: #FFFFFF;
+  --line: #E6E9EF;
+  --navy-2: #FFF7F5;
+  --coral-2: #D43F4B;
+  --coral-deep: #C73845;
+  --tint: #FFF1EE;
+  color-scheme: light;
+}
+body { background: #FFFFFF; color: var(--text); }
+a:hover { color: var(--coral-deep); }
+.site-header, .site-footer {
+  --text: #FFFFFF; --muted: #B8C4D2; --faint: #7F90A3;
+  --card: rgba(255, 255, 255, .06); --line: rgba(255, 255, 255, .12); --coral-2: #FF8A7A;
+  color: var(--text);
+}
+.site-header { background: rgba(11, 31, 51, .95); }
+.site-footer { background: var(--navy); }
+.site-footer a:hover { color: #FFFFFF; }
+.hero, .page-hero {
+  background: radial-gradient(1000px 520px at 88% -12%, rgba(255, 111, 97, .30), transparent 65%),
+              linear-gradient(180deg, #FFF1EE, #FFF8F6);
+  border-bottom: 1px solid #FBD9D3;
+}
+.section-alt { background: #FFF7F5; border-block: 1px solid #FBE3DE; }
+.card { box-shadow: 0 1px 2px rgba(11, 31, 51, .04); }
+a.card:hover { border-color: #FF6F61; box-shadow: 0 14px 34px -18px rgba(11, 31, 51, .25); }
+.card-hl { border-color: #FF6F61; background: linear-gradient(160deg, #FFE5E0, #FFFFFF 70%); }
+.btn { color: var(--navy); }
+.btn:hover { background: #FF8A7A; border-color: #FF8A7A; color: var(--navy); }
+.btn-ghost { color: var(--text); border-color: #D5DBE3; }
+.btn-ghost:hover { background: var(--tint); color: var(--text); border-color: #FF6F61; }
+.site-header .btn-ghost { border-color: rgba(255, 255, 255, .24); }
+.chips li { background: #FFFFFF; }
+.cta-band {
+  border: 0; color: var(--navy);
+  background: radial-gradient(ellipse at top right, rgba(255, 255, 255, .35), transparent 60%), linear-gradient(135deg, #FF6F61, #FF8A7A);
+}
+.cta-band h2 { color: var(--navy); }
+.cta-band p { color: rgba(11, 31, 51, .82); }
+.cta-band .btn { background: var(--navy); border-color: var(--navy); color: #FFFFFF; }
+.cta-band .btn:hover { background: #16314d; color: #FFFFFF; }
