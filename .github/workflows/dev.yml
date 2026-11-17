@@ -44,7 +44,7 @@ jobs:
         run: |
           python3 scripts/check_site.py site
           python3 scripts/check_site.py careers
-          for f in scripts/build_dev.sh scripts/deploy_dev.sh scripts/dev_auth_setup.sh scripts/dev_access_block.sh scripts/academy_wp_dev.sh academy-wp/remote_setup.sh; do bash -n "$f"; done
+          for f in scripts/build_dev.sh scripts/deploy_dev.sh scripts/dev_auth_setup.sh scripts/dev_access_block.sh scripts/dev_links.sh scripts/academy_wp_dev.sh academy-wp/remote_setup.sh; do bash -n "$f"; done
       - name: Build dev copies
         run: |
           bash scripts/build_dev.sh site _dev_site
