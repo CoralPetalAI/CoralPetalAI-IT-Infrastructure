@@ -117,7 +117,7 @@ jobs:
             --data-urlencode "log=cp-review" --data-urlencode "pwd=$REVIEW_PASS" \
             --data-urlencode "testcookie=1" --data-urlencode "redirect_to=https://dev-academy.coralpetal.ai/dashboard/" \
             -b "wordpress_test_cookie=WP%20Cookie%20check" https://dev-academy.coralpetal.ai/wp-login.php || true
-          for pair in "dash-home|/dashboard/" "dash-courses|/dashboard/courses/" "dash-catalog-signedin|/courses/" "dash-profile|/dashboard/account/profile/" "dash-settings|/dashboard/account/settings/?tab=account" "dash-wishlist|/dashboard/courses/wishlist/" "dash-quiz|/dashboard/courses/my-quiz-attempts/"; do
+          for pair in "dash-home|/dashboard/" "dash-courses|/dashboard/courses/" "dash-catalog-signedin|/courses/" "dash-profile|/dashboard/account/profile/" "dash-settings|/dashboard/account/settings/?tab=account" "dash-wishlist|/dashboard/courses/wishlist/" "dash-quiz|/dashboard/courses/my-quiz-attempts/" "dash-security|/dashboard/account/settings/?tab=security"; do
             name=${pair%%|*}; path=${pair#*|}
             curl -s -m 30 -b "$J" "https://dev-academy.coralpetal.ai$path" -o "review/$name.html" || true
           done
