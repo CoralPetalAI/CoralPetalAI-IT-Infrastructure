@@ -30,7 +30,16 @@ rsync -rlz --checksum --delete --chmod=D755,F644 -e "$SSH" "$SRC/theme/coralpeta
 rsync -rlz --checksum --chmod=D755,F644 -e "$SSH" "$SRC/mu-plugins/" "$REMOTE:$MU/"
 rsync -rlz --checksum --chmod=D755,F644 -e "$SSH" "$SRC/content/" "$SRC/remote_setup.sh" "$SRC/smtp_store.php" "$SRC/review_user.php" "$REMOTE:$CONTENT/"
 
-$SSH "$REMOTE" "bash '$CONTENT/remote_setup.sh' '$WP' '$CONTENT'"
+# Speed (2026-11-18): the course/page setup (~40 WP-CLI calls, ~3.5 min) only runs when the
+# content or the setup script changed. Theme and plugin changes need just the rsync above + a cache flush.
+SUM=$(cd "$SRC" && find content remote_setup.sh -type f -print0 | sort -z | xargs -0 md5sum | md5sum | cut -c1-32)
+LAST=$($SSH "$REMOTE" "cat '$CONTENT/.setup-md5' 2>/dev/null || true")
+if [ "$SUM" != "$LAST" ] || [ "${FORCE_ACADEMY_SETUP:-}" = "1" ]; then
+  $SSH "$REMOTE" "bash '$CONTENT/remote_setup.sh' '$WP' '$CONTENT' && echo '$SUM' > '$CONTENT/.setup-md5'"
+else
+  echo "academy content unchanged: setup skipped (theme + plugins updated)"
+  $SSH "$REMOTE" "cd '$WP' && wp --skip-plugins=hostinger-ai-assistant,hostinger-reach cache flush >/dev/null 2>&1 || true"
+fi
 
 # 5. Mail: Proton SMTP token for academy@coralpetal.ai (repo secrets ACADEMY_SMTP_USER / ACADEMY_SMTP_TOKEN).
 #    Sent over stdin into ~/.coralpetal/academy-smtp.php (600, outside every docroot); never in argv or git.
