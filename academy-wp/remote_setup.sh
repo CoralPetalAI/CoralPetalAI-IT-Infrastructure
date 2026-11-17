@@ -166,7 +166,9 @@ echo "home=$HOME_ID dashboard=$DASH_ID registration=$REG_ID"
 
 # Tutor settings (only when Tutor has created its option array)
 if w option get tutor_option >/dev/null 2>&1; then
-  for kv in "tutor_dashboard_page_id $DASH_ID" "student_register_page $REG_ID"; do
+  # Student dashboard in the site design (Rohit 2026-11-18): site header + footer around it,
+  # brand colour deep coral (white text passes contrast), styled further by the theme.
+  for kv in "tutor_dashboard_page_id $DASH_ID" "student_register_page $REG_ID" "brand_color #B23A31" "show_dashboard_site_header on" "show_dashboard_site_footer on"; do
     set -- $kv
     w option patch update tutor_option "$1" "$2" 2>/dev/null || w option patch insert tutor_option "$1" "$2" || true
   done

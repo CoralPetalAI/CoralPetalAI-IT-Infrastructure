@@ -212,3 +212,65 @@ add_action( 'wp_head', function () {
 	echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
 	echo '<link rel="apple-touch-icon" href="' . esc_url( get_stylesheet_directory_uri() . '/assets/apple-touch-icon.png' ) . '">' . "\n";
 }, 2 );
+
+/* ==== Student dashboard after log-in (Rohit 2026-11-18: same design as the other sites) ====
+   Tutor LMS (free) renders /dashboard/ and keeps the data (enrolments, progress, quiz attempts,
+   reviews). The theme only dresses it: site header + footer around it (Tutor options set by
+   remote_setup.sh), a welcome hero on the dashboard home, brand tokens in style.css. */
+function cp_dash_is_home() {
+	global $wp_query;
+	return is_page( 'dashboard' ) && is_user_logged_in() && empty( $wp_query->query_vars['tutor_dashboard_page'] );
+}
+add_filter( 'body_class', function ( $c ) {
+	if ( is_page( 'dashboard' ) && is_user_logged_in() ) {
+		$c[] = 'cp-dash';
+	}
+	return $c;
+} );
+add_action( 'tutor_before_dashboard_content', function () {
+	if ( ! cp_dash_is_home() ) {
+		return;
+	}
+	$u    = wp_get_current_user();
+	$name = $u->first_name ? $u->first_name : $u->display_name;
+	$n    = 0;
+	if ( function_exists( 'tutor_utils' ) ) {
+		$ids = tutor_utils()->get_enrolled_courses_ids_by_user( $u->ID );
+		$n   = is_array( $ids ) ? count( $ids ) : 0;
+	}
+	$sub = $n
+		? sprintf( 'You are enrolled in %d course%s. Pick up where you left off, or explore the catalog.', $n, 1 === $n ? '' : 's' )
+		: 'You are all set. Start with a fundamentals course or go straight to the Signature Course.';
+	?>
+<section class="cp-dash-hero" aria-label="Welcome">
+	<p class="cp-chip cp-chip-coral">Your learning</p>
+	<h1>Welcome back, <?php echo esc_html( $name ); ?></h1>
+	<p><?php echo esc_html( $sub ); ?></p>
+	<div class="cp-dash-actions">
+		<a class="cp-dash-btn cp-dash-btn-ink" href="/courses/">Browse courses</a>
+		<a class="cp-dash-btn cp-dash-btn-line" href="/courses/gen-agentic-ai/">Signature Course</a>
+	</div>
+</section>
+	<?php
+}, 1 );
+// Header for signed-in students: "Log in" becomes "My dashboard", "Sign up" becomes "Log out".
+add_filter( 'render_block_data', function ( $block ) {
+	if ( 'core/navigation-link' !== ( $block['blockName'] ?? '' ) || ! is_user_logged_in() ) {
+		return $block;
+	}
+	$url = $block['attrs']['url'] ?? '';
+	if ( '/dashboard/' === $url ) {
+		$block['attrs']['label'] = 'My dashboard';
+	} elseif ( '/student-registration/' === $url ) {
+		$block['attrs']['label'] = 'Log out';
+		$block['attrs']['url']   = wp_logout_url( home_url( '/' ) );
+	}
+	return $block;
+} );
+// Signed-in students who open the sign-up page go to their dashboard.
+add_action( 'template_redirect', function () {
+	if ( is_page( 'student-registration' ) && is_user_logged_in() && ! current_user_can( 'manage_options' ) ) {
+		wp_safe_redirect( home_url( '/dashboard/' ) );
+		exit;
+	}
+}, 5 );
