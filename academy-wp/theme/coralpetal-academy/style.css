@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.20.0
+Version: 1.21.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -384,7 +384,7 @@ body.cp-auth-page main { margin-top: 0 !important; }
 .cp-auth-form .tutor-form-label, .cp-auth-form .tutor-label { font-size: .88rem !important; font-weight: 500 !important; color: var(--ink) !important; }
 .cp-auth-form .tutor-form-control, .cp-auth-form .tutor-input, .cp-auth-form input[type="text"], .cp-auth-form input[type="email"], .cp-auth-form input[type="password"] {
   border-radius: 12px !important; border: 1px solid #DCDCDC !important; background: #FAFAFA !important; padding: 12px 14px !important; font-size: .98rem !important; transition: border-color .2s, box-shadow .2s, background-color .2s; }
-.cp-auth-form input:focus { border-color: #FF8A7A !important; background: #FFFFFF !important; box-shadow: 0 0 0 4px #FFF1EE !important; outline: none !important; }
+.cp-auth-form input:not([type="checkbox"]):not([type="radio"]):focus { border-color: #FF8A7A !important; background: #FFFFFF !important; box-shadow: 0 0 0 4px #FFF1EE !important; outline: none !important; }
 .cp-auth-form .tutor-btn-primary { width: 100%; padding: 14px 20px !important; font-size: 1rem !important; }
 .cp-auth-form .tutor-btn-link, .cp-auth-form a { color: #B23A31 !important; }
 .cp-notice { max-width: 1120px; margin: 24px auto 0; padding: 14px 18px; border-radius: 14px; background: #FFF1EE; border: 1px solid #FFC9C2; color: var(--ink); }
@@ -869,3 +869,15 @@ body.cp-landing .cp-vhero { padding-top: 120px !important; }
 .cp-vnote.bad { border-color: #F2D48A; background: radial-gradient(520px 220px at 100% 0%, rgba(255,176,32,.14), transparent 65%), #FFFFFF; }
 .cp-vnote.bad .cp-vnote-ico { background: #FFF5DD; color: #A86400; }
 @media (max-width: 560px) { .cp-vnote { padding: 16px; gap: 12px; } }
+
+/* Checkboxes (2026-11-18, Rohit: visible at rest, tick visible when checked) — every Academy form, incl. sign-in popups */
+input[type="checkbox"], .tutor-form-check-input[type="checkbox"] {
+  -webkit-appearance: none !important; appearance: none !important; flex: 0 0 auto; width: 20px !important; height: 20px !important; margin: 0 8px 0 0 !important;
+  border: 1.5px solid #8A8A8E !important; border-radius: 6px !important; background: #FFFFFF !important; background-image: none !important;
+  box-shadow: none !important; cursor: pointer; vertical-align: middle; position: relative; transition: background-color .15s, border-color .15s; }
+input[type="checkbox"]:hover, .tutor-form-check-input[type="checkbox"]:hover { border-color: #FF6F61 !important; }
+input[type="checkbox"]:focus-visible { outline: none !important; box-shadow: 0 0 0 3px rgba(255,111,97,.25) !important; }
+input[type="checkbox"]:checked, .tutor-form-check-input[type="checkbox"]:checked {
+  background: #FF6F61 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 14px no-repeat !important;
+  border-color: #FF6F61 !important; }
+input[type="checkbox"]::before, input[type="checkbox"]::after, .tutor-form-check-input[type="checkbox"]::before, .tutor-form-check-input[type="checkbox"]::after { display: none !important; content: none !important; }
