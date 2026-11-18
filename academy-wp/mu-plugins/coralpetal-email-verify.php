@@ -21,8 +21,32 @@ function cp_ev_send( $user_id ) {
 	$link = add_query_arg( array( 'cp_verify' => $token, 'u' => $user_id ), home_url( '/' ) );
 	$name = $user->first_name ? $user->first_name : $user->user_login;
 	$subj = 'Verify your email for Coral Petal AI Academy';
-	$body = "Hi {$name},\n\nWelcome to Coral Petal AI Academy. Please confirm your email address to activate your account:\n\n{$link}\n\nIf you didn't sign up, you can ignore this email.\n\nCoral Petal AI Academy";
-	return wp_mail( $user->user_email, $subj, $body );
+	// Branded HTML email (2026-11-18, Rohit): logo + soft-coral "Activate account" button; plain-text part kept for old clients.
+	$logo = esc_url( get_stylesheet_directory_uri() . '/assets/apple-touch-icon.png' );
+	$url  = esc_url( $link );
+	$hi   = esc_html( $name );
+	$html = '<!doctype html><html><body style="margin:0;padding:0;background:#F6F6F6;">'
+		. '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F6F6F6;padding:32px 12px;"><tr><td align="center">'
+		. '<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#FFFFFF;border:1px solid #FFD9D3;border-radius:20px;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;color:#1B1B1B;">'
+		. '<tr><td style="padding:28px 32px 8px;"><table role="presentation" cellpadding="0" cellspacing="0"><tr>'
+		. '<td style="vertical-align:middle;"><img src="' . $logo . '" width="40" height="40" alt="Coral Petal AI" style="display:block;border-radius:10px;"></td>'
+		. '<td style="vertical-align:middle;padding-left:12px;font-size:18px;font-weight:600;">Coral <span style="color:#FF6F61;">Petal AI</span><sup style="font-size:10px;">&trade;</sup> <span style="color:#6E6E6E;font-weight:500;">Academy</span></td>'
+		. '</tr></table></td></tr>'
+		. '<tr><td style="padding:16px 32px 0;"><h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:400;font-size:26px;line-height:1.2;">Activate your account</h1>'
+		. '<p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#46464A;">Hi ' . $hi . ', welcome to Coral Petal AI Academy. Confirm your email address to activate your account and start learning.</p></td></tr>'
+		. '<tr><td style="padding:0 32px 8px;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="border-radius:12px;background:#FFB4A9;">'
+		. '<a href="' . $url . '" style="display:inline-block;padding:14px 28px;font-size:15px;font-weight:600;color:#111111;text-decoration:none;border-radius:12px;">Activate account</a>'
+		. '</td></tr></table></td></tr>'
+		. '<tr><td style="padding:20px 32px 28px;font-size:12.5px;line-height:1.6;color:#8A8A8E;">If the button does not work, copy this link into your browser:<br><a href="' . $url . '" style="color:#B23A31;word-break:break-all;">' . $url . '</a><br><br>If you did not sign up, you can ignore this email.</td></tr>'
+		. '</table>'
+		. '<p style="margin:16px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:#9A9A9E;">&copy; ' . gmdate( 'Y' ) . ' Coral Petal AI&trade; Academy &middot; academy@coralpetal.ai</p>'
+		. '</td></tr></table></body></html>';
+	$text = "Hi {$name},\n\nWelcome to Coral Petal AI Academy. Confirm your email address to activate your account:\n\n{$link}\n\nIf you didn't sign up, you can ignore this email.\n\nCoral Petal AI Academy";
+	$alt  = function ( $mailer ) use ( $text ) { $mailer->AltBody = $text; };
+	add_action( 'phpmailer_init', $alt );
+	$sent = wp_mail( $user->user_email, $subj, $html, array( 'Content-Type: text/html; charset=UTF-8' ) );
+	remove_action( 'phpmailer_init', $alt );
+	return $sent;
 }
 
 // 1. A student who signs up through the Tutor form starts unverified and gets the link.
