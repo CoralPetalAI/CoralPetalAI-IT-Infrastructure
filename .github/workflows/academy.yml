@@ -66,6 +66,7 @@ jobs:
         env:
           ACADEMY_SMTP_USER: ${{ secrets.ACADEMY_SMTP_USER }}
           ACADEMY_SMTP_TOKEN: ${{ secrets.ACADEMY_SMTP_TOKEN }}
+          ACADEMY_PROD_WP: ${{ secrets.ACADEMY_PROD_WP }}
         run: bash scripts/academy_wp_prod.sh
       - name: Verify the live Academy (WordPress, course catalog)
         run: |
