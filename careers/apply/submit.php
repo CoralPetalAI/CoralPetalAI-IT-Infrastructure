@@ -11,7 +11,9 @@ if ( ( $_SERVER['REQUEST_METHOD'] ?? '' ) !== 'POST' ) { out( 405, false, 'Metho
 
 $home = getenv( 'HOME' );
 if ( ! $home && function_exists( 'posix_getpwuid' ) ) { $pw = posix_getpwuid( posix_geteuid() ); $home = $pw['dir'] ?? ''; }
-$cfg_file = rtrim( (string) $home, '/' ) . '/.coralpetal/careers-config.json';
+// Two environments, fully separate (Rohit 11/18): non-prod (dev-careers) and prod (careers, branch main).
+$env = preg_match( '/^dev-/', $_SERVER['HTTP_HOST'] ?? '' ) ? 'dev' : 'prod';
+$cfg_file = rtrim( (string) $home, '/' ) . '/.coralpetal/' . ( $env === 'dev' ? 'careers-config-dev.json' : 'careers-config.json' );
 $cfg = is_readable( $cfg_file ) ? json_decode( file_get_contents( $cfg_file ), true ) : null;
 if ( ! $cfg ) { out( 503, false, 'Applications are not open yet. Please email careers@coralpetal.ai.' ); }
 
@@ -55,7 +57,6 @@ $resume = pdf_ok( 'resume', true, $err );
 $cover = pdf_ok( 'cover', false, $err );
 if ( $err ) { out( 422, false, 'Please check: ' . implode( ', ', $err ) . '.' ); }
 
-$env = preg_match( '/^dev-/', $_SERVER['HTTP_HOST'] ?? '' ) ? 'dev' : 'prod';
 $id = gmdate( 'Ymd-His' ) . '-' . bin2hex( random_bytes( 4 ) );
 
 function blob_put( $cfg, $path, $tmp ) {
