@@ -14,26 +14,15 @@ description: Agentic AI for energy, oil and gas, government, banking, insurance 
         <figure class="viz vz-sectors" aria-label="Illustration: one Agentic AI platform serving six sectors">
           <div class="viz-h"><span>Agentic AI by sector</span><small>6 sectors · 1 platform</small></div>
           <ul class="vz-sec">
-            <li><span class="ic" style="background:#FFF5DD;color:#A86400"><svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg></span><div><b>Energy</b><small>Forecasting · asset operations</small></div><span class="pill-s p-coral">Product focus</span></li>
-            <li><span class="ic" style="background:#FFEDEA;color:#B23A31"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></span><div><b>Oil &amp; Gas</b><small>Engineering docs · maintenance</small></div></li>
-            <li><span class="ic" style="background:#F3ECFD;color:#7A3FD0"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V10M18 20V10M12 4l8 5H4z"/></svg></span><div><b>Government</b><small>Citizen services · case handling</small></div></li>
-            <li><span class="ic" style="background:#E8F5EE;color:#1E7F4F"><svg viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span><div><b>Banking &amp; finance</b><small>Operations · compliance</small></div></li>
-            <li><span class="ic" style="background:#EAF2FF;color:#2463EB"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v6a2 2 0 0 0 4 0"/></svg></span><div><b>Insurance</b><small>Claims · underwriting</small></div></li>
-            <li><span class="ic" style="background:#E4F6F5;color:#0F7C7C"><svg viewBox="0 0 24 24"><path d="M5 20v-4M10 20v-8M15 20v-12M20 20V4"/></svg></span><div><b>Telecom</b><small>Customer care · network ops</small></div></li>
+            <li id="energy"><span class="ic" style="background:#FFF5DD;color:#A86400"><svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg></span><div><b>Energy</b><small>Forecasting · asset operations</small></div><span class="pill-s p-coral">Product focus</span></li>
+            <li id="oil-gas"><span class="ic" style="background:#FFEDEA;color:#B23A31"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></span><div><b>Oil &amp; Gas</b><small>Engineering docs · maintenance</small></div></li>
+            <li id="government"><span class="ic" style="background:#F3ECFD;color:#7A3FD0"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V10M18 20V10M12 4l8 5H4z"/></svg></span><div><b>Government</b><small>Citizen services · case handling</small></div></li>
+            <li id="banking"><span class="ic" style="background:#E8F5EE;color:#1E7F4F"><svg viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span><div><b>Banking &amp; finance</b><small>Operations · compliance</small></div></li>
+            <li id="insurance"><span class="ic" style="background:#EAF2FF;color:#2463EB"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v6a2 2 0 0 0 4 0"/></svg></span><div><b>Insurance</b><small>Claims · underwriting</small></div></li>
+            <li id="telecom"><span class="ic" style="background:#E4F6F5;color:#0F7C7C"><svg viewBox="0 0 24 24"><path d="M5 20v-4M10 20v-8M15 20v-12M20 20V4"/></svg></span><div><b>Telecom</b><small>Customer care · network ops</small></div></li>
           </ul>
           <div class="vz-core"><img src="/img/logo.svg" alt=""><div><b>Shared Coral Petal core</b><small>Retrieval · Tools · Guardrails · Audit trail</small></div></div>
         </figure>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap grid g3 tiles">
-        <article id="energy" class="tile"><span class="ico-soft is-amber"><svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg></span><h3>Energy</h3><p>Forecasting, asset operations, trading support. Our first product focus.</p><span class="pill-s p-coral tag">Product focus</span></article>
-        <article id="oil-gas" class="tile"><span class="ico-soft is-coral"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></span><h3>Oil &amp; Gas</h3><p>Engineering documents, maintenance and supply chain, agent-assisted.</p></article>
-        <article id="government" class="tile"><span class="ico-soft is-violet"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V10M18 20V10M12 4l8 5H4z"/><path d="M10 20v-5h4v5"/></svg></span><h3>Government</h3><p>Citizen services and case handling with full transparency.</p></article>
-        <article id="banking" class="tile"><span class="ico-soft is-green"><svg viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span><h3>Banking &amp; financial services</h3><p>Operations and compliance agents with audit trails.</p></article>
-        <article id="insurance" class="tile"><span class="ico-soft is-blue"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v6a2 2 0 0 0 4 0"/></svg></span><h3>Insurance</h3><p>Claims and underwriting, faster without losing oversight.</p></article>
-        <article id="telecom" class="tile"><span class="ico-soft is-teal"><svg viewBox="0 0 24 24"><path d="M5 20v-4M10 20v-8M15 20v-12M20 20V4"/></svg></span><h3>Telecom</h3><p>Customer care, network ops and order-to-activate.</p></article>
       </div>
     </section>
 
