@@ -65,3 +65,11 @@ code{background:#F4F4F4;padding:2px 6px;border-radius:6px}
 input.pw-ok{border-color:#2BB673!important;box-shadow:0 0 0 3px rgba(43,182,115,.18)!important;background:#F4FBF7}
 input.pw-bad{border-color:#E5484D!important;box-shadow:0 0 0 3px rgba(229,72,77,.15)!important;background:#FFF7F7}
 .pwmsg{margin:-4px 0 0;font-size:13px;min-height:18px} .pwmsg.ok{color:#1E7F4F;background:#E8F5EE;border:1px solid #BFE8D2;border-radius:10px;padding:8px 12px} .pwmsg.bad{color:#C2363B}
+/* Account menu (v1.3.0) */
+.acct{position:relative} .acct summary{display:flex;align-items:center;gap:8px;padding:5px 10px 5px 5px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-weight:500}
+.acct summary:hover,.acct[open] summary{border-color:#FFC9C2}
+.av{width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;background:var(--tint);color:#B23A31;font-size:12px;font-weight:700} .av.big{width:40px;height:40px;font-size:16px}
+.acct .menu{position:absolute;right:0;top:calc(100% + 8px);min-width:200px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 50px -24px rgba(17,17,17,.35);padding:6px;z-index:10;display:grid}
+.acct .menu a{padding:9px 12px;border-radius:10px;color:var(--ink);font-size:14px} .acct .menu a:hover{background:var(--tint);text-decoration:none;color:#B23A31}
+.kv{display:flex;justify-content:space-between;font-size:13.5px;padding:8px 0;border-bottom:1px solid #F4F4F4} .kv span{color:var(--muted)}
+@media (max-width:640px){.acct .nm{display:none}}

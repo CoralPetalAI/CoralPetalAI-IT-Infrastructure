@@ -6,7 +6,7 @@
 //   "users": [ {"email","name","role":"owner|admin","password"} ]   ← first-run seed only, must change at first login }
 declare(strict_types=1);
 
-const CP_ADMIN_VERSION = '1.1.0';
+const CP_ADMIN_VERSION = '1.3.0';
 
 function cp_env(): string {
 	return preg_match( '/^dev-/', $_SERVER['HTTP_HOST'] ?? '' ) ? 'dev' : 'prod';
@@ -40,6 +40,14 @@ function cp_fail( string $msg, int $code = 503 ): void {
 
 function h( $s ): string { return htmlspecialchars( (string) $s, ENT_QUOTES, 'UTF-8' ); }
 
+/** A stored UTC datetime shown in the signed-in user's time zone (Settings). */
+function cp_time( ?string $utc, ?array $u = null ): string {
+	if ( ! $utc ) { return '—'; }
+	$tz = $u['timezone'] ?? 'Asia/Kolkata';
+	try { $d = new DateTime( $utc, new DateTimeZone( 'UTC' ) ); $d->setTimezone( new DateTimeZone( $tz ) ); return $d->format( 'j M Y, H:i' ) . ' ' . $d->format( 'T' ); }
+	catch ( Throwable $e ) { return $utc . ' UTC'; }
+}
+
 // ---------- Session + security headers ----------
 function cp_start(): void {
 	header( 'X-Robots-Tag: noindex, nofollow' );
@@ -65,6 +73,11 @@ function cp_check_csrf(): void {
 }
 
 // ---------- Auth ----------
+/** Only the main account manages users (Rohit 11/18). Config may override with "superadmin_email". */
+function cp_is_super( ?array $u ): bool {
+	$super = strtolower( (string) ( cp_config()['superadmin_email'] ?? 'rohit@coralpetal.ai' ) );
+	return $u && strtolower( (string) $u['email'] ) === $super;
+}
 function cp_user(): ?array {
 	if ( empty( $_SESSION['uid'] ) ) { return null; }
 	$st = cp_db()->prepare( 'SELECT * FROM users WHERE id = ? AND active = 1' );
@@ -101,7 +114,7 @@ function cp_login( string $email, string $pass ): ?string {
 // ---------- Layout ----------
 function cp_head( string $title, ?array $user, string $cur = '' ): void {
 	$nav = array( 'dashboard' => 'Dashboard', 'tasks' => 'Tasks', 'legal' => 'Legal', 'roadmap' => 'Roadmap' );
-	if ( $user && $user['role'] === 'owner' ) { $nav['users'] = 'Users'; }
+	if ( cp_is_super( $user ) ) { $nav['users'] = 'Users'; }
 	echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
 		. '<meta name="robots" content="noindex, nofollow"><title>' . h( $title ) . ' · Coral Petal AI Admin</title>'
 		. '<link rel="icon" href="/assets/logo.svg" type="image/svg+xml">'
@@ -113,13 +126,16 @@ function cp_head( string $title, ?array $user, string $cur = '' ): void {
 	if ( $user ) {
 		echo '<nav>';
 		foreach ( $nav as $k => $v ) { echo '<a href="/' . $k . '"' . ( $k === $cur ? ' aria-current="page"' : '' ) . '>' . $v . '</a>'; }
-		echo '</nav><div class="me"><span>' . h( $user['name'] ) . '</span><a href="/password">Password</a><form method="post" action="/logout">' . cp_csrf_field() . '<button class="link">Log out</button></form></div>';
+		$ini = strtoupper( implode( '', array_map( fn( $w ) => mb_substr( $w, 0, 1 ), array_slice( explode( ' ', trim( $user['name'] ) ), 0, 2 ) ) ) );
+		echo '</nav><div class="me"><details class="acct"><summary><span class="av">' . h( $ini ) . '</span><span class="nm">' . h( $user['name'] ) . '</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></summary>'
+			. '<div class="menu"><a href="/profile">Profile</a><a href="/password">Change password</a><a href="/settings">Settings</a></div></details>'
+			. '<form method="post" action="/logout">' . cp_csrf_field() . '<button class="link">Log out</button></form></div>';
 	}
 	echo '</div></header><main class="wrap">';
 }
 
 function cp_foot(): void {
-	echo '</main><footer class="wrap foot">Coral Petal AI™ Admin · ' . h( cp_env() ) . ' · v' . CP_ADMIN_VERSION . '</footer></body></html>';
+	echo '</main><script src="/assets/pwmatch.js?v=' . CP_ADMIN_VERSION . '"></script><footer class="wrap foot">Coral Petal AI™ Admin · ' . h( cp_env() ) . ' · v' . CP_ADMIN_VERSION . '</footer></body></html>';
 }
 
 function cp_flash( ?string $msg = null ): string {

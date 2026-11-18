@@ -64,7 +64,7 @@ if ( $p === 'password' ) {
 	echo '<section class="login"><div class="card coral pwbox">'
 		. '<div class="lbrand"><img src="/assets/logo.svg" alt="" width="36" height="36"><span>Coral <span class="acc">Petal AI</span><sup>™</sup></span></div>'
 		. '<h1>' . ( $me['must_change'] ? 'Set your password' : 'Change password' ) . '</h1>'
-		. '<p class="muted">' . ( $me['must_change'] ? 'Welcome, ' . h( explode( ' ', $me['name'] )[0] ) . '. For security, replace the starting password with your own before you continue.' : 'Choose a new password for your admin account.' ) . '</p>'
+		. '<p class="muted">' . ( $me['must_change'] ? 'Welcome. For security, replace the starting password with your own before you continue.' : 'Choose a new password for your admin account.' ) . '</p>'
 		. '<ul class="pwrules"><li>At least 12 characters</li><li>Not used anywhere else</li><li>Save it in your password manager</li></ul>'
 		. ( $err ? '<div class="flash bad">' . h( $err ) . '</div>' : '' )
 		. '<form method="post" class="stack" data-pwmatch>' . cp_csrf_field()
@@ -72,8 +72,47 @@ if ( $p === 'password' ) {
 		. '<label>New password<input type="password" name="new" required minlength="12" autocomplete="new-password" data-pw1></label>'
 		. '<label>Confirm new password<input type="password" name="again" required minlength="12" autocomplete="new-password" data-pw2></label>'
 		. '<p class="pwmsg" aria-live="polite"></p>'
-		. '<button class="btn">Save password</button></form></div></section>'
-		. '<script src="/assets/pwmatch.js?v=' . CP_ADMIN_VERSION . '"></script>';
+		. '<button class="btn">Save password</button></form></div></section>';
+	cp_foot();
+	exit;
+}
+
+// ---------------- Profile ----------------
+if ( $p === 'profile' ) {
+	if ( $post ) {
+		$name = mb_substr( trim( (string) ( $_POST['name'] ?? '' ) ), 0, 120 );
+		if ( $name !== '' ) { cp_db()->prepare( 'UPDATE users SET name = ? WHERE id = ?' )->execute( array( $name, $me['id'] ) ); cp_flash( 'Profile saved.' ); }
+		header( 'Location: /profile' ); exit;
+	}
+	cp_head( 'Profile', $me );
+	echo cp_flash() . '<section class="login"><div class="card coral pwbox"><div class="lbrand"><span class="av big">' . h( strtoupper( mb_substr( $me['name'], 0, 1 ) ) ) . '</span><span>Profile</span></div>'
+		. '<form method="post" class="stack">' . cp_csrf_field()
+		. '<label>Display name<input name="name" required maxlength="120" value="' . h( $me['name'] ) . '"></label>'
+		. '<label>Email<input value="' . h( $me['email'] ) . '" readonly></label>'
+		. '<div class="kv"><span>Access</span><b>' . ( cp_is_super( $me ) ? 'Main account (manages users)' : 'Admin' ) . '</b></div>'
+		. '<div class="kv"><span>Last sign-in</span><b>' . h( cp_time( $me['last_login'], $me ) ) . '</b></div>'
+		. '<div class="kv"><span>Member since</span><b>' . h( cp_time( $me['created_at'], $me ) ) . '</b></div>'
+		. '<button class="btn">Save profile</button></form></div></section>';
+	cp_foot();
+	exit;
+}
+
+// ---------------- Settings ----------------
+if ( $p === 'settings' ) {
+	$zones = array( 'Asia/Kolkata' => 'India (IST)', 'UTC' => 'UTC', 'Asia/Dubai' => 'Dubai (GST)', 'Europe/London' => 'London', 'America/New_York' => 'New York', 'Asia/Singapore' => 'Singapore' );
+	if ( $post ) {
+		$tz = (string) ( $_POST['timezone'] ?? '' );
+		if ( isset( $zones[ $tz ] ) ) { cp_db()->prepare( 'UPDATE users SET timezone = ? WHERE id = ?' )->execute( array( $tz, $me['id'] ) ); cp_flash( 'Settings saved.' ); }
+		header( 'Location: /settings' ); exit;
+	}
+	cp_head( 'Settings', $me );
+	$o = '';
+	foreach ( $zones as $k => $v ) { $o .= '<option value="' . h( $k ) . '"' . ( ( $me['timezone'] ?? 'Asia/Kolkata' ) === $k ? ' selected' : '' ) . '>' . h( $v ) . '</option>'; }
+	echo cp_flash() . '<section class="login"><div class="card coral pwbox"><div class="lbrand"><img src="/assets/logo.svg" alt="" width="36" height="36"><span>Settings</span></div>'
+		. '<form method="post" class="stack">' . cp_csrf_field()
+		. '<label>Time zone for dates and times<select name="timezone">' . $o . '</select></label>'
+		. '<p class="muted small">Used for "last updated" and sign-in times across the admin site.</p>'
+		. '<button class="btn">Save settings</button></form></div></section>';
 	cp_foot();
 	exit;
 }
@@ -139,8 +178,8 @@ if ( $p === 'tasks' ) {
 			cp_flash( 'Task added.' );
 		} elseif ( $a === 'save' ) {
 			$shipped = $status === 'Done' ? ( $date( 'shipped_date' ) ?? gmdate( 'Y-m-d' ) ) : null;
-			$db->prepare( 'UPDATE tasks SET title = ?, area = ?, status = ?, priority = ?, owner = ?, target_date = ?, shipped_date = ?, notes = ?, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?' )
-				->execute( array( $f( 'title' ), $area, $status, $prio, $f( 'owner', 80 ) ?: null, $date( 'target_date' ), $shipped, $f( 'notes', 2000 ) ?: null, $me['name'], (int) $_POST['id'] ) );
+			$db->prepare( 'UPDATE tasks SET title = ?, area = ?, status = ?, priority = ?, target_date = ?, shipped_date = ?, notes = ?, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?' )
+				->execute( array( $f( 'title' ), $area, $status, $prio, $date( 'target_date' ), $shipped, $f( 'notes', 2000 ) ?: null, $me['name'], (int) $_POST['id'] ) );
 			cp_flash( 'Task saved.' );
 		}
 		header( 'Location: /tasks' . ( isset( $_GET['status'] ) ? '?status=' . urlencode( (string) $_GET['status'] ) : '' ) ); exit;
@@ -155,19 +194,19 @@ if ( $p === 'tasks' ) {
 	echo '</div><details class="card add"><summary>+ Add a task</summary><form method="post" class="taskform">' . cp_csrf_field() . '<input type="hidden" name="action" value="add">'
 		. '<label class="wide">Title<input name="title" required maxlength="200"></label>'
 		. '<label>Area<select name="area">' . opts( TASK_AREAS, 'Website' ) . '</select></label><label>Status<select name="status">' . opts( TASK_STATUS, 'Backlog' ) . '</select></label>'
-		. '<label>Priority<select name="priority">' . opts( PRIORITIES, 'Medium' ) . '</select></label><label>Owner<input name="owner" maxlength="80"></label>'
+		. '<label>Priority<select name="priority">' . opts( PRIORITIES, 'Medium' ) . '</select></label>'
 		. '<label>Target date<input type="date" name="target_date"></label><label class="wide">Notes<textarea name="notes" rows="2"></textarea></label><button class="btn">Add task</button></form></details>';
 	echo '<div class="tasks">';
 	foreach ( $rows as $i => $t ) {
-		echo '<details class="card task st-' . slug( $t['status'] ) . '"><summary><span class="n">' . ( $i + 1 ) . '</span><span class="tt"><b>' . h( $t['title'] ) . '</b><small>' . h( $t['area'] ) . ( $t['owner'] ? ' · ' . h( $t['owner'] ) : '' ) . ( $t['target_date'] ? ' · target ' . h( $t['target_date'] ) : '' ) . ( $t['shipped_date'] ? ' · shipped ' . h( $t['shipped_date'] ) : '' ) . '</small></span>'
+		echo '<details class="card task st-' . slug( $t['status'] ) . '"><summary><span class="n">' . ( $i + 1 ) . '</span><span class="tt"><b>' . h( $t['title'] ) . '</b><small>' . h( $t['area'] ) . ( $t['target_date'] ? ' · target ' . h( $t['target_date'] ) : '' ) . ( $t['shipped_date'] ? ' · shipped ' . h( $t['shipped_date'] ) : '' ) . '</small></span>'
 			. '<span class="pill p-' . slug( $t['priority'] ) . '">' . h( $t['priority'] ) . '</span><span class="pill s-' . slug( $t['status'] ) . '">' . h( $t['status'] ) . '</span></summary>'
 			. '<form method="post" class="taskform">' . cp_csrf_field() . '<input type="hidden" name="action" value="save"><input type="hidden" name="id" value="' . (int) $t['id'] . '">'
 			. '<label class="wide">Title<input name="title" required maxlength="200" value="' . h( $t['title'] ) . '"></label>'
 			. '<label>Area<select name="area">' . opts( TASK_AREAS, $t['area'] ) . '</select></label><label>Status<select name="status">' . opts( TASK_STATUS, $t['status'] ) . '</select></label>'
-			. '<label>Priority<select name="priority">' . opts( PRIORITIES, $t['priority'] ) . '</select></label><label>Owner<input name="owner" maxlength="80" value="' . h( $t['owner'] ) . '"></label>'
+			. '<label>Priority<select name="priority">' . opts( PRIORITIES, $t['priority'] ) . '</select></label>'
 			. '<label>Target date<input type="date" name="target_date" value="' . h( $t['target_date'] ) . '"></label><label>Shipped date<input type="date" name="shipped_date" value="' . h( $t['shipped_date'] ) . '"></label>'
 			. '<label class="wide">Notes<textarea name="notes" rows="3">' . h( $t['notes'] ) . '</textarea></label>'
-			. '<p class="muted small wide">Last update: ' . h( $t['updated_by'] ) . ', ' . h( $t['updated_at'] ) . ' UTC</p><button class="btn">Save</button></form></details>';
+			. '<p class="muted small wide">Last updated ' . h( cp_time( $t['updated_at'], $me ) ) . '</p><button class="btn">Save</button></form></details>';
 	}
 	if ( ! $rows ) { echo '<p class="muted">No tasks here.</p>'; }
 	echo '</div>';
@@ -245,7 +284,7 @@ if ( $p === 'roadmap' ) {
 }
 
 // ---------------- Users (owner only) ----------------
-if ( $p === 'users' && $me['role'] === 'owner' ) {
+if ( $p === 'users' && cp_is_super( $me ) ) {
 	$db = cp_db(); $newpass = '';
 	if ( $post ) {
 		$a = (string) ( $_POST['action'] ?? '' );
@@ -255,7 +294,7 @@ if ( $p === 'users' && $me['role'] === 'owner' ) {
 				$newpass = rtrim( strtr( base64_encode( random_bytes( 12 ) ), '+/', 'Kp' ), '=' );
 				try {
 					$db->prepare( 'INSERT INTO users (email, name, role, pass_hash, must_change, created_at) VALUES (?, ?, ?, ?, 1, UTC_TIMESTAMP())' )
-						->execute( array( $email, mb_substr( trim( (string) ( $_POST['name'] ?? $email ) ), 0, 120 ), ( $_POST['role'] ?? '' ) === 'owner' ? 'owner' : 'admin', password_hash( $newpass, PASSWORD_DEFAULT ) ) );
+						->execute( array( $email, mb_substr( trim( (string) ( $_POST['name'] ?? $email ) ), 0, 120 ), 'admin', password_hash( $newpass, PASSWORD_DEFAULT ) ) );
 				} catch ( Throwable $e ) { $newpass = ''; cp_flash( 'That email already has an account.' ); }
 			}
 		} elseif ( $a === 'toggle' && (int) $_POST['id'] !== (int) $me['id'] ) {
@@ -269,11 +308,11 @@ if ( $p === 'users' && $me['role'] === 'owner' ) {
 	if ( $newpass ) { echo '<div class="flash">User added. Starting password (shown once, they must change it at first sign-in): <code>' . h( $newpass ) . '</code></div>'; }
 	echo '<section class="card"><div class="tablewrap"><table><thead><tr><th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Last sign-in</th><th>Status</th><th></th></tr></thead><tbody>';
 	foreach ( $rows as $i => $u ) {
-		echo '<tr><td>' . ( $i + 1 ) . '</td><td>' . h( $u['name'] ) . '</td><td>' . h( $u['email'] ) . '</td><td>' . h( $u['role'] ) . '</td><td>' . h( $u['last_login'] ?: 'never' ) . '</td><td><span class="pill ' . ( $u['active'] ? 'ok' : 'grey' ) . '">' . ( $u['active'] ? 'Active' : 'Disabled' ) . '</span></td><td>'
+		echo '<tr><td>' . ( $i + 1 ) . '</td><td>' . h( $u['name'] ) . '</td><td>' . h( $u['email'] ) . '</td><td>' . h( $u['role'] ) . '</td><td>' . ( $u['last_login'] ? h( cp_time( $u['last_login'], $me ) ) : 'never' ) . '</td><td><span class="pill ' . ( $u['active'] ? 'ok' : 'grey' ) . '">' . ( $u['active'] ? 'Active' : 'Disabled' ) . '</span></td><td>'
 			. ( (int) $u['id'] !== (int) $me['id'] ? '<form method="post">' . cp_csrf_field() . '<input type="hidden" name="action" value="toggle"><input type="hidden" name="id" value="' . (int) $u['id'] . '"><button class="link">' . ( $u['active'] ? 'Disable' : 'Enable' ) . '</button></form>' : '' ) . '</td></tr>';
 	}
 	echo '</tbody></table></div></section><section class="card"><h2>Add a user</h2><form method="post" class="taskform">' . cp_csrf_field() . '<input type="hidden" name="action" value="add">'
-		. '<label>Name<input name="name" required maxlength="120"></label><label>Email<input type="email" name="email" required></label><label>Role<select name="role"><option value="admin">admin</option><option value="owner">owner</option></select></label><button class="btn">Add user</button></form></section>';
+		. '<label>Name<input name="name" required maxlength="120"></label><label>Email<input type="email" name="email" required></label><button class="btn">Add user</button></form></section>';
 	cp_foot();
 	exit;
 }
