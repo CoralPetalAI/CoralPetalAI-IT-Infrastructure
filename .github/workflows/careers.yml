@@ -71,7 +71,7 @@ jobs:
       - name: Careers form config (DB + Azure SAS) → ~/.coralpetal
         env:
           CAREERS_CONFIG: ${{ secrets.CAREERS_CONFIG }}
-        run: bash scripts/careers_config_store.sh
+        run: bash scripts/careers_config_store.sh prod
       - name: Verify the live careers serves this commit
         run: |
           want="${GITHUB_SHA:0:7}"
