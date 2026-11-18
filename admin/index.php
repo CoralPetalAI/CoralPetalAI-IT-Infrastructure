@@ -1,9 +1,10 @@
 <?php
-// Coral Petal AI Admin — front controller. Routes: login, logout, password, dashboard, tasks, legal, roadmap, users.
+// Coral Petal AI Admin — front controller. Routes: login, logout, password, dashboard, tasks, legal, roadmap, inbox, applications, file, traffic, users.
 declare(strict_types=1);
 require __DIR__ . '/lib/app.php';
 require __DIR__ . '/lib/schema.php';
 require __DIR__ . '/lib/kpi.php';
+require __DIR__ . '/lib/extra.php';
 
 cp_start();
 try { cp_migrate(); } catch ( Throwable $e ) { error_log( 'admin migrate: ' . $e->getMessage() ); cp_fail( 'The admin database is not reachable yet.' ); }
@@ -151,6 +152,16 @@ if ( $p === 'dashboard' ) {
 		. '<a class="mini" href="/tasks?status=Blocked"><b>' . (int) ( $tc['Blocked'] ?? 0 ) . '</b><span>blocked</span></a>'
 		. '<a class="mini" href="/legal"><b>' . (int) $lg['d'] . '/' . (int) $lg['n'] . '</b><span>legal steps done</span></a></div>'
 		. '<div class="bar-track"><i style="width:' . ( $lg['n'] ? round( 100 * $lg['d'] / $lg['n'] ) : 0 ) . '%"></i></div></section></div>';
+	// Website: messages, applications, traffic (admin 1.4.0).
+	$newmsg = (int) $db->query( "SELECT COUNT(*) FROM contact_messages WHERE status = 'New'" )->fetchColumn();
+	$cdb = cp_careers_db();
+	$newapp = $cdb ? (int) $cdb->query( "SELECT COUNT(*) FROM applications WHERE status = 'new'" )->fetchColumn() : 0;
+	$tr = cp_traffic( 30 );
+	echo '<section class="card"><h2>Website, last 30 days</h2><div class="minis four">'
+		. '<a class="mini" href="/traffic"><b>' . number_format( $tr['views'] ) . '</b><span>page views</span></a>'
+		. '<a class="mini" href="/traffic"><b>' . number_format( $tr['visitors'] ) . '</b><span>visitors</span></a>'
+		. '<a class="mini" href="/inbox"><b>' . $newmsg . '</b><span>new messages</span></a>'
+		. '<a class="mini" href="/applications"><b>' . $newapp . '</b><span>new applications</span></a></div></section>';
 	echo '<section class="card"><h2>Courses</h2><div class="tablewrap"><table><thead><tr><th>#</th><th>Course</th><th>Status</th><th>Price</th><th>Enrolled</th></tr></thead><tbody>';
 	foreach ( $k['courses'] as $i => $c ) {
 		$price = $c['sale'] !== null && $c['sale'] !== '' ? '$' . h( $c['sale'] ) . ' <s>$' . h( $c['price'] ) . '</s>' : ( $c['price'] ? '$' . h( $c['price'] ) : '—' );
@@ -279,6 +290,113 @@ if ( $p === 'roadmap' ) {
 			. '<input name="items" value="' . h( $r['items'] ) . '" title="Separate items with ·"><button class="btn sm">Save</button></form></details>';
 	}
 	echo '</div>';
+	cp_foot();
+	exit;
+}
+
+// ---------------- Inbox (website contact form) ----------------
+if ( $p === 'inbox' ) {
+	$db = cp_db();
+	if ( $post ) {
+		$s = in_array( $_POST['status'] ?? '', MSG_STATUS, true ) ? $_POST['status'] : 'Read';
+		$db->prepare( 'UPDATE contact_messages SET status = ?, notes = ?, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?' )
+			->execute( array( $s, mb_substr( trim( (string) ( $_POST['notes'] ?? '' ) ), 0, 2000 ) ?: null, $me['name'], (int) $_POST['id'] ) );
+		cp_flash( 'Message updated.' ); header( 'Location: /inbox' . ( isset( $_GET['status'] ) ? '?status=' . urlencode( (string) $_GET['status'] ) : '' ) ); exit;
+	}
+	$filter = in_array( $_GET['status'] ?? '', MSG_STATUS, true ) ? $_GET['status'] : '';
+	$st = $db->prepare( 'SELECT * FROM contact_messages' . ( $filter ? ' WHERE status = ?' : " WHERE status <> 'Archived'" ) . ' ORDER BY created_at DESC LIMIT 200' );
+	$st->execute( $filter ? array( $filter ) : array() );
+	$rows = $st->fetchAll();
+	$cnt = array_column( $db->query( 'SELECT status, COUNT(*) n FROM contact_messages GROUP BY status' )->fetchAll(), 'n', 'status' );
+	cp_head( 'Inbox', $me, 'inbox' );
+	echo cp_flash() . '<div class="hero"><div><p class="chip">Inbox</p><h1>Messages from the website</h1><p class="muted">From the contact form on ' . ( cp_env() === 'dev' ? 'dev.coralpetal.ai' : 'coralpetal.ai' ) . '. Each one is also emailed to the team address for its topic; reply from your mail app.</p></div></div>';
+	echo '<div class="filters"><a href="/inbox"' . ( $filter ? '' : ' class="on"' ) . '>Open</a>';
+	foreach ( MSG_STATUS as $s ) { echo '<a href="/inbox?status=' . urlencode( $s ) . '"' . ( $filter === $s ? ' class="on"' : '' ) . '>' . h( $s ) . ' <span class="muted">' . (int) ( $cnt[ $s ] ?? 0 ) . '</span></a>'; }
+	echo '</div><div class="tasks">';
+	foreach ( $rows as $i => $m ) {
+		echo '<details class="card task msg st-' . slug( $m['status'] ) . '"><summary><span class="n">' . ( $i + 1 ) . '</span><span class="tt"><b>' . h( $m['name'] ) . ( $m['company'] ? ' · ' . h( $m['company'] ) : '' ) . '</b><small>' . h( MSG_TOPICS[ $m['topic'] ] ?? $m['topic'] ) . ' · ' . h( cp_time( $m['created_at'], $me ) ) . ' · ' . h( mb_strimwidth( $m['message'], 0, 90, '…' ) ) . '</small></span>'
+			. '<span class="pill s-' . slug( $m['status'] ) . '">' . h( $m['status'] ) . '</span></summary>'
+			. '<div class="msgbody"><p class="kv"><span>Email</span><a href="mailto:' . h( $m['email'] ) . '?subject=' . rawurlencode( 'Re: your message to Coral Petal AI' ) . '">' . h( $m['email'] ) . '</a></p>'
+			. '<p class="kv"><span>Team email sent</span>' . ( $m['mailed'] ? 'Yes' : '<b class="warn">No (mail failed; reply from here)</b>' ) . '</p>'
+			. '<blockquote>' . nl2br( h( $m['message'] ) ) . '</blockquote></div>'
+			. '<form method="post" class="inline">' . cp_csrf_field() . '<input type="hidden" name="id" value="' . (int) $m['id'] . '"><select name="status">' . opts( MSG_STATUS, $m['status'] === 'New' ? 'Read' : $m['status'] ) . '</select>'
+			. '<input name="notes" placeholder="Internal note" value="' . h( $m['notes'] ) . '"><button class="btn sm">Save</button></form>'
+			. ( $m['updated_by'] ? '<p class="muted small">Updated by ' . h( $m['updated_by'] ) . ', ' . h( cp_time( $m['updated_at'], $me ) ) . '</p>' : '' ) . '</details>';
+	}
+	if ( ! $rows ) { echo '<p class="muted">No messages here.</p>'; }
+	echo '</div>';
+	cp_foot();
+	exit;
+}
+
+// ---------------- Applications (careers) ----------------
+if ( $p === 'file' ) {
+	$cdb = cp_careers_db();
+	if ( ! $cdb ) { cp_fail( 'The careers database is not reachable.' ); }
+	$st = $cdb->prepare( 'SELECT * FROM applications WHERE id = ?' ); $st->execute( array( (string) ( $_GET['id'] ?? '' ) ) );
+	$a = $st->fetch();
+	$k = ( $_GET['k'] ?? '' ) === 'cover' ? 'cover' : 'resume';
+	$path = $a ? ( $k === 'cover' ? $a['cover_blob'] : $a['resume_blob'] ) : null;
+	if ( ! $path ) { cp_fail( 'File not found.', 404 ); }
+	cp_stream_blob( $path, $a['name'] . ' - ' . ( $k === 'cover' ? 'Cover letter' : 'Resume' ) . '.pdf' );
+}
+if ( $p === 'applications' ) {
+	$cdb = cp_careers_db();
+	if ( $post && $cdb ) {
+		$s = in_array( $_POST['status'] ?? '', APP_STATUS, true ) ? $_POST['status'] : 'reviewing';
+		$cdb->prepare( 'UPDATE applications SET status = ? WHERE id = ?' )->execute( array( $s, (string) $_POST['id'] ) );
+		cp_flash( 'Application updated.' ); header( 'Location: /applications' . ( isset( $_GET['status'] ) ? '?status=' . urlencode( (string) $_GET['status'] ) : '' ) ); exit;
+	}
+	cp_head( 'Applications', $me, 'applications' );
+	echo cp_flash() . '<div class="hero"><div><p class="chip">Careers</p><h1>Job applications</h1><p class="muted">From the apply form on ' . ( cp_env() === 'dev' ? 'dev-careers' : 'careers.coralpetal.ai' ) . '. Files open from private storage through this admin site only.</p></div></div>';
+	if ( ! $cdb ) { echo '<div class="flash bad">The careers database is not reachable yet, or no one has applied.</div>'; cp_foot(); exit; }
+	$filter = in_array( $_GET['status'] ?? '', APP_STATUS, true ) ? $_GET['status'] : '';
+	$st = $cdb->prepare( 'SELECT * FROM applications' . ( $filter ? ' WHERE status = ?' : '' ) . ' ORDER BY created_at DESC LIMIT 300' );
+	$st->execute( $filter ? array( $filter ) : array() );
+	$rows = $st->fetchAll();
+	$cnt = array_column( $cdb->query( 'SELECT status, COUNT(*) n FROM applications GROUP BY status' )->fetchAll(), 'n', 'status' );
+	$files = cp_careers_read_sas() !== '';
+	if ( ! $files ) { echo '<div class="flash bad">Resume links are off until the read key is added (secret ' . ( cp_env() === 'dev' ? 'CAREERS_READ_SAS_DEV' : 'CAREERS_READ_SAS' ) . ').</div>'; }
+	echo '<div class="filters"><a href="/applications"' . ( $filter ? '' : ' class="on"' ) . '>All <span class="muted">' . array_sum( $cnt ) . '</span></a>';
+	foreach ( APP_STATUS as $s ) { echo '<a href="/applications?status=' . urlencode( $s ) . '"' . ( $filter === $s ? ' class="on"' : '' ) . '>' . h( ucfirst( $s ) ) . ' <span class="muted">' . (int) ( $cnt[ $s ] ?? 0 ) . '</span></a>'; }
+	echo '</div><section class="card"><div class="tablewrap"><table><thead><tr><th>#</th><th>Applied</th><th>Name</th><th>Role</th><th>Contact</th><th>City</th><th>Files</th><th>Status</th></tr></thead><tbody>';
+	foreach ( $rows as $i => $a ) {
+		$f = $files ? '<a href="/file?id=' . urlencode( $a['id'] ) . '&amp;k=resume" target="_blank" rel="noopener">Resume</a>' . ( $a['cover_blob'] ? ' · <a href="/file?id=' . urlencode( $a['id'] ) . '&amp;k=cover" target="_blank" rel="noopener">Cover</a>' : '' ) : '—';
+		echo '<tr><td>' . ( $i + 1 ) . '</td><td>' . h( cp_time( $a['created_at'], $me ) ) . '</td><td><b>' . h( $a['name'] ) . '</b>' . ( $a['link'] ? '<br><a class="small" href="' . h( $a['link'] ) . '" target="_blank" rel="noopener noreferrer">Portfolio</a>' : '' ) . '</td><td>' . h( ucwords( str_replace( '-', ' ', $a['role'] ) ) ) . '</td>'
+			. '<td><a href="mailto:' . h( $a['email'] ) . '">' . h( $a['email'] ) . '</a><br><span class="small muted">' . h( $a['dial_code'] . ' ' . $a['phone'] ) . '</span></td><td>' . h( $a['city'] ) . ', ' . h( $a['country'] ) . '</td><td>' . $f . '</td>'
+			. '<td><form method="post" class="inline tight">' . cp_csrf_field() . '<input type="hidden" name="id" value="' . h( $a['id'] ) . '"><select name="status" onchange="this.form.submit()">' . opts( APP_STATUS, $a['status'] ) . '</select></form></td></tr>';
+	}
+	if ( ! $rows ) { echo '<tr><td colspan="8" class="muted">No applications here.</td></tr>'; }
+	echo '</tbody></table></div></section>';
+	cp_foot();
+	exit;
+}
+
+// ---------------- Traffic (first-party page counts) ----------------
+if ( $p === 'traffic' ) {
+	$days = in_array( (int) ( $_GET['d'] ?? 30 ), array( 7, 30, 90 ), true ) ? (int) $_GET['d'] : 30;
+	$t = cp_traffic( $days );
+	cp_head( 'Traffic', $me, 'traffic' );
+	echo '<div class="hero"><div><p class="chip">Traffic</p><h1>Who visits the websites</h1><p class="muted">Counted by our own cookie-free counter on the main site, Careers and Academy. No cookies, no IP addresses stored; a visitor is counted once per day. Bots and Do-Not-Track browsers are skipped.</p></div></div>';
+	echo '<div class="filters">';
+	foreach ( array( 7, 30, 90 ) as $d ) { echo '<a href="/traffic?d=' . $d . '"' . ( $d === $days ? ' class="on"' : '' ) . '>Last ' . $d . ' days</a>'; }
+	echo '</div><div class="kpis">'
+		. '<div class="card coral kpi"><small>Page views</small><b>' . number_format( $t['views'] ) . '</b><span>last ' . $days . ' days</span></div>'
+		. '<div class="card coral kpi"><small>Visitors</small><b>' . number_format( $t['visitors'] ) . '</b><span>daily unique, summed</span></div>'
+		. '<div class="card coral kpi"><small>Today</small><b>' . number_format( $t['today_v'] ) . '</b><span>' . number_format( $t['today_u'] ) . ' visitors (UTC day)</span></div>'
+		. '<div class="card coral kpi"><small>Mobile share</small><b>' . ( $t['views'] ? round( 100 * ( (int) ( $t['devices']['mobile'] ?? 0 ) + (int) ( $t['devices']['tablet'] ?? 0 ) ) / $t['views'] ) . '%' : '—' ) . '</b><span>phones and tablets</span></div></div>';
+	echo '<section class="card"><h2>Daily page views</h2>' . cp_daily_chart( $t['series'] ) . '</section>';
+	$names = array( 'main' => 'coralpetal.ai', 'careers' => 'Careers', 'academy' => 'Academy' );
+	echo '<div class="grid2"><section class="card"><h2>Top pages</h2><div class="tablewrap"><table><thead><tr><th>#</th><th>Site</th><th>Page</th><th>Views</th><th>Visitors</th></tr></thead><tbody>';
+	foreach ( $t['pages'] as $i => $r ) { echo '<tr><td>' . ( $i + 1 ) . '</td><td>' . h( $names[ $r['site'] ] ?? $r['site'] ) . '</td><td>' . h( $r['path'] ) . '</td><td>' . (int) $r['v'] . '</td><td>' . (int) $r['u'] . '</td></tr>'; }
+	if ( ! $t['pages'] ) { echo '<tr><td colspan="5" class="muted">No visits counted yet.</td></tr>'; }
+	echo '</tbody></table></div></section><div><section class="card"><h2>By site</h2><div class="tablewrap"><table><thead><tr><th>#</th><th>Site</th><th>Views</th><th>Visitors</th></tr></thead><tbody>';
+	foreach ( $t['sites'] as $i => $r ) { echo '<tr><td>' . ( $i + 1 ) . '</td><td>' . h( $names[ $r['site'] ] ?? $r['site'] ) . '</td><td>' . (int) $r['v'] . '</td><td>' . (int) $r['u'] . '</td></tr>'; }
+	if ( ! $t['sites'] ) { echo '<tr><td colspan="4" class="muted">—</td></tr>'; }
+	echo '</tbody></table></div></section><section class="card"><h2>Where visitors come from</h2><div class="tablewrap"><table><thead><tr><th>#</th><th>Source</th><th>Views</th></tr></thead><tbody>';
+	foreach ( $t['refs'] as $i => $r ) { echo '<tr><td>' . ( $i + 1 ) . '</td><td>' . h( $r['ref_host'] ) . '</td><td>' . (int) $r['v'] . '</td></tr>'; }
+	if ( ! $t['refs'] ) { echo '<tr><td colspan="3" class="muted">Direct visits only so far.</td></tr>'; }
+	echo '</tbody></table></div></section></div></div>';
 	cp_foot();
 	exit;
 }

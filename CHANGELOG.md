@@ -4,6 +4,11 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 
 ## [Unreleased]
 
+### Added
+- Contact form on /contact/ → admin DB (Admin → Inbox) + email to the topic's team address via Proton SMTP; honeypot, fill-time and 5/hour rate limit.
+- First-party, cookieless page counter (`site/api/hit.php`) on main site, Careers and Academy (theme 1.23.0); bots, DNT and GPC skipped; no IP or cookies stored.
+- Admin 1.4.0: Inbox, Applications (careers, status workflow, resume/cover PDFs streamed from private Azure storage with a read-only key), Traffic (views, visitors, top pages, sources); website tiles on the dashboard.
+
 ## [Release 1.0003] - 2026-11-18
 
 ### Changed

@@ -27,6 +27,19 @@ function cp_migrate(): void {
 		start_date DATE NOT NULL, end_date DATE NOT NULL, status VARCHAR(20) NOT NULL DEFAULT 'Planned', items TEXT NULL, updated_at DATETIME NOT NULL
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" );
 
+	// v1.4.0: website contact messages + first-party page views (same DDL as site/api/lib.php).
+	$db->exec( "CREATE TABLE IF NOT EXISTS contact_messages (
+		id INT AUTO_INCREMENT PRIMARY KEY, created_at DATETIME NOT NULL, env VARCHAR(8) NOT NULL, topic VARCHAR(30) NOT NULL,
+		name VARCHAR(120) NOT NULL, email VARCHAR(190) NOT NULL, company VARCHAR(160) NULL, message TEXT NOT NULL,
+		status VARCHAR(20) NOT NULL DEFAULT 'New', mailed TINYINT(1) NOT NULL DEFAULT 0, ip VARCHAR(45) NULL,
+		notes TEXT NULL, updated_by VARCHAR(120) NULL, updated_at DATETIME NULL, INDEX (status), INDEX (created_at)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" );
+	$db->exec( "CREATE TABLE IF NOT EXISTS pageviews (
+		id BIGINT AUTO_INCREMENT PRIMARY KEY, at DATETIME NOT NULL, day DATE NOT NULL, site VARCHAR(20) NOT NULL,
+		path VARCHAR(255) NOT NULL, ref_host VARCHAR(120) NULL, visitor CHAR(16) NOT NULL, device VARCHAR(10) NOT NULL,
+		INDEX (day), INDEX (site, day), INDEX (visitor, day)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" );
+
 	// v1.3.0: per-user time zone (Settings).
 	$cols = array_column( $db->query( 'SHOW COLUMNS FROM users' )->fetchAll(), 'Field' );
 	if ( ! in_array( 'timezone', $cols, true ) ) { $db->exec( "ALTER TABLE users ADD COLUMN timezone VARCHAR(40) NOT NULL DEFAULT 'Asia/Kolkata'" ); }

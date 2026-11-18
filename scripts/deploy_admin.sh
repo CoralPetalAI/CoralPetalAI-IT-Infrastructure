@@ -33,4 +33,12 @@ if [ -n "${ADMIN_CONFIG:-}" ]; then
 else
   echo "admin config secret not set for $1: the app shows 'not configured'"
 fi
+# Read-only SAS for the careers applications container (Admin → Applications → Resume links).
+# Secret CAREERS_READ_SAS_DEV (dev) / CAREERS_READ_SAS (prod), stored outside every docroot, never in git.
+SASF=careers-read-sas.txt; [ "$1" = dev ] && SASF=careers-read-sas-dev.txt
+if [ -n "${CAREERS_READ_SAS:-}" ]; then
+  printf '%s' "$CAREERS_READ_SAS" | $SSH "$REMOTE" "umask 077; mkdir -p ~/.coralpetal; cat > ~/.coralpetal/$SASF; chmod 600 ~/.coralpetal/$SASF; echo careers read key stored: $SASF"
+else
+  echo "careers read key not set for $1: resume links stay off"
+fi
 echo "deployed admin ($1) → $TARGET"
