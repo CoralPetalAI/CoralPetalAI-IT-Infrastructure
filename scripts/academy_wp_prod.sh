@@ -48,9 +48,30 @@ if ! $SSH "$REMOTE" "test -f '$WP/wp-config.php'"; then
     \$W core download --locale=en_US --quiet
     printf '%s' \"\$DBP\" | \$W config create --dbname=\"\$DBN\" --dbuser=\"\$DBU\" --dbhost=127.0.0.1 --prompt=dbpass --quiet
     printf '%s' \"\$ADMP\" | \$W core install --url=https://academy.coralpetal.ai --title='Coral Petal AI Academy' --admin_user=cpadmin --admin_email=admin@coralpetal.ai --prompt=admin_password --skip-email
-    \$W rewrite structure '/%postname%/' --hard
+    \$W rewrite structure '/%postname%/'
     echo 'WordPress installed at $WP'"
 fi
+
+# WordPress permalink rules in .htaccess (WP-CLI cannot write it here: proc_open is disabled on Hostinger).
+$SSH "$REMOTE" bash -s -- "$WP" <<'HT_EOF'
+cd "$1"
+if ! grep -qs 'BEGIN WordPress' .htaccess; then
+  cat >> .htaccess <<'RULES'
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+RULES
+  echo "WordPress .htaccess rules written"
+fi
+HT_EOF
 
 $SSH "$REMOTE" "mkdir -p '$THEME' '$MU' '$CONTENT'"
 rsync -rlz --checksum --delete --chmod=D755,F644 -e "$SSH" academy-wp/theme/coralpetal-academy/ "$REMOTE:$THEME/"
@@ -64,7 +85,7 @@ if [ "$SUM" != "$LAST" ] || [ "${FORCE_ACADEMY_SETUP:-}" = "1" ]; then
 else
   echo "academy content unchanged: setup skipped (theme + plugins updated)"
 fi
-$SSH "$REMOTE" "cd '$WP' && ($W rewrite flush --hard >/dev/null 2>&1 || true) && ($W cache flush >/dev/null 2>&1 || true)"
+$SSH "$REMOTE" "cd '$WP' && ($W rewrite flush >/dev/null 2>&1 || true) && ($W cache flush >/dev/null 2>&1 || true)"
 
 # Mail: same Proton SMTP secrets as dev (academy@coralpetal.ai), stored outside every docroot.
 if [ -n "${ACADEMY_SMTP_USER:-}" ] && [ -n "${ACADEMY_SMTP_TOKEN:-}" ]; then
