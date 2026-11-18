@@ -4,6 +4,13 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 
 ## [Unreleased]
 
+## [Release 1.0002] - 2026-11-18
+
+### Changed
+- Services, Team enablement: links to the Academy home ("Visit Coral Petal AI Academy").
+- Admin 1.1.0: branded sign-in card, compact set-password box, live password-match check.
+- Academy (theme 1.22.0): live password-match check on sign-up and password reset.
+
 ## [Release 1.0001] - 2026-11-18
 
 First production release of the redesigned Coral Petal AI sites (develop → main).
