@@ -27,13 +27,15 @@ SITE = ROOT / "site"
 CSS_VERSION = "20261118p"
 
 NAV = [
-    ("about", "About us", "/about/", []),
+    ("about", "About us", "/about/", [
+        ("/about/", "About us"),
+        ("/industries/", "Industries"),
+    ]),
     ("services", "Services", "/services/", [
         ("/services/#strategy", "AI strategy & readiness"),
         ("/services/#implementation", "Agentic AI implementation"),
         ("/services/#governance", "Run & govern"),
         ("/services/#enablement", "Team enablement"),
-        ("/industries/", "Industries"),
     ]),
     ("academy", "Academy", "https://academy.coralpetal.ai/", [
         ("https://academy.coralpetal.ai/", "Coral Petal AI Academy"),
@@ -42,7 +44,7 @@ NAV = [
     ("careers", "Careers", "/join-us/", []),
 ]
 # 2026-11-18 (Rohit): Industries + About us live under Services; Company menu became a plain Careers link.
-SERVICES_PAGES = {"industries"}  # About us = own first nav item (Rohit, 11/18)
+SERVICES_PAGES = set()  # About us = first nav item; Industries under it (Rohit, 11/18)
 CHEVRON = '<svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
 
@@ -53,6 +55,8 @@ def esc(t):
 def nav_html(current):
     if current in SERVICES_PAGES:
         current = "services"
+    if current == "industries":
+        current = "about"
     items = []
     for key, label, href, subs in NAV:
         cur = ' aria-current="page"' if key == current else ""
