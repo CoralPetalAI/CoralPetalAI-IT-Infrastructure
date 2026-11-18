@@ -19,8 +19,6 @@ SSH="ssh -i $HOME/.ssh/id -p ${HOSTINGER_PORT} -o StrictHostKeyChecking=yes -o B
 REMOTE="${HOSTINGER_USER}@${HOSTINGER_HOST}"
 W="wp --skip-plugins=hostinger-ai-assistant,hostinger-reach"
 
-$SSH "$REMOTE" "test -f '$WP/wp-config.php'" || { echo "no WordPress at $WP (install it first)" >&2; exit 5; }
-
 # 0. Retire the old static Academy: move everything that is not WordPress core (keeps .well-known).
 $SSH "$REMOTE" bash -s -- "$WP" <<'REMOTE_EOF'
 set -e
@@ -39,6 +37,20 @@ else
   echo "no static academy left: nothing to retire"
 fi
 REMOTE_EOF
+
+# 1. Install WordPress once (Hostinger's installer refuses a non-empty folder). Secret ACADEMY_PROD_WP =
+#    4 lines: db name, db user, db password, admin password. Sent over stdin, never in argv or git.
+if ! $SSH "$REMOTE" "test -f '$WP/wp-config.php'"; then
+  [ -n "${ACADEMY_PROD_WP:-}" ] || { echo "no WordPress at $WP and secret ACADEMY_PROD_WP not set" >&2; exit 5; }
+  # stdin carries ONLY the 4 secret lines; the commands are in the (secret-free) argument.
+  printf '%s\n' "$ACADEMY_PROD_WP" | $SSH "$REMOTE" "set -e; read -r DBN; read -r DBU; read -r DBP; read -r ADMP; cd '$WP'
+    W='wp --skip-plugins --skip-themes'
+    \$W core download --locale=en_US --quiet
+    printf '%s' \"\$DBP\" | \$W config create --dbname=\"\$DBN\" --dbuser=\"\$DBU\" --dbhost=127.0.0.1 --prompt=dbpass --quiet
+    printf '%s' \"\$ADMP\" | \$W core install --url=https://academy.coralpetal.ai --title='Coral Petal AI Academy' --admin_user=cpadmin --admin_email=admin@coralpetal.ai --prompt=admin_password --skip-email
+    \$W rewrite structure '/%postname%/' --hard
+    echo 'WordPress installed at $WP'"
+fi
 
 $SSH "$REMOTE" "mkdir -p '$THEME' '$MU' '$CONTENT'"
 rsync -rlz --checksum --delete --chmod=D755,F644 -e "$SSH" academy-wp/theme/coralpetal-academy/ "$REMOTE:$THEME/"
