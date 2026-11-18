@@ -27,6 +27,10 @@ function cp_migrate(): void {
 		start_date DATE NOT NULL, end_date DATE NOT NULL, status VARCHAR(20) NOT NULL DEFAULT 'Planned', items TEXT NULL, updated_at DATETIME NOT NULL
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" );
 
+	// v1.3.0: per-user time zone (Settings).
+	$cols = array_column( $db->query( 'SHOW COLUMNS FROM users' )->fetchAll(), 'Field' );
+	if ( ! in_array( 'timezone', $cols, true ) ) { $db->exec( "ALTER TABLE users ADD COLUMN timezone VARCHAR(40) NOT NULL DEFAULT 'Asia/Kolkata'" ); }
+
 	// Users from config (first run only).
 	if ( (int) $db->query( 'SELECT COUNT(*) FROM users' )->fetchColumn() === 0 ) {
 		$ins = $db->prepare( 'INSERT INTO users (email, name, role, pass_hash, must_change, created_at) VALUES (?, ?, ?, ?, 1, UTC_TIMESTAMP())' );

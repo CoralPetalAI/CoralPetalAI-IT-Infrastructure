@@ -72,8 +72,47 @@ if ( $p === 'password' ) {
 		. '<label>New password<input type="password" name="new" required minlength="12" autocomplete="new-password" data-pw1></label>'
 		. '<label>Confirm new password<input type="password" name="again" required minlength="12" autocomplete="new-password" data-pw2></label>'
 		. '<p class="pwmsg" aria-live="polite"></p>'
-		. '<button class="btn">Save password</button></form></div></section>'
-		. '<script src="/assets/pwmatch.js?v=' . CP_ADMIN_VERSION . '"></script>';
+		. '<button class="btn">Save password</button></form></div></section>';
+	cp_foot();
+	exit;
+}
+
+// ---------------- Profile ----------------
+if ( $p === 'profile' ) {
+	if ( $post ) {
+		$name = mb_substr( trim( (string) ( $_POST['name'] ?? '' ) ), 0, 120 );
+		if ( $name !== '' ) { cp_db()->prepare( 'UPDATE users SET name = ? WHERE id = ?' )->execute( array( $name, $me['id'] ) ); cp_flash( 'Profile saved.' ); }
+		header( 'Location: /profile' ); exit;
+	}
+	cp_head( 'Profile', $me );
+	echo cp_flash() . '<section class="login"><div class="card coral pwbox"><div class="lbrand"><span class="av big">' . h( strtoupper( mb_substr( $me['name'], 0, 1 ) ) ) . '</span><span>Profile</span></div>'
+		. '<form method="post" class="stack">' . cp_csrf_field()
+		. '<label>Display name<input name="name" required maxlength="120" value="' . h( $me['name'] ) . '"></label>'
+		. '<label>Email<input value="' . h( $me['email'] ) . '" readonly></label>'
+		. '<div class="kv"><span>Access</span><b>' . ( cp_is_super( $me ) ? 'Main account (manages users)' : 'Admin' ) . '</b></div>'
+		. '<div class="kv"><span>Last sign-in</span><b>' . h( cp_time( $me['last_login'], $me ) ) . '</b></div>'
+		. '<div class="kv"><span>Member since</span><b>' . h( cp_time( $me['created_at'], $me ) ) . '</b></div>'
+		. '<button class="btn">Save profile</button></form></div></section>';
+	cp_foot();
+	exit;
+}
+
+// ---------------- Settings ----------------
+if ( $p === 'settings' ) {
+	$zones = array( 'Asia/Kolkata' => 'India (IST)', 'UTC' => 'UTC', 'Asia/Dubai' => 'Dubai (GST)', 'Europe/London' => 'London', 'America/New_York' => 'New York', 'Asia/Singapore' => 'Singapore' );
+	if ( $post ) {
+		$tz = (string) ( $_POST['timezone'] ?? '' );
+		if ( isset( $zones[ $tz ] ) ) { cp_db()->prepare( 'UPDATE users SET timezone = ? WHERE id = ?' )->execute( array( $tz, $me['id'] ) ); cp_flash( 'Settings saved.' ); }
+		header( 'Location: /settings' ); exit;
+	}
+	cp_head( 'Settings', $me );
+	$o = '';
+	foreach ( $zones as $k => $v ) { $o .= '<option value="' . h( $k ) . '"' . ( ( $me['timezone'] ?? 'Asia/Kolkata' ) === $k ? ' selected' : '' ) . '>' . h( $v ) . '</option>'; }
+	echo cp_flash() . '<section class="login"><div class="card coral pwbox"><div class="lbrand"><img src="/assets/logo.svg" alt="" width="36" height="36"><span>Settings</span></div>'
+		. '<form method="post" class="stack">' . cp_csrf_field()
+		. '<label>Time zone for dates and times<select name="timezone">' . $o . '</select></label>'
+		. '<p class="muted small">Used for "last updated" and sign-in times across the admin site.</p>'
+		. '<button class="btn">Save settings</button></form></div></section>';
 	cp_foot();
 	exit;
 }
@@ -167,7 +206,7 @@ if ( $p === 'tasks' ) {
 			. '<label>Priority<select name="priority">' . opts( PRIORITIES, $t['priority'] ) . '</select></label>'
 			. '<label>Target date<input type="date" name="target_date" value="' . h( $t['target_date'] ) . '"></label><label>Shipped date<input type="date" name="shipped_date" value="' . h( $t['shipped_date'] ) . '"></label>'
 			. '<label class="wide">Notes<textarea name="notes" rows="3">' . h( $t['notes'] ) . '</textarea></label>'
-			. '<p class="muted small wide">Last updated ' . h( $t['updated_at'] ) . ' UTC</p><button class="btn">Save</button></form></details>';
+			. '<p class="muted small wide">Last updated ' . h( cp_time( $t['updated_at'], $me ) ) . '</p><button class="btn">Save</button></form></details>';
 	}
 	if ( ! $rows ) { echo '<p class="muted">No tasks here.</p>'; }
 	echo '</div>';
@@ -269,7 +308,7 @@ if ( $p === 'users' && cp_is_super( $me ) ) {
 	if ( $newpass ) { echo '<div class="flash">User added. Starting password (shown once, they must change it at first sign-in): <code>' . h( $newpass ) . '</code></div>'; }
 	echo '<section class="card"><div class="tablewrap"><table><thead><tr><th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Last sign-in</th><th>Status</th><th></th></tr></thead><tbody>';
 	foreach ( $rows as $i => $u ) {
-		echo '<tr><td>' . ( $i + 1 ) . '</td><td>' . h( $u['name'] ) . '</td><td>' . h( $u['email'] ) . '</td><td>' . h( $u['role'] ) . '</td><td>' . h( $u['last_login'] ?: 'never' ) . '</td><td><span class="pill ' . ( $u['active'] ? 'ok' : 'grey' ) . '">' . ( $u['active'] ? 'Active' : 'Disabled' ) . '</span></td><td>'
+		echo '<tr><td>' . ( $i + 1 ) . '</td><td>' . h( $u['name'] ) . '</td><td>' . h( $u['email'] ) . '</td><td>' . h( $u['role'] ) . '</td><td>' . ( $u['last_login'] ? h( cp_time( $u['last_login'], $me ) ) : 'never' ) . '</td><td><span class="pill ' . ( $u['active'] ? 'ok' : 'grey' ) . '">' . ( $u['active'] ? 'Active' : 'Disabled' ) . '</span></td><td>'
 			. ( (int) $u['id'] !== (int) $me['id'] ? '<form method="post">' . cp_csrf_field() . '<input type="hidden" name="action" value="toggle"><input type="hidden" name="id" value="' . (int) $u['id'] . '"><button class="link">' . ( $u['active'] ? 'Disable' : 'Enable' ) . '</button></form>' : '' ) . '</td></tr>';
 	}
 	echo '</tbody></table></div></section><section class="card"><h2>Add a user</h2><form method="post" class="taskform">' . cp_csrf_field() . '<input type="hidden" name="action" value="add">'
