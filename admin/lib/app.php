@@ -6,7 +6,7 @@
 //   "users": [ {"email","name","role":"owner|admin","password"} ]   ← first-run seed only, must change at first login }
 declare(strict_types=1);
 
-const CP_ADMIN_VERSION = '1.1.0';
+const CP_ADMIN_VERSION = '1.2.0';
 
 function cp_env(): string {
 	return preg_match( '/^dev-/', $_SERVER['HTTP_HOST'] ?? '' ) ? 'dev' : 'prod';
@@ -65,6 +65,11 @@ function cp_check_csrf(): void {
 }
 
 // ---------- Auth ----------
+/** Only the main account manages users (Rohit 11/18). Config may override with "superadmin_email". */
+function cp_is_super( ?array $u ): bool {
+	$super = strtolower( (string) ( cp_config()['superadmin_email'] ?? 'rohit@coralpetal.ai' ) );
+	return $u && strtolower( (string) $u['email'] ) === $super;
+}
 function cp_user(): ?array {
 	if ( empty( $_SESSION['uid'] ) ) { return null; }
 	$st = cp_db()->prepare( 'SELECT * FROM users WHERE id = ? AND active = 1' );
@@ -101,7 +106,7 @@ function cp_login( string $email, string $pass ): ?string {
 // ---------- Layout ----------
 function cp_head( string $title, ?array $user, string $cur = '' ): void {
 	$nav = array( 'dashboard' => 'Dashboard', 'tasks' => 'Tasks', 'legal' => 'Legal', 'roadmap' => 'Roadmap' );
-	if ( $user && $user['role'] === 'owner' ) { $nav['users'] = 'Users'; }
+	if ( cp_is_super( $user ) ) { $nav['users'] = 'Users'; }
 	echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
 		. '<meta name="robots" content="noindex, nofollow"><title>' . h( $title ) . ' · Coral Petal AI Admin</title>'
 		. '<link rel="icon" href="/assets/logo.svg" type="image/svg+xml">'

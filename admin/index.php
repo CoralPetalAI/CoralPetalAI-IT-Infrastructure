@@ -245,7 +245,7 @@ if ( $p === 'roadmap' ) {
 }
 
 // ---------------- Users (owner only) ----------------
-if ( $p === 'users' && $me['role'] === 'owner' ) {
+if ( $p === 'users' && cp_is_super( $me ) ) {
 	$db = cp_db(); $newpass = '';
 	if ( $post ) {
 		$a = (string) ( $_POST['action'] ?? '' );
@@ -255,7 +255,7 @@ if ( $p === 'users' && $me['role'] === 'owner' ) {
 				$newpass = rtrim( strtr( base64_encode( random_bytes( 12 ) ), '+/', 'Kp' ), '=' );
 				try {
 					$db->prepare( 'INSERT INTO users (email, name, role, pass_hash, must_change, created_at) VALUES (?, ?, ?, ?, 1, UTC_TIMESTAMP())' )
-						->execute( array( $email, mb_substr( trim( (string) ( $_POST['name'] ?? $email ) ), 0, 120 ), ( $_POST['role'] ?? '' ) === 'owner' ? 'owner' : 'admin', password_hash( $newpass, PASSWORD_DEFAULT ) ) );
+						->execute( array( $email, mb_substr( trim( (string) ( $_POST['name'] ?? $email ) ), 0, 120 ), 'admin', password_hash( $newpass, PASSWORD_DEFAULT ) ) );
 				} catch ( Throwable $e ) { $newpass = ''; cp_flash( 'That email already has an account.' ); }
 			}
 		} elseif ( $a === 'toggle' && (int) $_POST['id'] !== (int) $me['id'] ) {
@@ -273,7 +273,7 @@ if ( $p === 'users' && $me['role'] === 'owner' ) {
 			. ( (int) $u['id'] !== (int) $me['id'] ? '<form method="post">' . cp_csrf_field() . '<input type="hidden" name="action" value="toggle"><input type="hidden" name="id" value="' . (int) $u['id'] . '"><button class="link">' . ( $u['active'] ? 'Disable' : 'Enable' ) . '</button></form>' : '' ) . '</td></tr>';
 	}
 	echo '</tbody></table></div></section><section class="card"><h2>Add a user</h2><form method="post" class="taskform">' . cp_csrf_field() . '<input type="hidden" name="action" value="add">'
-		. '<label>Name<input name="name" required maxlength="120"></label><label>Email<input type="email" name="email" required></label><label>Role<select name="role"><option value="admin">admin</option><option value="owner">owner</option></select></label><button class="btn">Add user</button></form></section>';
+		. '<label>Name<input name="name" required maxlength="120"></label><label>Email<input type="email" name="email" required></label><button class="btn">Add user</button></form></section>';
 	cp_foot();
 	exit;
 }
