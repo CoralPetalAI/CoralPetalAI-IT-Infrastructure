@@ -57,3 +57,11 @@ details>summary{list-style:none;cursor:pointer} details>summary::-webkit-details
 code{background:#F4F4F4;padding:2px 6px;border-radius:6px}
 @media (max-width:900px){.kpis{grid-template-columns:1fr 1fr}.grid2,.phases{grid-template-columns:1fr}.taskform{grid-template-columns:1fr 1fr}.bar{flex-wrap:wrap;height:auto;padding:10px 20px}nav{margin-left:0;order:3;width:100%;overflow-x:auto}}
 @media (max-width:560px){.kpis,.taskform{grid-template-columns:1fr}}
+/* Sign-in + password boxes (v1.1.0) */
+.lbrand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:1.1rem;margin-bottom:18px} .lbrand .acc{color:var(--coral)} .lbrand sup{font-size:.55em}
+.login .card h1{margin-top:0}
+.pwbox{width:min(440px,100%)!important}
+.pwrules{margin:4px 0 16px;padding:0;list-style:none;display:grid;gap:4px;font-size:13px;color:var(--muted)} .pwrules li::before{content:"•";color:var(--coral);margin-right:8px}
+input.pw-ok{border-color:#2BB673!important;box-shadow:0 0 0 3px rgba(43,182,115,.18)!important;background:#F4FBF7}
+input.pw-bad{border-color:#E5484D!important;box-shadow:0 0 0 3px rgba(229,72,77,.15)!important;background:#FFF7F7}
+.pwmsg{margin:-4px 0 0;font-size:13px;min-height:18px} .pwmsg.ok{color:#1E7F4F;background:#E8F5EE;border:1px solid #BFE8D2;border-radius:10px;padding:8px 12px} .pwmsg.bad{color:#C2363B}

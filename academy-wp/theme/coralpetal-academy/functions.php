@@ -477,3 +477,36 @@ add_action( 'wp_footer', function () {
 </script>
 	<?php
 }, 30 );
+
+/* 2026-11-18 Rohit: live "passwords match" check on every Academy password form
+   (Tutor sign-up: password + password_confirmation; Tutor reset: password + confirm_password). */
+add_action( 'wp_footer', function () {
+	?>
+<script>
+(function () {
+  var pairs = [['password', 'password_confirmation'], ['password', 'confirm_password'], ['new_password', 'confirm_new_password']];
+  function wire(form) {
+    if (form.dataset.cpPw) return;
+    var a, b;
+    pairs.some(function (p) { a = form.querySelector('input[name="' + p[0] + '"]'); b = form.querySelector('input[name="' + p[1] + '"]'); return a && b; });
+    if (!a || !b) return;
+    form.dataset.cpPw = '1';
+    var msg = document.createElement('p'); msg.className = 'cp-pwmsg'; msg.setAttribute('aria-live', 'polite');
+    (b.closest('.tutor-form-group, .tutor-form-col-12, .tutor-col-12, div') || b).insertAdjacentElement('afterend', msg);
+    function check() {
+      [a, b].forEach(function (x) { x.classList.remove('cp-pw-ok', 'cp-pw-bad'); });
+      msg.className = 'cp-pwmsg'; msg.textContent = '';
+      if (!b.value) return;
+      if (a.value === b.value) { a.classList.add('cp-pw-ok'); b.classList.add('cp-pw-ok'); msg.className = 'cp-pwmsg ok'; msg.textContent = '✓ Passwords match'; }
+      else { b.classList.add('cp-pw-bad'); msg.className = 'cp-pwmsg bad'; msg.textContent = '✕ Passwords do not match'; }
+    }
+    a.addEventListener('input', check); b.addEventListener('input', check);
+    form.addEventListener('submit', function (e) { if (a.value !== b.value) { e.preventDefault(); e.stopImmediatePropagation(); check(); b.focus(); } }, true);
+  }
+  function scan() { document.querySelectorAll('form').forEach(wire); }
+  document.addEventListener('DOMContentLoaded', scan);
+  new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>
+	<?php
+}, 31 );

@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.21.0
+Version: 1.22.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -881,3 +881,10 @@ input[type="checkbox"]:checked, .tutor-form-check-input[type="checkbox"]:checked
   background: #FF6F61 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 14px no-repeat !important;
   border-color: #FF6F61 !important; }
 input[type="checkbox"]::before, input[type="checkbox"]::after, .tutor-form-check-input[type="checkbox"]::before, .tutor-form-check-input[type="checkbox"]::after { display: none !important; content: none !important; }
+
+/* Password match (2026-11-18, Rohit) */
+input.cp-pw-ok { border-color: #2BB673 !important; box-shadow: 0 0 0 3px rgba(43,182,115,.18) !important; background: #F4FBF7 !important; }
+input.cp-pw-bad { border-color: #E5484D !important; box-shadow: 0 0 0 3px rgba(229,72,77,.15) !important; background: #FFF7F7 !important; }
+.cp-pwmsg { margin: 6px 0 0; font-size: 13px; } .cp-pwmsg:empty { display: none; }
+.cp-pwmsg.ok { color: #1E7F4F; background: #E8F5EE; border: 1px solid #BFE8D2; border-radius: 10px; padding: 8px 12px; }
+.cp-pwmsg.bad { color: #C2363B; }
