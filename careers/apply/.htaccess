@@ -1,0 +1,5 @@
+# Only the submit endpoint and the country list are reachable here.
+Options -Indexes
+<FilesMatch "^(?!submit\.php$|countries\.json$).*$">
+  Require all denied
+</FilesMatch>
