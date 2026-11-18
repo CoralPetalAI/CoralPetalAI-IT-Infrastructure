@@ -5,17 +5,20 @@
 # Creates or updates only; it never removes WordPress content.
 set -euo pipefail
 WP="$1"; C="$2"
-[[ "$WP" =~ ^/home/u[0-9]+/domains/coralpetal\.ai/public_html/dev-academy$ ]] || { echo "bad WP path $WP" >&2; exit 3; }
+[[ "$WP" =~ ^/home/u[0-9]+/domains/coralpetal\.ai/public_html/(dev-academy|academy)$ ]] || { echo "bad WP path $WP" >&2; exit 3; }
+# Environment from the folder: public_html/academy = prod (Release 1.0001), public_html/dev-academy = dev.
+case "$WP" in */dev-academy) ENV=dev ;; *) ENV=prod ;; esac
 cd "$WP"
 w() { wp --skip-plugins=hostinger-ai-assistant,hostinger-reach "$@"; }
 
 w theme is-installed twentytwentyfive || w theme install twentytwentyfive
 w theme activate coralpetal-academy
+w plugin is-installed tutor || w plugin install tutor
 w plugin is-active tutor || w plugin activate tutor
 
 w option update blogname "Coral Petal AI Academy"
 w option update blogdescription "End-to-end Generative and Agentic AI"
-w option update blog_public 0
+if [ "$ENV" = prod ]; then w option update blog_public 1; else w option update blog_public 0; fi
 w option update timezone_string "Asia/Kolkata"
 w option update users_can_register 1   # Tutor sign-up needs "Anyone can register"
 w option update default_role subscriber
@@ -185,4 +188,4 @@ fi
 
 w rewrite flush
 w cache flush || true
-echo "dev-academy setup done"
+echo "academy setup done ($ENV)"
