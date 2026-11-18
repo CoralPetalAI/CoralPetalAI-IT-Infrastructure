@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.16.0
+Version: 1.17.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -807,3 +807,35 @@ body.cp-landing .cp-vhero { padding-top: 120px !important; }
 /* 2026-11-18 Rohit: 'Training your team?' text was too big */
 .cp-cta p { font-size: 1rem !important; line-height: 1.6; max-width: 56ch; margin-left: auto; margin-right: auto; }
 .cp-cta h2 { font-size: clamp(1.6rem, 2.3vw, 2.15rem) !important; }
+
+/* Live Sessions hero card, dynamic (2026-11-18, Rohit: less text, more motion) */
+.cp-lvx { display: grid; gap: 16px; padding: 22px; border-radius: 22px; border: 1px solid #FFD9D3; background: radial-gradient(520px 260px at 100% 0%, rgba(255,138,122,.22), transparent 65%), #FFFFFF; transition: transform .25s, box-shadow .25s, border-color .25s; }
+.cp-lvx:hover { transform: translateY(-4px); border-color: #FF8A7A; box-shadow: 0 30px 60px -30px rgba(255,111,97,.55); }
+.cp-lvx-head { display: flex; justify-content: space-between; align-items: center; }
+.cp-lvx-head b { font-size: 15px; color: #111111; }
+.cp-lvx-time { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: #1E7F4F; background: #E8F5EE; padding: 4px 10px; border-radius: 999px; }
+.cp-lvx-screen { display: grid; grid-template-columns: 1.6fr 1fr; gap: 10px; height: 150px; }
+.cp-lvx-code { border-radius: 14px; background: #1B1B1F; padding: 16px; display: grid; gap: 9px; align-content: start; }
+.cp-lvx-code i { display: block; height: 7px; border-radius: 4px; background: linear-gradient(90deg, #FF8A7A, #FFB4A9); opacity: .25; animation: cpType 4s ease-in-out infinite; }
+.cp-lvx-code i:nth-child(2) { background: linear-gradient(90deg, #7FB2FF, #B9D3FF); animation-delay: .4s; }
+.cp-lvx-code i:nth-child(3) { animation-delay: .8s; } .cp-lvx-code i:nth-child(4) { background: linear-gradient(90deg, #6FD3A0, #B5EBCF); animation-delay: 1.2s; } .cp-lvx-code i:nth-child(5) { animation-delay: 1.6s; }
+@keyframes cpType { 0%, 100% { opacity: .25; transform: scaleX(.6); transform-origin: left; } 40%, 70% { opacity: 1; transform: scaleX(1); transform-origin: left; } }
+.cp-lvx-cam { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.cp-lvx-cam span { border-radius: 10px; background: linear-gradient(160deg, #FFEDEA, #FFF7F5); position: relative; overflow: hidden; }
+.cp-lvx-cam span::after { content: ""; position: absolute; left: 50%; top: 52%; width: 34%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%); background: #FFC9C2; box-shadow: 0 22px 0 6px #FFC9C2; }
+.cp-lvx-cam span:nth-child(2) { background: linear-gradient(160deg, #EAF2FF, #F6F9FF); } .cp-lvx-cam span:nth-child(2)::after { background: #B9D3FF; box-shadow: 0 22px 0 6px #B9D3FF; }
+.cp-lvx-cam span:nth-child(3) { background: linear-gradient(160deg, #E8F5EE, #F5FBF8); } .cp-lvx-cam span:nth-child(3)::after { background: #B5EBCF; box-shadow: 0 22px 0 6px #B5EBCF; }
+.cp-lvx-cam span:nth-child(4) { background: linear-gradient(160deg, #FFF5DD, #FFFBF0); } .cp-lvx-cam span:nth-child(4)::after { background: #FFE19A; box-shadow: 0 22px 0 6px #FFE19A; }
+.cp-lvx-cam span:first-child { outline: 2px solid #2BB673; outline-offset: -2px; animation: cpSpeak 2s ease-in-out infinite; }
+@keyframes cpSpeak { 50% { outline-color: rgba(43,182,115,.25); } }
+.cp-lvx-track { height: 6px; border-radius: 999px; background: #F1F1F1; overflow: hidden; }
+.cp-lvx-track i { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, #2463EB, #FF6F61, #1E7F4F, #FFB020); animation: cpTrack 8s linear infinite; }
+@keyframes cpTrack { from { width: 0; } to { width: 100%; } }
+.cp-lvx-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.cp-lvx-steps li { display: grid; justify-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: #6E6E6E; text-align: center; }
+.cp-lvx-steps li span { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: #F5F5F5; border: 1px solid #ECECEC; animation: cpStep 8s linear infinite; }
+.cp-lvx-steps li svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cp-lvx-steps .s2 span { animation-delay: 2s; } .cp-lvx-steps .s3 span { animation-delay: 4s; } .cp-lvx-steps .s4 span { animation-delay: 6s; }
+@keyframes cpStep { 0%, 24% { background: #FFEDEA; border-color: #FF8A7A; color: #D9473F; transform: translateY(-3px); box-shadow: 0 0 0 4px #FFF1EE; } 25%, 100% { background: #F5F5F5; border-color: #ECECEC; color: #6E6E6E; transform: none; box-shadow: none; } }
+@media (prefers-reduced-motion: reduce) { .cp-lvx-code i, .cp-lvx-cam span, .cp-lvx-track i, .cp-lvx-steps li span { animation: none; } .cp-lvx-track i { width: 100%; } .cp-lvx-code i { opacity: 1; } }
+.cp-lvx-time .cp-live-dot { background: #2BB673; box-shadow: 0 0 0 3px rgba(43,182,115,.2); width: 7px; height: 7px; }
