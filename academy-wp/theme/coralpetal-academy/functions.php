@@ -446,3 +446,34 @@ add_action( 'wp_footer', function () {
 </script>
 	<?php
 }, 30 );
+
+/* 2026-11-18 Rohit: Coral Petal AI logo + name above "Hi, Welcome back!" in Tutor's sign-in popup. */
+add_action( 'wp_footer', function () {
+	if ( is_user_logged_in() ) {
+		return;
+	}
+	$logo = esc_url( get_stylesheet_directory_uri() . '/assets/logo.svg' );
+	?>
+<script>
+(function () {
+	function brand(root) {
+		var forms = root.querySelectorAll('.tutor-modal .tutor-login-form-wrapper, .tutor-modal form#tutor-login-form, .tutor-login-modal form');
+		forms.forEach(function (f) {
+			var modal = f.closest('.tutor-modal');
+			if (!modal || modal.querySelector('.cp-modal-brand')) return;
+			var title = null;
+			modal.querySelectorAll('.tutor-modal-body *').forEach(function (el) {
+				if (!title && el.children.length === 0 && /welcome back/i.test(el.textContent)) title = el;
+			});
+			var b = document.createElement('div');
+			b.className = 'cp-modal-brand';
+			b.innerHTML = '<img src="<?php echo $logo; ?>" alt="" width="30" height="26"><span>Coral <span class="cp-acc">Petal AI</span><sup class="tm">™</sup></span>';
+			if (title) title.parentNode.insertBefore(b, title); else f.parentNode.insertBefore(b, f);
+		});
+	}
+	document.addEventListener('DOMContentLoaded', function () { brand(document); });
+	new MutationObserver(function () { brand(document); }).observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>
+	<?php
+}, 30 );
