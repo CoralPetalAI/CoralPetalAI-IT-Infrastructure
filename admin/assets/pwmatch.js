@@ -21,3 +21,5 @@
   }
   document.querySelectorAll('form').forEach(wire);
 })();
+// Close the account menu when clicking elsewhere.
+document.addEventListener('click', function (e) { document.querySelectorAll('details.acct[open]').forEach(function (d) { if (!d.contains(e.target)) d.open = false; }); });
