@@ -811,3 +811,10 @@ h2 { font-size: clamp(1.6rem, 2.3vw, 2.15rem); }
 @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .mock-bar span { animation: none; opacity: 1; } .steps .st { transition: none; } }
 .hero h1 { max-width: 20ch; }
+/* 2026-11-18 Rohit: hover on every box */
+.stat, .vz-sec li, .cta-band, .mock { transition: transform .25s, box-shadow .25s, border-color .25s; }
+.stat:hover { transform: translateY(-4px); border-color: #FFC9C2; box-shadow: 0 0 0 4px #FFF1EE, 0 28px 50px -30px rgba(17,17,17,.3); }
+.tile:hover { border-color: #FFC9C2; box-shadow: 0 0 0 4px #FFF1EE, 0 24px 44px -26px rgba(17,17,17,.3); }
+.vz-sec li:hover { transform: translateX(3px); border-color: #FFC9C2; }
+.sectors a:hover { border-color: #FFC9C2; box-shadow: 0 0 0 3px #FFF1EE; }
+@media (prefers-reduced-motion: reduce) { .stat, .tile, .vz-sec li { transition: none; } }
