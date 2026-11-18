@@ -27,8 +27,9 @@ SITE = ROOT / "site"
 CSS_VERSION = "20261118p"
 
 NAV = [
-    ("about", "About us", "/about/", [
-        ("/about/", "About us"),
+    ("about", "About", "/about/", [
+        ("/about/", "What we do"),
+        ("/vision/", "Core vision"),
         ("/industries/", "Industries"),
     ]),
     ("services", "Services", "/services/", [
@@ -55,7 +56,7 @@ def esc(t):
 def nav_html(current):
     if current in SERVICES_PAGES:
         current = "services"
-    if current == "industries":
+    if current in ("industries", "vision"):
         current = "about"
     items = []
     for key, label, href, subs in NAV:
