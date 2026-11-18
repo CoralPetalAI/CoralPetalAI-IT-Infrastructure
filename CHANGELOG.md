@@ -4,6 +4,21 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 
 ## [Unreleased]
 
+## [Release 1.0001] - 2026-11-18
+
+First production release of the redesigned Coral Petal AI sites (develop → main).
+
+### Added
+- WordPress + Tutor LMS Academy on academy.coralpetal.ai (replaces the static Academy; old files moved to ~/retired on the server).
+- Careers site rebuilt: home, /openings/, structured Video Editor role, online apply form (MySQL + private Azure Blob, separate prod/non-prod).
+- Core vision page; What we do (About) redesign; coral-card template; branded Academy emails and sign-in popups.
+
+### Changed
+- Navigation: About (What we do, Core vision, Industries), Services (+ Overview), Careers → careers.coralpetal.ai.
+- Soft-coral button template (#FFB4A9) on all sites; calmer type scale; footers aligned across sites.
+
+
+
 ### Changed
 - Visual pass, light only: product-style graphics in every page hero (engagement, use-case matrix, agent flow, monitoring, course progress, sector hub, roles, composer), soft icon tiles, shorter copy; dark vision band and CTA boxes replaced with light ones on all sites incl. the WordPress Academy (theme 0.5.0).
 - tana.inc theme rolled out to Careers, the static Academy and the WordPress Academy theme (v0.4.0): near-white, ink, Newsreader serif headings, glass nav island, ink buttons, dark CTA, coral accent.
