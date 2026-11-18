@@ -65,6 +65,7 @@ def page(title, desc, canon, body, cur):
     </div>
   </footer>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>/* First-party, cookieless page count (admin dashboard). No cookies, no IP stored. */(function(){{try{{if(navigator.doNotTrack==='1'||!navigator.sendBeacon)return;var u=(/^dev[.-]/.test(location.hostname)?'https://dev.coralpetal.ai':'https://coralpetal.ai')+'/api/hit.php';navigator.sendBeacon(u,new Blob([JSON.stringify({{p:location.pathname,r:document.referrer}})],{{type:'text/plain'}}));}}catch(e){{}}}})();</script>
 </body>
 </html>
 '''

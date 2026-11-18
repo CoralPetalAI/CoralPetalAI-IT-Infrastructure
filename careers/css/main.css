@@ -897,3 +897,25 @@ a.coral-card.pillar { color: var(--ink); text-decoration: none; }
 .steps-band .pillars .coral-card { background: radial-gradient(520px 260px at 100% 0%, rgba(255,138,122,.18), transparent 65%), #FFFFFF; }
 @media (max-width: 960px) { .g4.pillars { grid-template-columns: 1fr 1fr; } .learn-band { grid-template-columns: 1fr; padding: 28px; gap: 28px; } }
 @media (max-width: 560px) { .g4.pillars { grid-template-columns: 1fr; } .cl-pair { grid-template-columns: 1fr; gap: 8px; } .cl-link { transform: rotate(90deg); } }
+
+/* Contact form (2026-11-18): saved to Admin → Inbox and emailed to the team. */
+.ct-sec { padding-bottom: 0; }
+.ct-two { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: start; }
+.ct-form { padding: 28px; display: grid; gap: 18px; }
+.ct-form h2 { margin: 0; font-size: 1.5rem; }
+.ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ct-form label { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: var(--ink); }
+.ct-form label small { color: var(--muted); font-weight: 400; }
+.ct-form label.full { grid-column: 1 / -1; }
+.ct-form input:not([type=checkbox]), .ct-form select, .ct-form textarea { font: inherit; font-size: 15px; padding: 11px 13px; border: 1px solid #DCDCDC; border-radius: 12px; background: #FFFFFF; color: var(--ink); width: 100%; box-sizing: border-box; }
+.ct-form textarea { resize: vertical; min-height: 140px; }
+.ct-form input:focus, .ct-form select:focus, .ct-form textarea:focus { outline: none; border-color: #FF8A7A; box-shadow: 0 0 0 3px rgba(255,111,97,.18); }
+.ct-form .ct-consent { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; color: var(--muted); }
+.ct-consent input { margin-top: 3px; accent-color: #FF6F61; width: 16px; height: 16px; }
+.ct-form .hp { position: absolute; left: -9999px; }
+#ct-send { justify-self: start; }
+.ct-msg { margin: 0; font-size: 14px; } .ct-msg:empty { display: none; }
+.ct-msg.ok { padding: 14px 16px; border-radius: 12px; background: #E8F5EE; color: #14532D; } .ct-msg.bad { color: #B23A31; }
+.ct-side { padding: 8px 4px; } .ct-side h3 { margin: 0 0 10px; } .ct-side ol { margin: 0 0 14px; padding-left: 20px; color: var(--muted); display: grid; gap: 8px; }
+@media (max-width: 860px) { .ct-two { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .ct-grid { grid-template-columns: 1fr; } }

@@ -55,6 +55,7 @@ jobs:
       - name: Deploy admin.coralpetal.ai
         env:
           ADMIN_CONFIG: ${{ secrets.ADMIN_CONFIG }}
+          CAREERS_READ_SAS: ${{ secrets.CAREERS_READ_SAS }}
         run: bash scripts/deploy_admin.sh prod
       - name: Verify the sign-in page
         run: |

@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css?v=20261118w">
+  <link rel="stylesheet" href="/css/styles.css?v=20261118x">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -89,6 +89,56 @@
         </figure>
       </div>
     </section>
+
+    <section class="section ct-sec">
+      <div class="wrap ct-two">
+        <form class="card coral-card ct-form" id="contact-form" action="/api/contact.php" method="post" novalidate>
+          <h2>Send us a message</h2>
+          <div class="ct-grid">
+            <label>Your name<input name="name" required minlength="2" maxlength="120" autocomplete="name"></label>
+            <label>Work email<input type="email" name="email" required maxlength="190" autocomplete="email"></label>
+            <label>Company <small>(optional)</small><input name="company" maxlength="160" autocomplete="organization"></label>
+            <label>Topic<select name="topic" required>
+              <option value="services">Services &amp; partnerships</option>
+              <option value="academy">Academy &amp; training</option>
+              <option value="careers">Careers</option>
+              <option value="other">Something else</option>
+            </select></label>
+            <label class="full">Message<textarea name="message" required minlength="10" maxlength="5000" rows="6" placeholder="What would you like AI to do for you?"></textarea></label>
+          </div>
+          <label class="ct-consent"><input type="checkbox" name="consent" value="1" required> <span>Coral Petal AI may store this message and reply to me by email.</span></label>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="t" id="ct-t">
+          <button class="btn" id="ct-send" type="submit">Send message</button>
+          <p class="ct-msg" id="ct-msg" role="status" aria-live="polite"></p>
+        </form>
+        <aside class="ct-side">
+          <h3>What happens next</h3>
+          <ol>
+            <li>Your message goes straight to the right team</li>
+            <li>A person reads it, not a sales script</li>
+            <li>We reply within two working days</li>
+          </ol>
+          <p class="muted">Prefer email? Use the addresses below.</p>
+        </aside>
+      </div>
+    </section>
+    <script>
+    (function () {
+      var f = document.getElementById('contact-form'), msg = document.getElementById('ct-msg'), btn = document.getElementById('ct-send');
+      document.getElementById('ct-t').value = Date.now();
+      f.addEventListener('submit', function (e) {
+        e.preventDefault(); msg.className = 'ct-msg'; msg.textContent = '';
+        if (!f.checkValidity()) { f.reportValidity(); return; }
+        btn.disabled = true; btn.textContent = 'Sending…';
+        fetch(f.action, { method: 'POST', body: new FormData(f) }).then(function (r) { return r.json(); }).then(function (d) {
+          msg.textContent = d.message; msg.className = 'ct-msg ' + (d.ok ? 'ok' : 'bad');
+          if (d.ok) { f.querySelectorAll('.ct-grid, .ct-consent, #ct-send').forEach(function (el) { el.style.display = 'none'; }); }
+          else { btn.disabled = false; btn.textContent = 'Send message'; }
+        }).catch(function () { msg.textContent = 'Network error. Please try again, or email contact@coralpetal.ai.'; msg.className = 'ct-msg bad'; btn.disabled = false; btn.textContent = 'Send message'; });
+      });
+    })();
+    </script>
 
     <section class="section">
       <div class="wrap grid g3 tiles">
@@ -165,5 +215,6 @@
       });
     })();
   </script>
+  <script>/* First-party, cookieless page count (admin dashboard). No cookies, no IP stored. */(function(){try{if(navigator.doNotTrack==='1'||!navigator.sendBeacon)return;var u=(/^dev[.-]/.test(location.hostname)?'https://dev.coralpetal.ai':'https://coralpetal.ai')+'/api/hit.php';navigator.sendBeacon(u,new Blob([JSON.stringify({p:location.pathname,r:document.referrer})],{type:'text/plain'}));}catch(e){}})();</script>
 </body>
 </html>
