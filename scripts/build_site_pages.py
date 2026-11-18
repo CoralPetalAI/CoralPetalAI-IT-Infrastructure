@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "site-data"
 SITE = ROOT / "site"
-CSS_VERSION = "20261118n"
+CSS_VERSION = "20261118p"
 
 NAV = [
     ("services", "Services", "/services/", [
@@ -32,26 +32,17 @@ NAV = [
         ("/services/#implementation", "Agentic AI implementation"),
         ("/services/#governance", "Run & govern"),
         ("/services/#enablement", "Team enablement"),
-    ]),
-    ("industries", "Industries", "/industries/", [
-        ("/industries/#energy", "Energy"),
-        ("/industries/#oil-gas", "Oil & Gas"),
-        ("/industries/#government", "Government"),
-        ("/industries/#banking", "Banking & financial services"),
-        ("/industries/#insurance", "Insurance"),
-        ("/industries/#telecom", "Telecom"),
+        ("/industries/", "Industries"),
+        ("/about/", "About us"),
     ]),
     ("academy", "Academy", "https://academy.coralpetal.ai/", [
         ("https://academy.coralpetal.ai/", "Coral Petal AI Academy"),
     ]),
     ("insights", "Insights", "/insights/", []),
-    ("company", "Company", "/about/", [
-        ("/about/", "About"),
-        ("/join-us/", "Careers"),
-        ("/contact/", "Contact"),
-    ]),
+    ("careers", "Careers", "/join-us/", []),
 ]
-COMPANY_PAGES = {"about", "careers", "contact"}
+# 2026-11-18 (Rohit): Industries + About us live under Services; Company menu became a plain Careers link.
+SERVICES_PAGES = {"industries", "about"}
 CHEVRON = '<svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
 
@@ -60,8 +51,8 @@ def esc(t):
 
 
 def nav_html(current):
-    if current in COMPANY_PAGES:
-        current = "company"
+    if current in SERVICES_PAGES:
+        current = "services"
     items = []
     for key, label, href, subs in NAV:
         cur = ' aria-current="page"' if key == current else ""

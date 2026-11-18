@@ -750,3 +750,17 @@ a.tile.mail h3 { font-size: 1rem; }
 
 /* Label chips in brand coral instead of grey (Rohit 2026-11-18) */
 .eyebrow.chip, .page-hero .eyebrow, .hero .eyebrow { background: #FFEDEA !important; color: #B23A31 !important; }
+
+/* Industries hero: sector console (2026-11-18, Rohit) */
+.vz-sec { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.vz-sec li { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 12px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 14px; background: #FFFFFF; transition: transform .2s, box-shadow .2s; }
+.vz-sec li:first-child { border-color: #FFC9C2; box-shadow: 0 0 0 4px #FFF1EE; }
+.vz-sec .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; }
+.vz-sec .ic svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.vz-sec b { display: block; font-weight: 600; font-size: 13px; }
+.vz-sec small { color: var(--muted); font-size: 11.5px; }
+.vz-core { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: linear-gradient(90deg, #FFF1EE, #FFFFFF); border: 1px dashed #FFC9C2; }
+.vz-core img { width: 30px; height: 30px; }
+.vz-core b { display: block; font-size: 13px; font-weight: 600; }
+.vz-core small { color: var(--muted); font-size: 11.5px; }
+@media (max-width: 640px) { .vz-sec li { grid-template-columns: 30px 1fr; } .vz-sec li .pill-s { grid-column: 2; justify-self: start; } }
