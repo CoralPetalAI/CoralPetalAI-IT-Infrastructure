@@ -164,6 +164,7 @@ Discovery workshops
 Readiness assessment
 Reference architecture
 Costed roadmap
+More on AI strategy & readiness →
 02 · Implementation
 #### Agents that act inside your systems.
 Agents that reason, plan and use your tools, built and integrated end to end.
@@ -172,6 +173,7 @@ Retrieval over your data
 ERP & CRM integration
 Azure and major clouds
 Human in the loop
+More on Agentic AI implementation →
 03 · Run & govern
 #### Built for the day after launch.
 Evaluation, monitoring and guardrails keep agents accurate, secure and compliant.
@@ -179,13 +181,14 @@ Evaluation suites
 Quality, cost & drift monitoring
 Policy & privacy guardrails
 Clean handover
+More on Run & govern →
 04 · Team enablement
 #### People who can build and use agents.
 Your teams learn the concepts and the enterprise implementation, through our Academy and live training.
 Signature Course
 Live classes & bootcamps
 Corporate training
-Visit Coral Petal AI Academy →
+More on team enablement → Visit Coral Petal AI Academy →
 How we work
 #### Four steps. No black boxes.
 1 Discover One problem, one owner, one number
@@ -195,6 +198,329 @@ How we work
 #### Have a process an agent could run?
 Tell us about it. We’ll come back with an honest view of what’s possible.
 Contact us
+######
+######
+######
+
+
+## Page: Service: AI strategy & readiness
+
+Services · 01 · AI strategy & readiness
+### Start with the problems worth solving.
+In a few weeks we find where agents will pay back first, check what your data and systems need, and hand you a roadmap you can fund.
+Start a conversation
+What you get
+#### Clear deliverables, no black boxes.
+##### Ranked use-case portfolio
+Every candidate process scored on value, feasibility and risk, with the first three to start.
+##### Readiness assessment
+Data, systems, security and skills reviewed, with gaps and fixes listed.
+##### Reference architecture
+Models, tools, data flows and controls that fit your cloud and policies.
+##### Costed roadmap
+Phases, effort, run costs and the business case, ready for your leadership.
+How it works
+#### Four steps, each with something you can see.
+1 Listen Workshops with business and IT owners
+2 Map Processes, data and pain points
+3 Score Value, feasibility and risk
+4 Plan Roadmap, costs and next steps
+#### A good fit when
+You know AI matters but not where to start
+You have many ideas and need to pick the right few
+Leadership asks for a business case before funding
+You want an independent view of readiness and risk
+#### Questions we hear How long does it take?
+Usually two to four weeks, depending on how many teams and processes are in scope. Do we need clean data first?
+No. Part of the work is finding out what your data can support today and what to fix first. What happens after the roadmap?
+You can build with your own team, with another partner, or with us. The roadmap is yours either way.
+More services
+02
+##### Agentic AI implementation
+Agents that act inside your systems. 03
+##### Run & govern
+Built for the day after launch. 04
+##### Team enablement
+People who can build and use agents.
+#### Have a process an agent could run?
+Tell us about it. We’ll come back with an honest view of what’s possible.
+Contact us
+######
+######
+######
+
+
+## Page: Service: Agentic AI implementation
+
+Services · 02 · Agentic AI implementation
+### Agents that act inside your systems.
+We design, build and integrate agents that read, decide and act in your real workflows, with humans approving what matters.
+Start a conversation
+What you get
+#### Clear deliverables, no black boxes.
+##### Working agents
+Single or multi-agent workflows that complete real tasks end to end.
+##### Retrieval over your data
+Answers grounded in your documents, policies and records, with sources.
+##### System integration
+Connected to ERP, CRM, email, ticketing and your APIs, on Azure and other major clouds.
+##### Human in the loop
+Approvals, escalations and audit trails designed in from the start.
+How it works
+#### Four steps, each with something you can see.
+1 Design Task, tools, data and controls
+2 Prototype A working agent on your data
+3 Harden Tests, security and integration
+4 Launch Rollout with your teams
+#### A good fit when
+A clear process eats hours of skilled time every week
+Work arrives by email, forms or documents and needs judgment
+You need answers grounded in your own knowledge
+A pilot worked and now has to run in production
+#### Questions we hear Which models and clouds do you use?
+We pick per use case and policy: Azure OpenAI and other leading models, on Azure, AWS or Google Cloud. Does our data leave our environment?
+We design for your data to stay in your cloud tenancy wherever possible, with access you control. How fast can we see something working?
+Typically a working prototype on your data within weeks, then hardening for production.
+More services
+01
+##### AI strategy & readiness
+Start with the problems worth solving. 03
+##### Run & govern
+Built for the day after launch. 04
+##### Team enablement
+People who can build and use agents.
+#### Have a process an agent could run?
+Tell us about it. We’ll come back with an honest view of what’s possible.
+Contact us
+######
+######
+######
+
+
+## Page: Service: Run & govern
+
+Services · 03 · Run & govern
+### Built for the day after launch.
+Agents change as data, models and users change. We keep them accurate, safe and affordable, and show you the numbers.
+Start a conversation
+What you get
+#### Clear deliverables, no black boxes.
+##### Evaluation suites
+Test sets and scoring that catch regressions before your users do.
+##### Quality, cost and drift monitoring
+Dashboards for accuracy, cost per task, latency and escalations.
+##### Policy and privacy guardrails
+Rules for sensitive data, actions and content, enforced and logged.
+##### Continuous improvement
+Regular reviews, fixes and a clean handover to your team when you are ready.
+How it works
+#### Four steps, each with something you can see.
+1 Baseline Measure quality and cost today
+2 Guard Set policies and controls
+3 Watch Monitor and alert
+4 Improve Review, retrain, hand over
+#### A good fit when
+Agents are live, but nobody can say how well they work
+Costs are rising faster than value
+Audit, risk or compliance teams need evidence
+You plan to scale from one agent to many
+#### Questions we hear Can you govern agents someone else built?
+Yes. We start with an assessment and add evaluation and monitoring around what you already run. Which rules do you help with?
+Your internal policies and the data-protection rules that apply to you, such as India’s DPDP Act. Do we get locked in?
+No. Tests, dashboards and runbooks are documented and handed over to your team.
+More services
+01
+##### AI strategy & readiness
+Start with the problems worth solving. 02
+##### Agentic AI implementation
+Agents that act inside your systems. 04
+##### Team enablement
+People who can build and use agents.
+#### Have a process an agent could run?
+Tell us about it. We’ll come back with an honest view of what’s possible.
+Contact us
+######
+######
+######
+
+
+## Page: Service: Team enablement
+
+Services · 04 · Team enablement
+### People who can build and use agents.
+Tools change fast; capable people last. We train your teams on the concepts and on how enterprises really implement them.
+Start a conversation Visit the Academy
+What you get
+#### Clear deliverables, no black boxes.
+##### The Signature Course
+End-to-end Generative and Agentic AI, self-paced, in the Coral Petal AI Academy.
+##### Live classes and bootcamps
+Instructor-led sessions with hands-on builds and Q&A.
+##### Corporate training
+Programs shaped around your stack, your use cases and your roles.
+##### Leadership briefings
+What agents can and cannot do, risks, and how to lead adoption.
+How it works
+#### Four steps, each with something you can see.
+1 Assess Roles, skills and goals
+2 Plan Learning paths per team
+3 Train Courses, live sessions, builds
+4 Apply Projects on your real work
+#### A good fit when
+Your teams will build or run agents and need the skills
+Leaders need a clear picture before they invest
+You want training tied to real projects, not slides
+You are rolling out AI tools and want them used well
+#### Questions we hear Self-paced or live?
+Both. Many teams take the Signature Course self-paced and add live sessions for their own use cases. Can training be customized for our company?
+Yes. Corporate programs use your tools, data examples and roles. Where do individuals sign up?
+In the Coral Petal AI Academy. Teams can write to academy@coralpetal.ai.
+More services
+01
+##### AI strategy & readiness
+Start with the problems worth solving. 02
+##### Agentic AI implementation
+Agents that act inside your systems. 03
+##### Run & govern
+Built for the day after launch.
+#### Have a process an agent could run?
+Tell us about it. We’ll come back with an honest view of what’s possible.
+Contact us
+######
+######
+######
+
+
+## Page: Privacy Policy
+
+Legal
+### Privacy Policy
+What we collect, why, and the choices you have. Plain words, no surprises.
+Last updated: 18 November 2026
+Who we are What we collect Why we use it Cookies Who we share it with How long we keep it Your rights Security Children Changes Contact and grievances
+#### 1. Who we are
+Coral Petal AI (“we”, “us”) is an Agentic AI consultancy and training academy run by The Coral Petal Company, India. This policy covers coralpetal.ai , careers.coralpetal.ai and academy.coralpetal.ai (together, the “sites”). We are the Data Fiduciary for the personal data described here under India’s Digital Personal Data Protection Act, 2023 (DPDP Act).
+#### 2. What we collect
+Contact form: your name, email, company (optional), topic and message, plus your IP address to stop spam.
+Job applications: name, email, mobile number, country, city, portfolio link (optional), your resume and cover letter (PDF), and your consent.
+Academy account: name, email, username, password (stored only as a secure hash), the courses you enroll in, your progress, and any quiz or assignment answers.
+Purchases (when payments open): what you bought, the amount and the payment status. Card and bank details are handled by the payment provider; we never see or store them.
+Visit counts: the page you opened, the site that sent you (domain only), and your device type (desktop, mobile or tablet). We do not use cookies for this and we do not store your IP address; a random code that changes every day lets us count a visitor once per day.
+Emails you send us and our replies.
+Website assistant (if shown): the questions you type or speak are processed by our voice-AI provider to answer you.
+#### 3. Why we use it
+To answer your enquiry and provide the services or courses you ask for (your consent and our contract with you).
+To review job applications and contact candidates (your consent).
+To run your Academy account, track progress and issue certificates (our contract with you).
+To process payments, refunds, invoices and tax records (legal obligation).
+To keep the sites secure, prevent abuse and understand which pages are useful (legitimate uses permitted by law).
+We do not sell personal data, and we do not use it for advertising or to train AI models.
+#### 4. Cookies
+coralpetal.ai and Careers set no cookies. The Academy uses only essential cookies that keep you signed in, protect forms from misuse, and remember that your browser accepts cookies. There are no advertising, tracking or social-media cookies. Because these cookies are needed for the Academy to work, they cannot be switched off there; you can delete them in your browser at any time, and you will be signed out.
+#### 5. Who we share it with
+Only with service providers that process data for us under contract, and only what each one needs:
+Hostinger : hosting of the sites and their databases.
+Microsoft Azure : private storage for application files and backups.
+Proton : our email.
+Payment providers (for example Razorpay or PayPal), when payments open.
+ElevenLabs : the website voice and text assistant, if shown.
+Video and live-class tools used for courses (for example Zoom), when you join them.
+Some providers store data outside India. We use them only where the DPDP Act allows such transfers. We disclose data to authorities only when the law requires it.
+#### 6. How long we keep it
+Contact messages: up to 24 months after the last exchange.
+Job applications: up to 12 months after the hiring decision, unless you agree that we keep them longer.
+Academy accounts: while your account is active, then deleted or anonymized, except records we must keep.
+Purchase and tax records: as long as Indian tax law requires (generally 8 years).
+Visit counts: up to 25 months; after that only totals remain.
+#### 7. Your rights
+Under the DPDP Act you can ask us to:
+tell you what personal data we hold about you and how we use it;
+correct, complete or update it;
+erase it, where we no longer need it or you withdraw consent;
+withdraw your consent at any time (this does not affect what we did before);
+nominate another person to exercise your rights if you die or become unable to;
+resolve a grievance (see section 11).
+Write to contact@coralpetal.ai from the email linked to your data. We may ask you to confirm who you are.
+#### 8. Security
+The sites use HTTPS throughout. Application files sit in private storage that the public cannot open. Passwords are stored as one-way hashes. Admin access is limited to named staff with strong passwords and lockouts after failed attempts. No system is perfectly secure; if a breach affects you, we will tell you and the Data Protection Board of India as the law requires.
+#### 9. Children
+The sites are meant for adults. If you are under 18, you may use the Academy only with the verifiable consent of a parent or guardian. Write to us if you believe a child has given us data without that consent, and we will delete it.
+#### 10. Changes to this policy
+We will post any change here with a new “Last updated” date. If a change is significant, we will also tell Academy users by email.
+#### 11. Contact and grievances
+Grievance Officer, Coral Petal AI
+Email: contact@coralpetal.ai (subject line “Privacy”)
+We will acknowledge your request within 7 days and resolve it within 30 days. If you are not satisfied, you may complain to the Data Protection Board of India.
+######
+######
+######
+
+
+## Page: Terms of Use
+
+Legal
+### Terms of Use
+The rules for using our sites and the Academy. Please read them before you sign up or buy a course.
+Last updated: 18 November 2026
+Agreement Consulting services Academy accounts Course access Prices and payment Our content Acceptable use AI assistant Disclaimers Liability Law and disputes Contact
+#### 1. Agreement
+These terms apply to coralpetal.ai , careers.coralpetal.ai and academy.coralpetal.ai , run by The Coral Petal Company, India (“Coral Petal AI”, “we”). By using the sites or creating an Academy account, you agree to these terms and to our Privacy Policy and Refund Policy . If you use the sites for an organization, you confirm you may accept these terms for it.
+#### 2. Consulting services
+Information about our services on the sites is general and is not an offer. Consulting, implementation and corporate-training work is governed by a separate written agreement or statement of work, which takes priority over these terms.
+#### 3. Academy accounts
+You must be 18 or older, or have a parent’s or guardian’s consent.
+Give accurate details and keep your password private. You are responsible for activity on your account.
+One account per person. Accounts may not be shared or resold.
+We may suspend an account that breaks these terms, after telling you why where we reasonably can.
+#### 4. Course access
+Each enrollment gives you a personal, non-transferable license to view that course for one year from the date of enrollment , unless the course page says otherwise.
+We may update course content to keep it current. If we retire a course you paid for while your access is active, we will offer an equivalent course or a pro-rata refund.
+Live sessions and bootcamps run on the dates shown. Recordings, where offered, follow the same one-year access.
+Certificates, where offered, confirm completion of our course. They are not a university degree or a vendor certification.
+#### 5. Prices and payment
+Prices are shown on each course page in the currency stated, and applicable taxes are added at checkout. Payments are processed by our payment provider; we do not store card details. A sale price applies only for the period shown. Refunds follow our Refund Policy .
+#### 6. Our content
+All course videos, slides, notes, code, quizzes, text and designs on the sites belong to Coral Petal AI or our licensors. You may use them for your own learning. You may not copy, record, download (unless a download is offered), share, sell, publish or use them to train AI models without our written permission. Code samples marked with an open-source license follow that license. Coral Petal AI™ and the Petal Network logo are trademarks of The Coral Petal Company.
+#### 7. Acceptable use
+Do not misuse the sites. In particular, do not attack or overload them, try to reach data that is not yours, scrape them at scale, upload malware or unlawful content, harass other learners or our staff, or impersonate anyone.
+#### 8. Website assistant
+Where shown, our voice and text assistant gives automated answers that may be incomplete or wrong. It is not professional, legal or financial advice. For anything that matters, confirm with our team through the contact page .
+#### 9. Disclaimers
+We work hard to keep the sites accurate and available, but they are provided “as is”. We do not promise that they will always be available or error-free, or that a course will lead to a particular job, exam result or business outcome.
+#### 10. Limitation of liability
+To the extent the law allows, we are not liable for indirect or consequential losses, such as lost profits or data. Our total liability to you for any claim about the sites or the Academy is limited to the amount you paid us in the 12 months before the claim. Nothing in these terms limits liability that cannot be limited by law.
+#### 11. Law and disputes
+These terms are governed by the laws of India. Please contact us first; most issues can be resolved quickly. If a dispute cannot be resolved, the courts at Chennai, Tamil Nadu have exclusive jurisdiction. Consumers keep any rights they have under the Consumer Protection Act, 2019.
+We may update these terms. The new version applies from the “Last updated” date. If you keep using the sites after that, you accept the update.
+#### 12. Contact
+Questions about these terms: contact@coralpetal.ai . Questions about courses: academy@coralpetal.ai .
+######
+######
+######
+
+
+## Page: Refund Policy
+
+Legal
+### Refund Policy
+Clear rules for refunds and cancellations on Academy purchases.
+Last updated: 18 November 2026
+Self-paced courses 100% in 7 days Full refund on any self-paced course within 7 days of purchase, no questions asked
+Live classes and bootcamps Own terms Published with each batch; generally non-refundable
+Refund time 7–10 working days To your original payment method after approval
+#### 1. Self-paced courses
+Every self-paced course comes with a 100% refund within 7 days of purchase , whatever your progress and without giving a reason. After 7 days, self-paced purchases are not refundable.
+#### 2. Live classes and bootcamps
+Live classes and bootcamps have their own refund terms, published on each batch’s page before you buy. In general, they are non-refundable once booked, because seats are limited and reserved for you.
+#### 3. If we cancel or change
+If we cancel a live batch or retire a course while your access is active, you get the choice of an equivalent course or batch, or a full refund (pro-rata for a retired self-paced course).
+#### 4. Corporate training and consulting
+Corporate training and consulting engagements follow the cancellation and refund terms in the agreement or statement of work for that engagement.
+#### 5. How to ask for a refund
+Email academy@coralpetal.ai from the email on your Academy account, with your order number and the reason (optional). We reply within 2 working days. Approved refunds go back to your original payment method within 7–10 working days ; your bank may take a few more days to show it. Course access ends when a refund is issued.
+#### 6. Fair use
+We may decline repeated refund requests from the same person, or requests where course content was copied or shared in breach of our Terms of Use .
+These terms do not affect your rights under the Consumer Protection Act, 2019. Questions? Contact us .
 ######
 ######
 ######

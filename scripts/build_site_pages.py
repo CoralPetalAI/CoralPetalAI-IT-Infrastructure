@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "site-data"
 SITE = ROOT / "site"
-CSS_VERSION = "20261118y"
+CSS_VERSION = "20261118z"
 # Website assistant (ElevenLabs Agents widget, voice + text), home page only (Rohit 2026-11-18).
 # Public agent id from the ElevenLabs dashboard (Agents → the agent → Widget). Empty = no widget.
 # Setup and the agent's prompt: chatbot/README.md.
@@ -38,10 +38,10 @@ NAV = [
     ]),
     ("services", "Services", "/services/", [
         ("/services/", "Overview"),
-        ("/services/#strategy", "AI strategy & readiness"),
-        ("/services/#implementation", "Agentic AI implementation"),
-        ("/services/#governance", "Run & govern"),
-        ("/services/#enablement", "Team enablement"),
+        ("/services/strategy/", "AI strategy & readiness"),
+        ("/services/implementation/", "Agentic AI implementation"),
+        ("/services/governance/", "Run & govern"),
+        ("/services/enablement/", "Team enablement"),
     ]),
     ("academy", "Academy", "https://academy.coralpetal.ai/", [
         ("https://academy.coralpetal.ai/", "Coral Petal AI Academy"),
