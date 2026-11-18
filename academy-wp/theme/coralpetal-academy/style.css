@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.13.0
+Version: 1.14.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -792,3 +792,7 @@ body.cp-landing .cp-vhero { padding-top: 120px !important; }
 .cp-lv-avatars i:first-child { margin-left: 0; } .cp-lv-avatars i:nth-child(2) { background: #EAF2FF; color: #2463EB; } .cp-lv-avatars i:nth-child(3) { background: #E8F5EE; color: #1E7F4F; } .cp-lv-avatars i:nth-child(4) { background: #F2F2F2; color: #4A4A4A; }
 .cp-lv-plan-foot small { padding-top: 10px; }
 .cp-lv-play { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: #FF6F61; color: #111111; font-size: 8px; }
+
+/* 2026-11-18 Rohit: light coral primary buttons on every site (#FF8A7A, dark text) */
+.cp-btn:not(.cp-ghost), .cp-cta .wp-block-button__link, .wp-block-button:not(.is-style-outline) .wp-block-button__link { background: #FF8A7A !important; border-color: #FF8A7A !important; color: #111111 !important; font-weight: 600; }
+.cp-btn:not(.cp-ghost):hover, .cp-cta .wp-block-button__link:hover, .wp-block-button:not(.is-style-outline) .wp-block-button__link:hover { background: #FF6F61 !important; border-color: #FF6F61 !important; color: #111111 !important; }

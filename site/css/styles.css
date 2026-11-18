@@ -773,7 +773,7 @@ h2 { font-size: clamp(1.6rem, 2.3vw, 2.15rem); }
 .stat span { font-size: .95rem; }
 .stats { margin-top: 40px; }
 
-.btn, .nav li a.btn, .cta-band .btn { background: #FF7A6B; border-color: #FF7A6B; color: #1B1B1B; font-weight: 600; }
+.btn, .nav li a.btn, .cta-band .btn { background: #FF8A7A; border-color: #FF8A7A; color: #1B1B1B; font-weight: 600; }
 .btn:hover, .nav li a.btn:hover, .cta-band .btn:hover { background: #FF6F61; border-color: #FF6F61; color: #1B1B1B; }
 .btn.btn-ghost, .cta-band .btn.btn-ghost { background: transparent; color: var(--ink); border-color: rgba(32,32,32,.22); font-weight: 500; }
 .btn.btn-ghost:hover, .cta-band .btn.btn-ghost:hover { background: rgba(32,32,32,.05); color: var(--ink); border-color: rgba(32,32,32,.35); }
@@ -818,3 +818,9 @@ h2 { font-size: clamp(1.6rem, 2.3vw, 2.15rem); }
 .vz-sec li:hover { transform: translateX(3px); border-color: #FFC9C2; }
 .sectors a:hover { border-color: #FFC9C2; box-shadow: 0 0 0 3px #FFF1EE; }
 @media (prefers-reduced-motion: reduce) { .stat, .tile, .vz-sec li { transition: none; } }
+
+/* 2026-11-18 Rohit: nav labels stay dark; coral underline on hover + current page */
+.nav .pill { position: relative; }
+.nav .pill::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 4px; height: 2px; border-radius: 2px; background: #FF6F61; transform: scaleX(0); transition: transform .2s; }
+.nav .pill:hover::after, .nav .pill[aria-current="page"]::after, .nav details[open] > .pill::after { transform: scaleX(1); }
+.nav .pill[aria-current="page"] { background: transparent; }

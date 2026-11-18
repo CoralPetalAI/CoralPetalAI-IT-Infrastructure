@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "site-data"
 SITE = ROOT / "site"
-CSS_VERSION = "20261118r"
+CSS_VERSION = "20261118s"
 
 NAV = [
     ("about", "About", "/about/", [
