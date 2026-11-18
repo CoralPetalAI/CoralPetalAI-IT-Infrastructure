@@ -23,7 +23,7 @@ on:
       - 'scripts/deploy_careers.sh'
       - '.github/workflows/careers.yml'
   pull_request:
-    branches: [main]
+    branches: [main, develop]
   workflow_dispatch:
 
 concurrency:

@@ -1,0 +1,4 @@
+Describe and visualise data
+Probability and distributions
+Hypothesis tests and confidence intervals
+Regression and A/B experiments

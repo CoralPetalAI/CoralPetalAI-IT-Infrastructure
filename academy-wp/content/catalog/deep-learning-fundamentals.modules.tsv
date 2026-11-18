@@ -1,0 +1,6 @@
+1	Module 01: Neural networks	Neurons, layers and activation functions.
+2	Module 02: Training	Loss, gradients, backpropagation, optimisers.
+3	Module 03: Convolutional networks	CNNs for images and transfer learning.
+4	Module 04: Sequence models	RNNs, LSTMs and their limits.
+5	Module 05: Attention & transformers	Self-attention and the transformer.
+6	Module 06: Practice	Regularisation, GPUs and debugging.

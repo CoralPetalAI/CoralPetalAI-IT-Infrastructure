@@ -1,0 +1,6 @@
+1	Module 01: How LLMs work	Tokens, training and what models can and can’t do.
+2	Module 02: Prompting	Patterns that hold up: structure, examples, roles.
+3	Module 03: Embeddings	Meaning as vectors; similarity and search.
+4	Module 04: Retrieval (RAG)	Grounding answers in your documents.
+5	Module 05: Fine-tuning	When to fine-tune and how.
+6	Module 06: Responsible use	Hallucination, privacy and evaluation.

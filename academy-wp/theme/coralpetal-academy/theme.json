@@ -1,0 +1,124 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "slug": "base",
+          "name": "Paper",
+          "color": "#FBFBFB"
+        },
+        {
+          "slug": "base-2",
+          "name": "Paper 2",
+          "color": "#F4F4F3"
+        },
+        {
+          "slug": "contrast",
+          "name": "Text",
+          "color": "#111111"
+        },
+        {
+          "slug": "muted",
+          "name": "Muted",
+          "color": "#4A4A4A"
+        },
+        {
+          "slug": "accent-1",
+          "name": "Coral",
+          "color": "#FF6F61"
+        },
+        {
+          "slug": "accent-2",
+          "name": "Coral light",
+          "color": "#FF8A7A"
+        },
+        {
+          "slug": "white",
+          "name": "White",
+          "color": "#FFFFFF"
+        }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "slug": "inter",
+          "name": "Inter",
+          "fontFamily": "Inter, system-ui, -apple-system, 'Segoe UI', sans-serif"
+        },
+        {
+          "slug": "newsreader",
+          "name": "Newsreader",
+          "fontFamily": "Newsreader, Georgia, 'Times New Roman', serif"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "760px",
+      "wideSize": "1200px"
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#FBFBFB",
+      "text": "#111111"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--inter)",
+      "lineHeight": "1.6"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "#111111"
+        },
+        ":hover": {
+          "color": {
+            "text": "#D9473F"
+          }
+        }
+      },
+      "heading": {
+        "color": {
+          "text": "#111111"
+        },
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--newsreader)",
+          "fontWeight": "400",
+          "letterSpacing": "-0.02em",
+          "lineHeight": "1.08"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "#111111",
+          "text": "#FFFFFF"
+        },
+        "border": {
+          "radius": "14px"
+        },
+        "typography": {
+          "fontWeight": "500"
+        },
+        ":hover": {
+          "color": {
+            "background": "#000000",
+            "text": "#FFFFFF"
+          }
+        }
+      },
+      "h1": {
+        "typography": {
+          "fontSize": "clamp(2.375rem, 3.6vw, 3.25rem)"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontSize": "clamp(1.875rem, 2.8vw, 2.5rem)"
+        }
+      }
+    }
+  }
+}

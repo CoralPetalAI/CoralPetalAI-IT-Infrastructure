@@ -1,0 +1,8 @@
+1	statistics-fundamentals	Statistics Fundamentals	The statistics every AI practitioner needs: data, distributions, inference and experiments.	statistics.png	statistics	beginner
+2	machine-learning-fundamentals	Machine Learning Fundamentals	How machines learn from data: supervised and unsupervised learning, evaluation and features.	machine-learning.png	machine-learning	beginner
+3	deep-learning-fundamentals	Deep Learning Fundamentals	Neural networks from the ground up: training, CNNs, sequence models and transformers.	deep-learning.png	deep-learning	beginner
+4	generative-ai-fundamentals	Generative AI Fundamentals	Large language models in practice: prompting, embeddings, retrieval and fine-tuning.	generative-ai.png	generative-ai	beginner
+6	cloud-computing-fundamentals	Cloud Computing Fundamentals	The cloud skills AI teams rely on: compute, storage, networking, containers and cost.	cloud-computing.png	cloud-computing	beginner
+7	azure-solutions-architect-path	Microsoft Azure Solutions Architect Expert: Certification Path	Prepare for the Microsoft Certified: Azure Solutions Architect Expert certification in two courses: AZ-104 then AZ-305.	azure-solutions-architect-path.png	cloud-computing	expert
+8	az-104-azure-administrator	AZ-104: Microsoft Azure Administrator	Prepare for exam AZ-104: identity, storage, compute, networking and monitoring on Azure.	az-104-azure-administrator.png	cloud-computing	intermediate
+9	az-305-azure-solutions-architect	AZ-305: Designing Microsoft Azure Infrastructure Solutions	Prepare for exam AZ-305: design identity, data, continuity and infrastructure solutions on Azure.	az-305-azure-solutions-architect.png	cloud-computing	expert

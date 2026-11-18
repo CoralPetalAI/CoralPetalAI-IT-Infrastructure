@@ -1,0 +1,4 @@
+Core cloud services
+Containers and deployment
+Security and identity basics
+Running AI workloads cost-effectively

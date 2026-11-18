@@ -1,0 +1,156 @@
+# DEV environment — every push to `develop` deploys here automatically (no approval).
+#
+#   feature/* → PR into develop → Site checks → merge → THIS WORKFLOW
+#     dev.coralpetal.ai          ← site/      (scripts/deploy_dev.sh site)
+#     dev-careers.coralpetal.ai  ← careers/   (scripts/deploy_dev.sh careers)
+#     dev-academy.coralpetal.ai  = WordPress + Tutor LMS (installed in hPanel). Theme, the one
+#                                  course + 8 modules and the home page come from academy-wp/
+#                                  via scripts/academy_wp_dev.sh (moves to the CoralPetalAI repo later).
+#
+# All three dev sites need the dev login (secrets DEV_AUTH_USER / DEV_AUTH_PASS) and send
+# "noindex". Prod is released separately: release PR develop → main (deploy.yml, approval).
+
+name: Dev deploy
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy · Dev
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: https://dev.coralpetal.ai
+    env:
+      HOSTINGER_HOST: ${{ vars.HOSTINGER_HOST }}
+      HOSTINGER_PORT: ${{ vars.HOSTINGER_PORT }}
+      HOSTINGER_USER: ${{ vars.HOSTINGER_USER }}
+      DEV_AUTH_USER: ${{ secrets.DEV_AUTH_USER }}
+      DEV_AUTH_PASS: ${{ secrets.DEV_AUTH_PASS }}
+      DEV_PASSWORD: "off"   # Rohit 2026-11-18: dev sites open for now (noindex kept); "on" restores the login
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checks
+        run: |
+          python3 scripts/check_site.py site
+          python3 scripts/check_site.py careers
+          for f in scripts/build_dev.sh scripts/deploy_dev.sh scripts/dev_auth_setup.sh scripts/dev_access_block.sh scripts/dev_links.sh scripts/academy_wp_dev.sh academy-wp/remote_setup.sh; do bash -n "$f"; done
+      - name: Build dev copies
+        run: |
+          bash scripts/build_dev.sh site _dev_site
+          bash scripts/build_dev.sh careers _dev_careers
+          python3 scripts/check_site.py _dev_site
+          python3 scripts/check_site.py _dev_careers
+      - name: SSH setup (pinned host keys)
+        env:
+          KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+          KNOWN: ${{ vars.HOSTINGER_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/id && chmod 600 ~/.ssh/id
+          printf '%s\n' "$KNOWN" > ~/.ssh/known_hosts
+      - name: Dev password + protect dev-academy
+        run: bash scripts/dev_auth_setup.sh
+      - name: Academy WordPress (theme, course, pages, mail) → dev-academy.coralpetal.ai
+        env:
+          ACADEMY_SMTP_USER: ${{ secrets.ACADEMY_SMTP_USER }}
+          ACADEMY_SMTP_TOKEN: ${{ secrets.ACADEMY_SMTP_TOKEN }}
+        run: |
+          REVIEW_PASS=$(openssl rand -hex 24); echo "::add-mask::$REVIEW_PASS"
+          echo "REVIEW_PASS=$REVIEW_PASS" >> "$GITHUB_ENV"
+          export REVIEW_PASS
+          bash scripts/academy_wp_dev.sh
+      - name: Deploy dev.coralpetal.ai
+        run: bash scripts/deploy_dev.sh site _dev_site
+      - name: Deploy dev-careers.coralpetal.ai
+        run: bash scripts/deploy_dev.sh careers _dev_careers
+      - name: Careers form config (DB + Azure SAS) → ~/.coralpetal
+        env:
+          CAREERS_CONFIG: ${{ secrets.CAREERS_CONFIG_DEV }}
+        run: bash scripts/careers_config_store.sh dev
+      - name: Admin app PHP syntax
+        run: for f in $(find admin -name '*.php'); do php -l "$f" >/dev/null || { php -l "$f"; exit 1; }; done
+      - name: Deploy dev-admin.coralpetal.ai (admin app)
+        env:
+          ADMIN_CONFIG: ${{ secrets.ADMIN_CONFIG_DEV }}
+        run: bash scripts/deploy_admin.sh dev
+      - name: Verify (commit served behind the login, locked without it)
+        run: |
+          want="${GITHUB_SHA:0:7}"
+          for host in dev.coralpetal.ai dev-careers.coralpetal.ai; do
+            ok=0
+            for i in $(seq 1 18); do
+              got=$(curl -s -m 10 -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" -H 'Cache-Control: no-cache' "https://$host/version.json?ci=$RANDOM" || true)
+              echo "$host attempt $i: $got"
+              if echo "$got" | grep -q "\"commit\":\"$want\""; then ok=1; break; fi
+              sleep 10
+            done
+            [ "$ok" = 1 ] || { echo "::error::$host did not serve $want"; exit 1; }
+          done
+          for host in dev.coralpetal.ai dev-careers.coralpetal.ai dev-academy.coralpetal.ai; do
+            code=$(curl -s -m 10 -o /dev/null -w '%{http_code}' "https://$host/")
+            echo "$host without login → $code"
+            if [ "$DEV_PASSWORD" = "off" ]; then
+              [ "$code" = 200 ] || { echo "::error::$host should be open with DEV_PASSWORD=off ($code)"; exit 1; }
+            else
+              [ "$code" = 401 ] || { echo "::error::$host is not password-protected ($code)"; exit 1; }
+            fi
+          done
+      - name: Verify dev-academy (home + course behind the login)
+        run: |
+          curl -s -m 20 -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" https://dev-academy.coralpetal.ai/ | grep -q "Learn AI the way enterprises build it" || { echo "::error::dev-academy home not updated"; exit 1; }
+          code=$(curl -s -m 20 -o /dev/null -w '%{http_code}' -u "$DEV_AUTH_USER:$DEV_AUTH_PASS" https://dev-academy.coralpetal.ai/courses/gen-agentic-ai/)
+          echo "course page → $code"; [ "$code" = 200 ] || { echo "::error::course page $code"; exit 1; }
+      - name: Review HTML of the dev pages (Hostinger bot check blocks headless screenshots) (artifact "dev-review")
+        if: always()
+        run: |
+          mkdir -p review
+          U="$DEV_AUTH_USER:$DEV_AUTH_PASS"
+          for pair in "academy-home|https://dev-academy.coralpetal.ai/" "academy-course|https://dev-academy.coralpetal.ai/courses/gen-agentic-ai/" "academy-dashboard|https://dev-academy.coralpetal.ai/dashboard/" "academy-signup|https://dev-academy.coralpetal.ai/student-registration/" "site-home|https://dev.coralpetal.ai/"; do
+            name=${pair%%|*}; url=${pair#*|}
+            curl -s -m 30 -u "$U" "$url" -o "review/$name.html" || true
+          done
+          # Logged-in student dashboard (review account cp-review, password from this run only)
+          J=$(mktemp)
+          curl -s -m 30 -c "$J" -b "$J" https://dev-academy.coralpetal.ai/wp-login.php -o /dev/null || true
+          curl -s -m 30 -c "$J" -b "$J" -o /dev/null -w "login → %{http_code}\n" \
+            --data-urlencode "log=cp-review" --data-urlencode "pwd=$REVIEW_PASS" \
+            --data-urlencode "testcookie=1" --data-urlencode "redirect_to=https://dev-academy.coralpetal.ai/dashboard/" \
+            -b "wordpress_test_cookie=WP%20Cookie%20check" https://dev-academy.coralpetal.ai/wp-login.php || true
+          for pair in "dash-home|/dashboard/" "dash-courses|/dashboard/courses/" "dash-catalog-signedin|/courses/" "dash-profile|/dashboard/account/profile/" "dash-settings|/dashboard/account/settings/?tab=account" "dash-wishlist|/dashboard/courses/wishlist/" "dash-quiz|/dashboard/courses/my-quiz-attempts/" "dash-security|/dashboard/account/settings/?tab=security"; do
+            name=${pair%%|*}; path=${pair#*|}
+            curl -s -m 30 -b "$J" "https://dev-academy.coralpetal.ai$path" -o "review/$name.html" || true
+          done
+          grep -q "cp-dash-hero" review/dash-home.html && echo "dashboard hero ✓" || echo "::warning::dashboard hero not found"; grep -q "cp-wish" review/dash-home.html && echo "wishlist ✓" || echo "::warning::wishlist section not found"; grep -q "cp-nav-user" review/dash-catalog-signedin.html && echo "header avatar ✓" || echo "::warning::header avatar not found on /courses/"
+          rm -f "$J"
+          ls -la review
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dev-review
+          path: review/
+          retention-days: 7
+      - name: Check prod is untouched
+        run: |
+          curl -sf -m 10 https://coralpetal.ai/version.json
+          for h in academy careers; do curl -s -m 10 -o /dev/null -w "$h %{http_code}\n" https://$h.coralpetal.ai/; done
+      - name: Lock the review account (new random password, never stored)
+        if: always()
+        run: |
+          [ -f ~/.ssh/id ] || exit 0
+          WP="/home/${HOSTINGER_USER}/domains/coralpetal.ai/public_html/dev-academy"
+          openssl rand -hex 32 | ssh -i ~/.ssh/id -p "$HOSTINGER_PORT" -o StrictHostKeyChecking=yes -o BatchMode=yes "$HOSTINGER_USER@$HOSTINGER_HOST" \
+            "cd '$WP' && wp --skip-plugins=hostinger-ai-assistant,hostinger-reach eval-file ~/coralpetal-academy-content/review_user.php" || true
+      - name: Remove key
+        if: always()
+        run: rm -f ~/.ssh/id
