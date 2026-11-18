@@ -13,6 +13,7 @@ SOC = '''<div class="social"><a class="s-li" href="https://www.linkedin.com/comp
 
 def page(title, desc, canon, body, cur):
     oc = ' aria-current="page"' if cur == "openings" else ""
+    hc = ' aria-current="page"' if cur == "home" else ""
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -44,6 +45,7 @@ def page(title, desc, canon, body, cur):
       </a>
       <nav aria-label="Primary">
         <ul id="primary-nav">
+          <li><a class="pill" href="/"{hc}>Careers Home</a></li>
           <li><a class="pill" href="/openings/"{oc}>Openings</a></li>
         </ul>
       </nav>
