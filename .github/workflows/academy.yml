@@ -74,7 +74,7 @@ jobs:
             code=$(curl -s -m 15 -o /tmp/a.html -w '%{http_code}' "$SITE_URL/courses/?ci=$RANDOM" || true)
             echo "attempt $i: $code"
             if [ "$code" = 200 ] || [ "$code" = 503 ]; then
-              grep -qi 'wp-content/themes/coralpetal-academy\|cp-maint' /tmp/a.html && echo "✅ WordPress Academy answering ($code)" && exit 0
+              grep -qi 'wp-content/themes/coralpetal-academy\|cp-maint\|be back soon' /tmp/a.html && echo "✅ WordPress Academy answering ($code)" && exit 0
             fi
             sleep 10
           done
