@@ -4,6 +4,13 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 
 ## [Unreleased]
 
+## [Release 1.0003] - 2026-11-18
+
+### Changed
+- Admin 1.3.0: Users page only for the main account; new users are plain admins.
+- Admin: no personal names except the dashboard greeting (task owner, updated-by, header name removed).
+- Admin: account menu under the user's name (Profile, Change password, Settings with time zone); Log out separate.
+
 ## [Release 1.0002] - 2026-11-18
 
 ### Changed
