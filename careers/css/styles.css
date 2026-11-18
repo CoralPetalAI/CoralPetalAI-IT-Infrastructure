@@ -666,3 +666,15 @@ a.tile.mail h3 { font-size: 1rem; }
 
 /* Label chips in brand coral (2026-11-18) */
 .hero .eyebrow, .hero-academy .eyebrow { background: #FFEDEA !important; color: #B23A31 !important; }
+
+/* 2026-11-18 Rohit: light coral primary buttons on every site (#FF8A7A, dark text) */
+.btn, .btn-small, .res-primary, .ref-main, .cta-band .btn, .contact-box .btn { background: #FF8A7A !important; border-color: #FF8A7A !important; color: #111111 !important; font-weight: 600; }
+.btn:hover, .btn-small:hover, .res-primary:hover, .ref-main:hover, .cta-band .btn:hover, .contact-box .btn:hover { background: #FF6F61 !important; border-color: #FF6F61 !important; color: #111111 !important; }
+.btn.btn-ghost, .cta-band .btn.btn-ghost { background: transparent !important; color: #111111 !important; border-color: rgba(17,17,17,.22) !important; font-weight: 500; }
+.btn.btn-ghost:hover { background: rgba(17,17,17,.05) !important; }
+
+/* 2026-11-18 Rohit: BUTTON TEMPLATE = soft coral #FFB4A9 + dark text, hover #FF9F92 (all sites) */
+.btn, .btn-small, .res-primary, .ref-main, .cta-band .btn, .contact-box .btn { background: #FFB4A9 !important; border-color: #FFB4A9 !important; color: #111111 !important; }
+.btn:hover, .btn-small:hover, .res-primary:hover, .ref-main:hover, .cta-band .btn:hover, .contact-box .btn:hover { background: #FF9F92 !important; border-color: #FF9F92 !important; }
+.btn.btn-ghost, .cta-band .btn.btn-ghost { background: transparent !important; border-color: rgba(17,17,17,.22) !important; }
+.btn.btn-ghost:hover { background: rgba(17,17,17,.05) !important; }
