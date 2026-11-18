@@ -64,7 +64,7 @@ if ( $p === 'password' ) {
 	echo '<section class="login"><div class="card coral pwbox">'
 		. '<div class="lbrand"><img src="/assets/logo.svg" alt="" width="36" height="36"><span>Coral <span class="acc">Petal AI</span><sup>™</sup></span></div>'
 		. '<h1>' . ( $me['must_change'] ? 'Set your password' : 'Change password' ) . '</h1>'
-		. '<p class="muted">' . ( $me['must_change'] ? 'Welcome, ' . h( explode( ' ', $me['name'] )[0] ) . '. For security, replace the starting password with your own before you continue.' : 'Choose a new password for your admin account.' ) . '</p>'
+		. '<p class="muted">' . ( $me['must_change'] ? 'Welcome. For security, replace the starting password with your own before you continue.' : 'Choose a new password for your admin account.' ) . '</p>'
 		. '<ul class="pwrules"><li>At least 12 characters</li><li>Not used anywhere else</li><li>Save it in your password manager</li></ul>'
 		. ( $err ? '<div class="flash bad">' . h( $err ) . '</div>' : '' )
 		. '<form method="post" class="stack" data-pwmatch>' . cp_csrf_field()
@@ -139,8 +139,8 @@ if ( $p === 'tasks' ) {
 			cp_flash( 'Task added.' );
 		} elseif ( $a === 'save' ) {
 			$shipped = $status === 'Done' ? ( $date( 'shipped_date' ) ?? gmdate( 'Y-m-d' ) ) : null;
-			$db->prepare( 'UPDATE tasks SET title = ?, area = ?, status = ?, priority = ?, owner = ?, target_date = ?, shipped_date = ?, notes = ?, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?' )
-				->execute( array( $f( 'title' ), $area, $status, $prio, $f( 'owner', 80 ) ?: null, $date( 'target_date' ), $shipped, $f( 'notes', 2000 ) ?: null, $me['name'], (int) $_POST['id'] ) );
+			$db->prepare( 'UPDATE tasks SET title = ?, area = ?, status = ?, priority = ?, target_date = ?, shipped_date = ?, notes = ?, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?' )
+				->execute( array( $f( 'title' ), $area, $status, $prio, $date( 'target_date' ), $shipped, $f( 'notes', 2000 ) ?: null, $me['name'], (int) $_POST['id'] ) );
 			cp_flash( 'Task saved.' );
 		}
 		header( 'Location: /tasks' . ( isset( $_GET['status'] ) ? '?status=' . urlencode( (string) $_GET['status'] ) : '' ) ); exit;
@@ -155,19 +155,19 @@ if ( $p === 'tasks' ) {
 	echo '</div><details class="card add"><summary>+ Add a task</summary><form method="post" class="taskform">' . cp_csrf_field() . '<input type="hidden" name="action" value="add">'
 		. '<label class="wide">Title<input name="title" required maxlength="200"></label>'
 		. '<label>Area<select name="area">' . opts( TASK_AREAS, 'Website' ) . '</select></label><label>Status<select name="status">' . opts( TASK_STATUS, 'Backlog' ) . '</select></label>'
-		. '<label>Priority<select name="priority">' . opts( PRIORITIES, 'Medium' ) . '</select></label><label>Owner<input name="owner" maxlength="80"></label>'
+		. '<label>Priority<select name="priority">' . opts( PRIORITIES, 'Medium' ) . '</select></label>'
 		. '<label>Target date<input type="date" name="target_date"></label><label class="wide">Notes<textarea name="notes" rows="2"></textarea></label><button class="btn">Add task</button></form></details>';
 	echo '<div class="tasks">';
 	foreach ( $rows as $i => $t ) {
-		echo '<details class="card task st-' . slug( $t['status'] ) . '"><summary><span class="n">' . ( $i + 1 ) . '</span><span class="tt"><b>' . h( $t['title'] ) . '</b><small>' . h( $t['area'] ) . ( $t['owner'] ? ' · ' . h( $t['owner'] ) : '' ) . ( $t['target_date'] ? ' · target ' . h( $t['target_date'] ) : '' ) . ( $t['shipped_date'] ? ' · shipped ' . h( $t['shipped_date'] ) : '' ) . '</small></span>'
+		echo '<details class="card task st-' . slug( $t['status'] ) . '"><summary><span class="n">' . ( $i + 1 ) . '</span><span class="tt"><b>' . h( $t['title'] ) . '</b><small>' . h( $t['area'] ) . ( $t['target_date'] ? ' · target ' . h( $t['target_date'] ) : '' ) . ( $t['shipped_date'] ? ' · shipped ' . h( $t['shipped_date'] ) : '' ) . '</small></span>'
 			. '<span class="pill p-' . slug( $t['priority'] ) . '">' . h( $t['priority'] ) . '</span><span class="pill s-' . slug( $t['status'] ) . '">' . h( $t['status'] ) . '</span></summary>'
 			. '<form method="post" class="taskform">' . cp_csrf_field() . '<input type="hidden" name="action" value="save"><input type="hidden" name="id" value="' . (int) $t['id'] . '">'
 			. '<label class="wide">Title<input name="title" required maxlength="200" value="' . h( $t['title'] ) . '"></label>'
 			. '<label>Area<select name="area">' . opts( TASK_AREAS, $t['area'] ) . '</select></label><label>Status<select name="status">' . opts( TASK_STATUS, $t['status'] ) . '</select></label>'
-			. '<label>Priority<select name="priority">' . opts( PRIORITIES, $t['priority'] ) . '</select></label><label>Owner<input name="owner" maxlength="80" value="' . h( $t['owner'] ) . '"></label>'
+			. '<label>Priority<select name="priority">' . opts( PRIORITIES, $t['priority'] ) . '</select></label>'
 			. '<label>Target date<input type="date" name="target_date" value="' . h( $t['target_date'] ) . '"></label><label>Shipped date<input type="date" name="shipped_date" value="' . h( $t['shipped_date'] ) . '"></label>'
 			. '<label class="wide">Notes<textarea name="notes" rows="3">' . h( $t['notes'] ) . '</textarea></label>'
-			. '<p class="muted small wide">Last update: ' . h( $t['updated_by'] ) . ', ' . h( $t['updated_at'] ) . ' UTC</p><button class="btn">Save</button></form></details>';
+			. '<p class="muted small wide">Last updated ' . h( $t['updated_at'] ) . ' UTC</p><button class="btn">Save</button></form></details>';
 	}
 	if ( ! $rows ) { echo '<p class="muted">No tasks here.</p>'; }
 	echo '</div>';

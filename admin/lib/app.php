@@ -118,7 +118,7 @@ function cp_head( string $title, ?array $user, string $cur = '' ): void {
 	if ( $user ) {
 		echo '<nav>';
 		foreach ( $nav as $k => $v ) { echo '<a href="/' . $k . '"' . ( $k === $cur ? ' aria-current="page"' : '' ) . '>' . $v . '</a>'; }
-		echo '</nav><div class="me"><span>' . h( $user['name'] ) . '</span><a href="/password">Password</a><form method="post" action="/logout">' . cp_csrf_field() . '<button class="link">Log out</button></form></div>';
+		echo '</nav><div class="me"><a href="/password">Password</a><form method="post" action="/logout">' . cp_csrf_field() . '<button class="link">Log out</button></form></div>';
 	}
 	echo '</div></header><main class="wrap">';
 }
