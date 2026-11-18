@@ -1,0 +1,70 @@
+# admin.coralpetal.ai — PRODUCTION admin app (since Release 1.0001).
+#   push to main that touches admin/ → PHP checks → WAIT FOR ROHIT'S APPROVAL (production environment)
+#   → scripts/deploy_admin.sh prod (config from secret ADMIN_CONFIG) → verify the sign-in page.
+name: Admin deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'admin/**'
+      - 'scripts/deploy_admin.sh'
+      - '.github/workflows/admin.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-admin
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Admin checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP + script syntax
+        run: |
+          for f in $(find admin -name '*.php'); do php -l "$f" >/dev/null || { php -l "$f"; exit 1; }; done
+          bash -n scripts/deploy_admin.sh
+
+  deploy:
+    name: Deploy · Admin
+    if: github.ref_name == 'main'
+    needs: checks
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://admin.coralpetal.ai
+    env:
+      HOSTINGER_HOST: ${{ vars.HOSTINGER_HOST }}
+      HOSTINGER_PORT: ${{ vars.HOSTINGER_PORT }}
+      HOSTINGER_USER: ${{ vars.HOSTINGER_USER }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: SSH setup (pinned host keys)
+        env:
+          KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+          KNOWN: ${{ vars.HOSTINGER_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/id && chmod 600 ~/.ssh/id
+          printf '%s\n' "$KNOWN" > ~/.ssh/known_hosts
+      - name: Deploy admin.coralpetal.ai
+        env:
+          ADMIN_CONFIG: ${{ secrets.ADMIN_CONFIG }}
+        run: bash scripts/deploy_admin.sh prod
+      - name: Verify the sign-in page
+        run: |
+          for i in $(seq 1 12); do
+            code=$(curl -s -m 15 -o /tmp/l.html -w '%{http_code}' "https://admin.coralpetal.ai/login?ci=$RANDOM" || true)
+            echo "attempt $i: $code"
+            [ "$code" = 200 ] && grep -q 'Coral Petal AI Admin' /tmp/l.html && echo "✅ admin sign-in page up" && exit 0
+            sleep 10
+          done
+          echo "::error::admin.coralpetal.ai/login not serving the admin app"; exit 1
+      - name: Remove key
+        if: always()
+        run: rm -f ~/.ssh/id
