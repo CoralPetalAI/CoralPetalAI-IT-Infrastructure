@@ -33,6 +33,7 @@ NAV = [
         ("/industries/", "Industries"),
     ]),
     ("services", "Services", "/services/", [
+        ("/services/", "Overview"),
         ("/services/#strategy", "AI strategy & readiness"),
         ("/services/#implementation", "Agentic AI implementation"),
         ("/services/#governance", "Run & govern"),
