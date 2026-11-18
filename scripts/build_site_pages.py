@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "site-data"
 SITE = ROOT / "site"
-CSS_VERSION = "20261118v"
+CSS_VERSION = "20261118w"
 
 NAV = [
     ("about", "About", "/about/", [
@@ -43,7 +43,7 @@ NAV = [
         ("https://academy.coralpetal.ai/", "Coral Petal AI Academy"),
     ]),
     ("insights", "Insights", "/insights/", []),
-    ("careers", "Careers", "/join-us/", []),
+    ("careers", "Careers", "https://careers.coralpetal.ai/", []),
 ]
 # 2026-11-18 (Rohit): Industries + About us live under Services; Company menu became a plain Careers link.
 SERVICES_PAGES = set()  # About us = first nav item; Industries under it (Rohit, 11/18)
