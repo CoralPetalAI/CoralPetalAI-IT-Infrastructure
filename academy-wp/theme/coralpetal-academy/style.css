@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.17.0
+Version: 1.18.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -839,3 +839,8 @@ body.cp-landing .cp-vhero { padding-top: 120px !important; }
 @keyframes cpStep { 0%, 24% { background: #FFEDEA; border-color: #FF8A7A; color: #D9473F; transform: translateY(-3px); box-shadow: 0 0 0 4px #FFF1EE; } 25%, 100% { background: #F5F5F5; border-color: #ECECEC; color: #6E6E6E; transform: none; box-shadow: none; } }
 @media (prefers-reduced-motion: reduce) { .cp-lvx-code i, .cp-lvx-cam span, .cp-lvx-track i, .cp-lvx-steps li span { animation: none; } .cp-lvx-track i { width: 100%; } .cp-lvx-code i { opacity: 1; } }
 .cp-lvx-time .cp-live-dot { background: #2BB673; box-shadow: 0 0 0 3px rgba(43,182,115,.2); width: 7px; height: 7px; }
+/* Sign-in popup brand + soft coral button (2026-11-18, Rohit) */
+.cp-modal-brand { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; font-weight: 600; font-size: 1.05rem; color: #111111; }
+.cp-modal-brand .cp-acc { color: #FF6F61; }
+.tutor-modal .tutor-btn-primary { background: #FFB4A9 !important; border-color: #FFB4A9 !important; color: #111111 !important; }
+.tutor-modal .tutor-btn-primary:hover { background: #FF9F92 !important; border-color: #FF9F92 !important; }
