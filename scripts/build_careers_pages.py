@@ -13,6 +13,7 @@ SOC = '''<div class="social"><a class="s-li" href="https://www.linkedin.com/comp
 
 def page(title, desc, canon, body, cur):
     oc = ' aria-current="page"' if cur == "openings" else ""
+    hc = ' aria-current="page"' if cur == "home" else ""
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -44,6 +45,7 @@ def page(title, desc, canon, body, cur):
       </a>
       <nav aria-label="Primary">
         <ul id="primary-nav">
+          <li><a class="pill" href="/"{hc}>Careers Home</a></li>
           <li><a class="pill" href="/openings/"{oc}>Openings</a></li>
         </ul>
       </nav>
@@ -214,13 +216,13 @@ jd = f'''    <section class="page-hero cr-hero-s">
             <h1>Video Editor</h1>
             <p class="lede">Turn raw recordings into polished, enterprise-grade video for our courses, walkthroughs, client work and YouTube, with AI agents in your everyday workflow.</p>
           </div>
-          <a class="btn" href="mailto:careers@coralpetal.ai?subject=Video%20Editor">Apply now</a>
+          <a class="btn" href="/video-editor/apply/">Apply now</a>
         </div>
         <div class="cr-facts">
           <div class="coral-card">{ico("is-coral", I["people"])}<div><small>Team</small><b>Content</b></div></div>
           <div class="coral-card">{ico("is-teal", I["globe"])}<div><small>Location</small><b>Fully remote</b></div></div>
           <div class="coral-card">{ico("is-violet", I["pen"])}<div><small>Must have</small><b>Figma, AI agents</b></div></div>
-          <div class="coral-card">{ico("is-blue", I["mail"])}<div><small>Apply</small><b>careers@coralpetal.ai</b></div></div>
+          <div class="coral-card">{ico("is-blue", I["mail"])}<div><small>Apply</small><b>Online form</b></div></div>
         </div>
       </div>
     </section>
@@ -247,18 +249,93 @@ jd = f'''    <section class="page-hero cr-hero-s">
           {ico("is-coral", I["mail"])}
           <h3>How to apply</h3>
           <ol>
-            <li>Your CV</li>
-            <li>A portfolio link</li>
-            <li>A short note on how you've worked with AI agents in your editing</li>
+            <li>Click <b>Apply now</b> and fill in your details</li>
+            <li>Attach your CV as a PDF (required)</li>
+            <li>Add a cover letter PDF on how you've worked with AI agents (optional)</li>
           </ol>
-          <a class="btn" href="mailto:careers@coralpetal.ai?subject=Video%20Editor">Apply by email</a>
-          <small>careers@coralpetal.ai</small>
+          <a class="btn" href="/video-editor/apply/">Apply now</a>
+          <small>Questions? careers@coralpetal.ai</small>
         </aside>
       </div>
     </section>
 '''
 
+
+# ---------- Apply form ----------
+apply = f'''    <section class="page-hero cr-hero-s">
+      <div class="wrap">
+        <p class="crumbs"><a href="/">Careers</a> <span>/</span> <a href="/openings/">Openings</a> <span>/</span> <a href="/video-editor/">Video Editor</a> <span>/</span> Apply</p>
+        <p class="eyebrow">Content · Fully remote</p>
+        <h1>Apply: Video Editor</h1>
+        <p class="lede">It takes about 3 minutes. Fields marked * are required.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:16px">
+      <div class="wrap cr-two">
+        <form class="coral-card cr-form" id="apply" action="/apply/submit.php" method="post" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="role" value="video-editor">
+          <input type="hidden" name="t" id="t">
+          <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <fieldset><legend>Your details</legend>
+            <label class="full">Full name *<input name="name" required autocomplete="name" maxlength="120"></label>
+            <label class="full">Email *<input type="email" name="email" required autocomplete="email" maxlength="190"></label>
+            <label>Country *<select name="country" id="country" required><option value="">Select country</option></select></label>
+            <label>City *<input name="city" required autocomplete="address-level2" maxlength="120"></label>
+            <label class="full">Mobile number *
+              <span class="cr-phone"><input name="dial" id="dial" value="+91" readonly aria-label="Country code"><input type="tel" name="phone" required inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" maxlength="20"></span>
+            </label>
+            <label class="full">Portfolio or LinkedIn link<input type="url" name="link" placeholder="https://" maxlength="300"></label>
+          </fieldset>
+          <fieldset><legend>Documents (PDF, max 5 MB)</legend>
+            <label class="cr-file full"><span>{ico("is-coral", I["teach"])}<b>Resume / CV *</b><small id="resume-n">Choose a PDF</small></span><input type="file" name="resume" accept="application/pdf,.pdf" required></label>
+            <label class="cr-file full"><span>{ico("is-blue", I["pen"])}<b>Cover letter</b><small id="cover-n">Optional PDF</small></span><input type="file" name="cover" accept="application/pdf,.pdf"></label>
+          </fieldset>
+          <label class="cr-consent"><input type="checkbox" name="consent" value="1" required> I agree that Coral Petal AI may store and use my application to assess me for this and similar roles. You can ask us to delete it at any time via careers@coralpetal.ai. *</label>
+          <button class="btn" type="submit" id="send">Submit application</button>
+          <p class="cr-msg" id="msg" role="status" aria-live="polite"></p>
+        </form>
+        <aside class="coral-card cr-apply">
+          {ico("is-green", I["check"])}
+          <h3>What happens next</h3>
+          <ol>
+            <li>You get an on-screen confirmation</li>
+            <li>We review every application</li>
+            <li>If there is a fit, we email you to set up a call</li>
+          </ol>
+          <small>Your files are stored privately and used only for hiring.</small>
+        </aside>
+      </div>
+    </section>
+    <script>
+    (function () {{
+      var f = document.getElementById('apply'), sel = document.getElementById('country'), dial = document.getElementById('dial'), msg = document.getElementById('msg'), btn = document.getElementById('send');
+      document.getElementById('t').value = Date.now();
+      fetch('/apply/countries.json').then(function (r) {{ return r.json(); }}).then(function (list) {{
+        list.forEach(function (c) {{ var o = document.createElement('option'); o.value = c.c; o.textContent = c.n + ' (' + c.p + ')'; o.dataset.p = c.p; sel.appendChild(o); }});
+        sel.value = 'IN'; dial.value = '+91';
+      }});
+      sel.addEventListener('change', function () {{ var o = sel.selectedOptions[0]; dial.value = (o && o.dataset.p) || ''; }});
+      ['resume', 'cover'].forEach(function (k) {{
+        f.elements[k].addEventListener('change', function () {{ var x = this.files[0]; document.getElementById(k + '-n').textContent = x ? x.name : (k === 'resume' ? 'Choose a PDF' : 'Optional PDF'); }});
+      }});
+      f.addEventListener('submit', function (e) {{
+        e.preventDefault(); msg.className = 'cr-msg'; 
+        if (!f.checkValidity()) {{ f.reportValidity(); return; }}
+        btn.disabled = true; btn.textContent = 'Sending…';
+        fetch(f.action, {{ method: 'POST', body: new FormData(f) }}).then(function (r) {{ return r.json(); }}).then(function (d) {{
+          msg.textContent = d.message; msg.className = 'cr-msg ' + (d.ok ? 'ok' : 'bad');
+          if (d.ok) {{ f.querySelectorAll('fieldset, .cr-consent, #send').forEach(function (el) {{ el.style.display = 'none'; }}); }}
+          else {{ btn.disabled = false; btn.textContent = 'Submit application'; }}
+        }}).catch(function () {{ msg.textContent = 'Network error. Please try again.'; msg.className = 'cr-msg bad'; btn.disabled = false; btn.textContent = 'Submit application'; }});
+      }});
+    }})();
+    </script>
+'''
+
 (C / "index.html").write_text(page("Careers at Coral Petal AI", "Careers at Coral Petal AI: remote roles in Agentic AI engineering, data science, cloud, teaching and content.", "/", home, "home"), encoding="utf-8")
 (C / "openings/index.html").write_text(page("Openings | Coral Petal AI Careers", "Open roles at Coral Petal AI. All roles are fully remote.", "/openings/", openings, "openings"), encoding="utf-8")
 (C / "video-editor/index.html").write_text(page("Video Editor | Coral Petal AI Careers", "Video Editor at Coral Petal AI: enterprise-grade video for courses and clients, produced alongside AI agents. Fully remote.", "/video-editor/", jd, "openings"), encoding="utf-8")
+(C / "video-editor/apply").mkdir(parents=True, exist_ok=True)
+(C / "video-editor/apply/index.html").write_text(page("Apply: Video Editor | Coral Petal AI Careers", "Apply for the Video Editor role at Coral Petal AI.", "/video-editor/apply/", apply, "openings"), encoding="utf-8")
 print("built careers pages")

@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.18.0
+Version: 1.19.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -844,3 +844,13 @@ body.cp-landing .cp-vhero { padding-top: 120px !important; }
 .cp-modal-brand .cp-acc { color: #FF6F61; }
 .tutor-modal .tutor-btn-primary { background: #FFB4A9 !important; border-color: #FFB4A9 !important; color: #111111 !important; }
 .tutor-modal .tutor-btn-primary:hover { background: #FF9F92 !important; border-color: #FF9F92 !important; }
+
+/* Footer = same layout as coralpetal.ai on every Academy page (2026-11-18, Rohit):
+   copyright left; socials + email right. Explicit rules, because PHP templates (catalog, course) do not get WP's generated flex classes. */
+.cp-footer .cp-foot-row { display: flex !important; justify-content: space-between !important; align-items: center !important; flex-wrap: wrap; gap: 12px 24px; max-width: 1200px; margin: 0 auto !important; text-align: left !important; }
+.cp-footer .cp-foot-row > p { margin: 0 !important; text-align: left !important; }
+.cp-footer .cp-foot-left { font-size: .85rem !important; color: #6E6E6E; }
+.cp-footer .cp-foot-right { display: inline-flex !important; align-items: center; gap: 18px; margin-left: auto !important; }
+.cp-footer .cp-foot-right > a { color: #6E6E6E !important; font-size: .85rem; }
+.cp-social a:hover { background: #FFFFFF; border-color: #D5D5D5; color: #111111 !important; }
+@media (max-width: 640px) { .cp-footer .cp-foot-right { margin-left: 0 !important; } }

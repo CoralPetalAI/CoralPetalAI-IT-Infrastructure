@@ -74,6 +74,10 @@ jobs:
         run: bash scripts/deploy_dev.sh site _dev_site
       - name: Deploy dev-careers.coralpetal.ai
         run: bash scripts/deploy_dev.sh careers _dev_careers
+      - name: Careers form config (DB + Azure SAS) → ~/.coralpetal
+        env:
+          CAREERS_CONFIG: ${{ secrets.CAREERS_CONFIG }}
+        run: bash scripts/careers_config_store.sh
       - name: Verify (commit served behind the login, locked without it)
         run: |
           want="${GITHUB_SHA:0:7}"
