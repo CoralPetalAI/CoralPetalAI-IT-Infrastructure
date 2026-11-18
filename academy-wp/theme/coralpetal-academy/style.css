@@ -2,7 +2,7 @@
 Theme Name: Coral Petal Academy
 Description: Child theme of Twenty Twenty-Five for the Coral Petal AI Academy (Tutor LMS). tana.inc-style theme: near-white, ink, Newsreader serif headings, coral accent.
 Template: twentytwentyfive
-Version: 1.14.0
+Version: 1.15.0
 Requires at least: 6.7
 Text Domain: coralpetal-academy
 */
@@ -796,3 +796,10 @@ body.cp-landing .cp-vhero { padding-top: 120px !important; }
 /* 2026-11-18 Rohit: light coral primary buttons on every site (#FF8A7A, dark text) */
 .cp-btn:not(.cp-ghost), .cp-cta .wp-block-button__link, .wp-block-button:not(.is-style-outline) .wp-block-button__link { background: #FF8A7A !important; border-color: #FF8A7A !important; color: #111111 !important; font-weight: 600; }
 .cp-btn:not(.cp-ghost):hover, .cp-cta .wp-block-button__link:hover, .wp-block-button:not(.is-style-outline) .wp-block-button__link:hover { background: #FF6F61 !important; border-color: #FF6F61 !important; color: #111111 !important; }
+
+/* 2026-11-18 Rohit: BUTTON TEMPLATE = soft coral #FFB4A9 + dark text, hover #FF9F92 (all sites) */
+.cp-coral, .cp-btn:not(.cp-ghost), .cp-cta .wp-block-button__link, .wp-block-button:not(.is-style-outline) .wp-block-button__link,
+.tutor-btn-primary, .tutor-enroll-course-button, .tutor-course-card .tutor-btn-outline-primary, .tutor-course-card .tutor-btn,
+.cp-cat-jump button.is-on, .cp-cat-jump button[aria-pressed="true"] { background: #FFB4A9 !important; border-color: #FFB4A9 !important; color: #111111 !important; }
+.cp-coral:hover, .cp-btn:not(.cp-ghost):hover, .cp-cta .wp-block-button__link:hover, .wp-block-button:not(.is-style-outline) .wp-block-button__link:hover,
+.tutor-btn-primary:hover, .tutor-enroll-course-button:hover, .tutor-course-card .tutor-btn-outline-primary:hover, .tutor-course-card .tutor-btn:hover { background: #FF9F92 !important; border-color: #FF9F92 !important; color: #111111 !important; }

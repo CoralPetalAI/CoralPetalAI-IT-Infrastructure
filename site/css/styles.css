@@ -859,3 +859,9 @@ h2 { font-size: clamp(1.6rem, 2.3vw, 2.15rem); }
 .pillar .more { margin-top: auto; padding-top: 8px; font-weight: 600; font-size: .92rem; }
 @media (max-width: 560px) { .org-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .coral-card, .org-t { transition: none; } .live-dot { animation: none; } }
+
+/* 2026-11-18 Rohit: BUTTON TEMPLATE = soft coral #FFB4A9 + dark text, hover #FF9F92 (all sites) */
+.btn, .nav li a.btn, .cta-band .btn { background: #FFB4A9; border-color: #FFB4A9; color: #1B1B1B; }
+.btn:hover, .nav li a.btn:hover, .cta-band .btn:hover { background: #FF9F92; border-color: #FF9F92; color: #1B1B1B; }
+.btn.btn-ghost, .cta-band .btn.btn-ghost { background: transparent; border-color: rgba(32,32,32,.22); }
+.btn.btn-ghost:hover, .cta-band .btn.btn-ghost:hover { background: rgba(32,32,32,.05); border-color: rgba(32,32,32,.35); }
