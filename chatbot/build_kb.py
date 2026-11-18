@@ -52,7 +52,7 @@ FACTS = """## Key facts (always true; prefer these over anything else)
 - Company: Coral Petal AI, an Agentic AI consultancy for enterprises and governments, based in India. Coral Petal AI™ and the Petal Network logo are trademarks (applications filed in India).
 - Services: Strategy & readiness, Agent implementation, Run & govern (evaluation, monitoring, guardrails), Team enablement (training through the Academy).
 - Clouds: Microsoft Azure, AWS and Google Cloud.
-- Academy (academy.coralpetal.ai): The Coral Petal Signature Course, end-to-end Generative and Agentic AI, 8 modules, about 50 hours, USD 100 with 20% off = USD 80. Fundamentals courses: about 20 hours each, USD 50, now USD 20. Every enrolment gives 1 year of access. Live sessions and bootcamps are planned.
+- Academy (academy.coralpetal.ai): The Coral Petal Signature Course, end-to-end Generative and Agentic AI, 8 modules, about 50 hours, USD 100 with 20% off = USD 80. Fundamentals courses: about 20 hours each, USD 50, now USD 20. Every enrolment gives 1 year of access. Refunds: 100% refund on any self-paced course within 7 days of purchase; live sessions and bootcamps follow the Refund Policy at coralpetal.ai/refund. Live sessions and bootcamps are planned.
 - Careers (careers.coralpetal.ai): open role Video Editor; apply on the careers site.
 - Contact: contact@coralpetal.ai (services and partnerships), academy@coralpetal.ai (courses and corporate training), careers@coralpetal.ai (jobs). The contact form at coralpetal.ai/contact/ reaches the right team; replies within two working days.
 - Socials: LinkedIn /company/coralpetalai, Instagram and X @CoralPetalAI.
