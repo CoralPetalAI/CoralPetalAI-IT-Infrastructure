@@ -6,7 +6,7 @@
 //   "users": [ {"email","name","role":"owner|admin","password"} ]   ← first-run seed only, must change at first login }
 declare(strict_types=1);
 
-const CP_ADMIN_VERSION = '1.0.0';
+const CP_ADMIN_VERSION = '1.1.0';
 
 function cp_env(): string {
 	return preg_match( '/^dev-/', $_SERVER['HTTP_HOST'] ?? '' ) ? 'dev' : 'prod';

@@ -33,7 +33,7 @@ if ( $p === 'login' ) {
 		if ( ! $err ) { header( 'Location: /dashboard' ); exit; }
 	}
 	cp_head( 'Sign in', null );
-	echo '<section class="login"><div class="card coral"><img src="/assets/logo.svg" alt="" width="44" height="44"><h1>Sign in</h1><p class="muted">Coral Petal AI admin. Authorised users only.</p>'
+	echo '<section class="login"><div class="card coral"><div class="lbrand"><img src="/assets/logo.svg" alt="" width="40" height="40"><span>Coral <span class="acc">Petal AI</span><sup>™</sup></span></div><h1>Sign in</h1><p class="muted">Authorised users only.</p>'
 		. ( $err ? '<div class="flash bad">' . h( $err ) . '</div>' : '' )
 		. '<form method="post" class="stack">' . cp_csrf_field()
 		. '<label>Email<input type="email" name="email" required autocomplete="username"></label>'
@@ -61,14 +61,19 @@ if ( $p === 'password' ) {
 		}
 	}
 	cp_head( 'Password', $me );
-	echo '<section class="narrow"><h1>' . ( $me['must_change'] ? 'Set your own password' : 'Change password' ) . '</h1>'
-		. ( $me['must_change'] ? '<p class="muted">For security, replace the starting password before you continue.</p>' : '' )
+	echo '<section class="login"><div class="card coral pwbox">'
+		. '<div class="lbrand"><img src="/assets/logo.svg" alt="" width="36" height="36"><span>Coral <span class="acc">Petal AI</span><sup>™</sup></span></div>'
+		. '<h1>' . ( $me['must_change'] ? 'Set your password' : 'Change password' ) . '</h1>'
+		. '<p class="muted">' . ( $me['must_change'] ? 'Welcome, ' . h( explode( ' ', $me['name'] )[0] ) . '. For security, replace the starting password with your own before you continue.' : 'Choose a new password for your admin account.' ) . '</p>'
+		. '<ul class="pwrules"><li>At least 12 characters</li><li>Not used anywhere else</li><li>Save it in your password manager</li></ul>'
 		. ( $err ? '<div class="flash bad">' . h( $err ) . '</div>' : '' )
-		. '<form method="post" class="card stack">' . cp_csrf_field()
-		. '<label>Current password<input type="password" name="current" required autocomplete="current-password"></label>'
-		. '<label>New password (12+ characters)<input type="password" name="new" required minlength="12" autocomplete="new-password"></label>'
-		. '<label>New password again<input type="password" name="again" required minlength="12" autocomplete="new-password"></label>'
-		. '<button class="btn">Save password</button></form></section>';
+		. '<form method="post" class="stack" data-pwmatch>' . cp_csrf_field()
+		. '<label>' . ( $me['must_change'] ? 'Starting password' : 'Current password' ) . '<input type="password" name="current" required autocomplete="current-password"></label>'
+		. '<label>New password<input type="password" name="new" required minlength="12" autocomplete="new-password" data-pw1></label>'
+		. '<label>Confirm new password<input type="password" name="again" required minlength="12" autocomplete="new-password" data-pw2></label>'
+		. '<p class="pwmsg" aria-live="polite"></p>'
+		. '<button class="btn">Save password</button></form></div></section>'
+		. '<script src="/assets/pwmatch.js?v=' . CP_ADMIN_VERSION . '"></script>';
 	cp_foot();
 	exit;
 }
