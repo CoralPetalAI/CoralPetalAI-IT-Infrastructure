@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "site-data"
 SITE = ROOT / "site"
-CSS_VERSION = "20261118x"
+CSS_VERSION = "20261118y"
 # Website assistant (ElevenLabs Agents widget, voice + text), home page only (Rohit 2026-11-18).
 # Public agent id from the ElevenLabs dashboard (Agents → the agent → Widget). Empty = no widget.
 # Setup and the agent's prompt: chatbot/README.md.

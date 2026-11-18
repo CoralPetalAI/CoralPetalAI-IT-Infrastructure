@@ -919,3 +919,21 @@ a.coral-card.pillar { color: var(--ink); text-decoration: none; }
 .ct-side { padding: 8px 4px; } .ct-side h3 { margin: 0 0 10px; } .ct-side ol { margin: 0 0 14px; padding-left: 20px; color: var(--muted); display: grid; gap: 8px; }
 @media (max-width: 860px) { .ct-two { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .ct-grid { grid-template-columns: 1fr; } }
+/* Legal pages (2026-11-18): privacy, terms, refund. */
+.legal-hero { padding: 64px 0 24px; }
+.legal-hero .lede { max-width: 60ch; }
+.legal-meta { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+.legal-sec { padding-top: 16px; }
+.legal-doc > * { max-width: 820px; }
+.legal-doc h2 { font-size: 1.35rem; margin: 40px 0 10px; scroll-margin-top: 110px; }
+.legal-doc p, .legal-doc li { line-height: 1.65; color: var(--ink); }
+.legal-doc ul { padding-left: 22px; display: grid; gap: 6px; }
+.legal-doc a { color: #B23A31; }
+.legal-toc { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: #FFFFFF; }
+.legal-toc a { font-size: 13px; padding: 5px 11px; border-radius: 999px; background: #FFF1EE; color: #B23A31; text-decoration: none; }
+.legal-toc a:hover { background: #FFE3DE; }
+.legal-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.legal-cards .card { padding: 18px; display: grid; gap: 4px; }
+.legal-cards small { color: var(--muted); font-size: 12.5px; } .legal-cards b { font-size: 1.3rem; } .legal-cards span { font-size: 13.5px; color: var(--muted); }
+.foot-legal { display: inline-flex; gap: 14px; margin-left: 14px; } .foot-legal a { color: inherit; }
+@media (max-width: 760px) { .legal-cards { grid-template-columns: 1fr; } .foot-legal { margin: 6px 0 0; display: flex; } }

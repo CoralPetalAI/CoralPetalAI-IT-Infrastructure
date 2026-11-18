@@ -59,7 +59,7 @@ def page(title, desc, canon, body, cur):
   <footer class="site-footer">
     <div class="wrap">
       <div class="foot-bottom" style="margin-top:0;border-top:0;padding-top:0">
-        <span>© <span id="year">2026</span> Coral Petal AI™ and the Petal Network logo are trademarks of The Coral Petal Company.</span>
+        <span>© <span id="year">2026</span> Coral Petal AI™ and the Petal Network logo are trademarks of The Coral Petal Company.<span class="foot-legal"><a href="https://coralpetal.ai/privacy/">Privacy</a><a href="https://coralpetal.ai/terms/">Terms</a><a href="https://coralpetal.ai/refund/">Refunds</a></span></span>
         <span class="foot-right">{SOC}<a href="mailto:careers@coralpetal.ai">careers@coralpetal.ai</a></span>
       </div>
     </div>
