@@ -107,11 +107,11 @@ add_filter( 'the_content', function ( $content ) {
 	}
 	$msg = '';
 	if ( isset( $_GET['cp_check_email'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-		$msg = '<div class="cp-notice"><b>Check your inbox.</b> We sent you a link to verify your email. Click it, then log in here.</div>';
+		$msg = '<div class="cp-vnote" role="status"><span class="cp-vnote-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></span><div><p class="cp-vnote-t">Verify your email to activate your account</p><p class="cp-vnote-d">We have sent an activation email to your inbox. Open it and select <b>Activate account</b>, then sign in below.</p><p class="cp-vnote-s">Not there after a few minutes? Check your spam or promotions folder. Signing in again lets you request a new email.</p></div></div>';
 	} elseif ( isset( $_GET['cp_verified'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-		$msg = '<div class="cp-notice ok"><b>Email verified.</b> You can log in now.</div>';
+		$msg = '<div class="cp-vnote ok" role="status"><span class="cp-vnote-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span><div><p class="cp-vnote-t">Your account is active</p><p class="cp-vnote-d">Thank you for verifying your email. Sign in below to start learning.</p></div></div>';
 	} elseif ( isset( $_GET['cp_verify_failed'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-		$msg = '<div class="cp-notice bad"><b>That link didn’t work.</b> It may have been used already. Try logging in, or sign up again.</div>';
+		$msg = '<div class="cp-vnote bad" role="alert"><span class="cp-vnote-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5h.01"/></svg></span><div><p class="cp-vnote-t">This activation link is no longer valid</p><p class="cp-vnote-d">It may have been used already or replaced by a newer email. Sign in below, and if your account is not yet active you can request a new activation email.</p></div></div>';
 	}
 	return $msg . $content;
 }, 5 );
