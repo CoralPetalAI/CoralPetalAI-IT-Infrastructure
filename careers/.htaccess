@@ -9,10 +9,10 @@ ErrorDocument 404 /404.html
 ErrorDocument 503 /back-soon.html
 
 # BEGIN BACK-SOON (prod only; Rohit 2026-11-18). dev-careers is unaffected (host check).
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteCond %{HTTP_HOST} ^careers\.coralpetal\.ai$ [NC]
-  RewriteCond %{REQUEST_URI} !^/(back-soon\.html|version\.json|robots\.txt|img/|\.well-known/)
-  RewriteRule ^ - [R=503,L]
-</IfModule>
+#OFF# <IfModule mod_rewrite.c>
+  #OFF# RewriteEngine On
+  #OFF# RewriteCond %{HTTP_HOST} ^careers\.coralpetal\.ai$ [NC]
+  #OFF# RewriteCond %{REQUEST_URI} !^/(back-soon\.html|version\.json|robots\.txt|img/|\.well-known/)
+  #OFF# RewriteRule ^ - [R=503,L]
+#OFF# </IfModule>
 # END BACK-SOON

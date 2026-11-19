@@ -10,10 +10,10 @@ ErrorDocument 503 /back-soon.html
   RewriteEngine On
 
   # BEGIN BACK-SOON (prod only; Rohit 2026-11-18). Dev sites are unaffected (host check).
-  # Go live = remove this block in a PR. Exempt: the page itself, version.json, robots, images, SSL checks.
-  RewriteCond %{HTTP_HOST} ^(www\.)?coralpetal\.ai$ [NC]
-  RewriteCond %{REQUEST_URI} !^/(back-soon\.html|version\.json|robots\.txt|img/|\.well-known/)
-  RewriteRule ^ - [R=503,L]
+  #OFF# # Go live = remove this block in a PR. Exempt: the page itself, version.json, robots, images, SSL checks.
+  #OFF# RewriteCond %{HTTP_HOST} ^(www\.)?coralpetal\.ai$ [NC]
+  #OFF# RewriteCond %{REQUEST_URI} !^/(back-soon\.html|version\.json|robots\.txt|img/|\.well-known/)
+  #OFF# RewriteRule ^ - [R=503,L]
   # END BACK-SOON
 
   # www → apex
