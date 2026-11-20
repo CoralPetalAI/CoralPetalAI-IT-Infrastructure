@@ -6,7 +6,7 @@
 //   "users": [ {"email","name","role":"owner|admin","password"} ]   ← first-run seed only, must change at first login }
 declare(strict_types=1);
 
-const CP_ADMIN_VERSION = '1.3.1';
+const CP_ADMIN_VERSION = '1.4.0';
 
 function cp_env(): string {
 	return preg_match( '/^dev-/', $_SERVER['HTTP_HOST'] ?? '' ) ? 'dev' : 'prod';
@@ -113,7 +113,7 @@ function cp_login( string $email, string $pass ): ?string {
 
 // ---------- Layout ----------
 function cp_head( string $title, ?array $user, string $cur = '' ): void {
-	$nav = array( 'dashboard' => 'Dashboard', 'tasks' => 'Tasks', 'legal' => 'Legal', 'roadmap' => 'Roadmap' );
+	$nav = array( 'dashboard' => 'Dashboard', 'inbox' => 'Inbox', 'applications' => 'Applications', 'traffic' => 'Traffic', 'tasks' => 'Tasks', 'legal' => 'Legal', 'roadmap' => 'Roadmap' );
 	if ( cp_is_super( $user ) ) { $nav['users'] = 'Users'; }
 	echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
 		. '<meta name="robots" content="noindex, nofollow"><title>' . h( $title ) . ' · Coral Petal AI Admin</title>'

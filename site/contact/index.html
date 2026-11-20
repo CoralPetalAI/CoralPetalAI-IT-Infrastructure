@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css?v=20261118w">
+  <link rel="stylesheet" href="/css/styles.css?v=20261118z">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -49,10 +49,10 @@
               <summary class="pill">Services <svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
               <ul class="submenu">
                 <li><a href="/services/">Overview</a></li>
-                <li><a href="/services/#strategy">AI strategy &amp; readiness</a></li>
-                <li><a href="/services/#implementation">Agentic AI implementation</a></li>
-                <li><a href="/services/#governance">Run &amp; govern</a></li>
-                <li><a href="/services/#enablement">Team enablement</a></li>
+                <li><a href="/services/strategy/">AI strategy &amp; readiness</a></li>
+                <li><a href="/services/implementation/">Agentic AI implementation</a></li>
+                <li><a href="/services/governance/">Run &amp; govern</a></li>
+                <li><a href="/services/enablement/">Team enablement</a></li>
               </ul>
             </details>
           </li>
@@ -89,6 +89,56 @@
         </figure>
       </div>
     </section>
+
+    <section class="section ct-sec">
+      <div class="wrap ct-two">
+        <form class="card coral-card ct-form" id="contact-form" action="/api/contact.php" method="post" novalidate>
+          <h2>Send us a message</h2>
+          <div class="ct-grid">
+            <label>Your name<input name="name" required minlength="2" maxlength="120" autocomplete="name"></label>
+            <label>Work email<input type="email" name="email" required maxlength="190" autocomplete="email"></label>
+            <label>Company <small>(optional)</small><input name="company" maxlength="160" autocomplete="organization"></label>
+            <label>Topic<select name="topic" required>
+              <option value="services">Services &amp; partnerships</option>
+              <option value="academy">Academy &amp; training</option>
+              <option value="careers">Careers</option>
+              <option value="other">Something else</option>
+            </select></label>
+            <label class="full">Message<textarea name="message" required minlength="10" maxlength="5000" rows="6" placeholder="What would you like AI to do for you?"></textarea></label>
+          </div>
+          <label class="ct-consent"><input type="checkbox" name="consent" value="1" required> <span>Coral Petal AI may store this message and reply to me by email, as set out in the <a href="/privacy/">Privacy Policy</a>.</span></label>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="t" id="ct-t">
+          <button class="btn" id="ct-send" type="submit">Send message</button>
+          <p class="ct-msg" id="ct-msg" role="status" aria-live="polite"></p>
+        </form>
+        <aside class="ct-side">
+          <h3>What happens next</h3>
+          <ol>
+            <li>Your message goes straight to the right team</li>
+            <li>A person reads it, not a sales script</li>
+            <li>We reply within two working days</li>
+          </ol>
+          <p class="muted">Prefer email? Use the addresses below.</p>
+        </aside>
+      </div>
+    </section>
+    <script>
+    (function () {
+      var f = document.getElementById('contact-form'), msg = document.getElementById('ct-msg'), btn = document.getElementById('ct-send');
+      document.getElementById('ct-t').value = Date.now();
+      f.addEventListener('submit', function (e) {
+        e.preventDefault(); msg.className = 'ct-msg'; msg.textContent = '';
+        if (!f.checkValidity()) { f.reportValidity(); return; }
+        btn.disabled = true; btn.textContent = 'Sending…';
+        fetch(f.action, { method: 'POST', body: new FormData(f) }).then(function (r) { return r.json(); }).then(function (d) {
+          msg.textContent = d.message; msg.className = 'ct-msg ' + (d.ok ? 'ok' : 'bad');
+          if (d.ok) { f.querySelectorAll('.ct-grid, .ct-consent, #ct-send').forEach(function (el) { el.style.display = 'none'; }); }
+          else { btn.disabled = false; btn.textContent = 'Send message'; }
+        }).catch(function () { msg.textContent = 'Network error. Please try again, or email contact@coralpetal.ai.'; msg.className = 'ct-msg bad'; btn.disabled = false; btn.textContent = 'Send message'; });
+      });
+    })();
+    </script>
 
     <section class="section">
       <div class="wrap grid g3 tiles">
@@ -136,7 +186,7 @@
         </div>
       </div>
       <div class="foot-bottom">
-        <span>© <span id="year">2026</span> Coral Petal AI™ and the Petal Network logo are trademarks of The Coral Petal Company.</span>
+        <span>© <span id="year">2026</span> Coral Petal AI™ and the Petal Network logo are trademarks of The Coral Petal Company.<span class="foot-legal"><a href="https://coralpetal.ai/privacy/">Privacy</a><a href="https://coralpetal.ai/terms/">Terms</a><a href="https://coralpetal.ai/refund/">Refunds</a></span></span>
         <span class="foot-right"><div class="social"><a class="s-li" href="https://www.linkedin.com/company/coralpetalai" target="_blank" rel="noopener" aria-label="Coral Petal AI on LinkedIn" title="Coral Petal AI on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a><a class="s-ig" href="https://www.instagram.com/coralpetalai/" target="_blank" rel="noopener" aria-label="Coral Petal AI on Instagram" title="Coral Petal AI on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="cp-ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".3" stop-color="#FA7E1E"/><stop offset=".6" stop-color="#D62976"/><stop offset=".85" stop-color="#962FBF"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="url(#cp-ig)" stroke-width="2"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="url(#cp-ig)" stroke-width="2"/><circle cx="17.6" cy="6.4" r="1.3" fill="#D62976"/></svg></a><a class="s-x" href="https://x.com/CoralPetalAI" target="_blank" rel="noopener" aria-label="Coral Petal AI on X" title="Coral Petal AI on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-7.4 8.5L23.3 22h-6.8l-5.3-6.9L5 22H1.9l7.9-9.1L1.6 2h7l4.8 6.3L18.9 2zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20z"/></svg></a></div><a href="mailto:contact@coralpetal.ai">contact@coralpetal.ai</a></span>
       </div>
     </div>
@@ -165,5 +215,6 @@
       });
     })();
   </script>
+  <script>/* First-party, cookieless page count (admin dashboard). No cookies, no IP stored. */(function(){try{if(navigator.doNotTrack==='1'||!navigator.sendBeacon)return;var u=(/^dev[.-]/.test(location.hostname)?'https://dev.coralpetal.ai':'https://coralpetal.ai')+'/api/hit.php';navigator.sendBeacon(u,new Blob([JSON.stringify({p:location.pathname,r:document.referrer})],{type:'text/plain'}));}catch(e){}})();</script>
 </body>
 </html>

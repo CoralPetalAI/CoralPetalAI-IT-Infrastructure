@@ -24,7 +24,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "site-data"
 SITE = ROOT / "site"
-CSS_VERSION = "20261118w"
+CSS_VERSION = "20261118z"
+# Website assistant (ElevenLabs Agents widget, voice + text), home page only (Rohit 2026-11-18).
+# Public agent id from the ElevenLabs dashboard (Agents → the agent → Widget). Empty = no widget.
+# Setup and the agent's prompt: chatbot/README.md.
+ELEVENLABS_AGENT_ID = ""
 
 NAV = [
     ("about", "About", "/about/", [
@@ -34,10 +38,10 @@ NAV = [
     ]),
     ("services", "Services", "/services/", [
         ("/services/", "Overview"),
-        ("/services/#strategy", "AI strategy & readiness"),
-        ("/services/#implementation", "Agentic AI implementation"),
-        ("/services/#governance", "Run & govern"),
-        ("/services/#enablement", "Team enablement"),
+        ("/services/strategy/", "AI strategy & readiness"),
+        ("/services/implementation/", "Agentic AI implementation"),
+        ("/services/governance/", "Run & govern"),
+        ("/services/enablement/", "Team enablement"),
     ]),
     ("academy", "Academy", "https://academy.coralpetal.ai/", [
         ("https://academy.coralpetal.ai/", "Coral Petal AI Academy"),
@@ -92,6 +96,13 @@ def parse(page):
     return meta, text[m.end():]
 
 
+def assistant_html():
+    if not ELEVENLABS_AGENT_ID:
+        return ""
+    return ('  <elevenlabs-convai agent-id="' + ELEVENLABS_AGENT_ID + '"></elevenlabs-convai>\n'
+            '  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>\n')
+
+
 def main():
     tpl = (DATA / "templates" / "page.html").read_text(encoding="utf-8")
     built = []
@@ -104,7 +115,8 @@ def main():
                    .replace("{{canonical}}", url)
                    .replace("{{css_version}}", CSS_VERSION)
                    .replace("{{nav}}", nav_html(meta["nav"]))
-                   .replace("{{body}}", body.rstrip() + "\n"))
+                   .replace("{{body}}", body.rstrip() + "\n")
+                   .replace("{{assistant}}", assistant_html() if not path else ""))
         out = SITE / path / "index.html" if path else SITE / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(html, encoding="utf-8")

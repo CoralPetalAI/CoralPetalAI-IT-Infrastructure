@@ -74,3 +74,9 @@ input.pw-bad{border-color:#E5484D!important;box-shadow:0 0 0 3px rgba(229,72,77,
 .kv{display:flex;justify-content:space-between;font-size:13.5px;padding:8px 0;border-bottom:1px solid #F4F4F4} .kv span{color:var(--muted)}
 @media (max-width:640px){.acct .nm{display:none}}
 .acct .menu .out{margin:4px 0 0;padding-top:4px;border-top:1px solid var(--line)} .acct .menu .out button{width:100%;text-align:left;background:none;border:0;padding:9px 12px;border-radius:10px;font:inherit;font-size:14px;color:#B23A31;cursor:pointer} .acct .menu .out button:hover{background:var(--tint)}
+/* 1.4.0 Inbox, Applications, Traffic */
+.minis.four{grid-template-columns:repeat(4,1fr)} @media (max-width:760px){.minis.four{grid-template-columns:1fr 1fr}}
+.msgbody{margin-top:12px} .msgbody blockquote{margin:12px 0 0;padding:14px 16px;background:#FAFAFA;border:1px solid var(--line);border-radius:12px;white-space:normal;line-height:1.55}
+.task.st-new{border-left:3px solid #FF6F61} .task.st-archived{opacity:.65} .s-new{background:#FFF1EE;color:#B23A31} .s-read{background:#F2F2F2;color:#444} .s-replied{background:#E8F5EE;color:#1E7F4F}
+.warn{color:#B23A31} .inline.tight{margin:0} .inline.tight select{min-width:130px}
+.filters a .muted{font-size:11.5px;margin-left:2px}

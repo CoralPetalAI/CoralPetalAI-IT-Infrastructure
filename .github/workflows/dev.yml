@@ -78,11 +78,12 @@ jobs:
         env:
           CAREERS_CONFIG: ${{ secrets.CAREERS_CONFIG_DEV }}
         run: bash scripts/careers_config_store.sh dev
-      - name: Admin app PHP syntax
-        run: for f in $(find admin -name '*.php'); do php -l "$f" >/dev/null || { php -l "$f"; exit 1; }; done
+      - name: PHP syntax (admin, site API, careers, academy)
+        run: for f in $(find admin site/api careers/apply academy-wp -name '*.php'); do php -l "$f" >/dev/null || { php -l "$f"; exit 1; }; done
       - name: Deploy dev-admin.coralpetal.ai (admin app)
         env:
           ADMIN_CONFIG: ${{ secrets.ADMIN_CONFIG_DEV }}
+          CAREERS_READ_SAS: ${{ secrets.CAREERS_READ_SAS_DEV }}
         run: bash scripts/deploy_admin.sh dev
       - name: Verify (commit served behind the login, locked without it)
         run: |

@@ -1,0 +1,8 @@
+# Site API: only the two endpoints are reachable; the shared lib is not.
+Options -Indexes
+<FilesMatch "^(?!(contact|hit)\.php$).*">
+  Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>

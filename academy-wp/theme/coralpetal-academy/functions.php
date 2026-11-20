@@ -510,3 +510,9 @@ add_action( 'wp_footer', function () {
 </script>
 	<?php
 }, 31 );
+
+// First-party, cookieless page count → admin dashboard (2026-11-18). Logged-in staff are not counted.
+add_action( 'wp_footer', function () {
+	if ( current_user_can( 'edit_posts' ) ) { return; }
+	echo '<script>/* First-party, cookieless page count (admin dashboard). No cookies, no IP stored. */(function(){try{if(navigator.doNotTrack===\'1\'||!navigator.sendBeacon)return;var u=(/^dev[.-]/.test(location.hostname)?\'https://dev.coralpetal.ai\':\'https://coralpetal.ai\')+\'/api/hit.php\';navigator.sendBeacon(u,new Blob([JSON.stringify({p:location.pathname,r:document.referrer})],{type:\'text/plain\'}));}catch(e){}})();</script>';
+}, 99 );
