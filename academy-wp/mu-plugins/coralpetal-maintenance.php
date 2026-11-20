@@ -5,11 +5,6 @@
  *              except signed-in site administrators. Dev (dev-academy) is unaffected. Rohit 2026-11-18.
  *              Go live = remove this file in a PR.
  */
-// LIVE 2026-11-19 (Rohit: sites up while the ElevenLabs grant is reviewed). Set to true to show the back-soon page again.
-if ( ! defined( 'CP_BACK_SOON' ) ) { define( 'CP_BACK_SOON', false ); }
-if ( ! CP_BACK_SOON ) {
-	return;
-}
 if ( ! isset( $_SERVER['HTTP_HOST'] ) || strtolower( $_SERVER['HTTP_HOST'] ) !== 'academy.coralpetal.ai' ) {
 	return;
 }
