@@ -86,7 +86,10 @@ jobs:
       - name: Check the main site is untouched
         run: |
           curl -sf -m 10 https://coralpetal.ai/version.json
-          curl -sf -m 10 -o /dev/null -w 'academy %{http_code}\n' https://academy.coralpetal.ai/
+          # 503 = the designed back-soon page, which is fine; anything else but 200 is not
+          code=$(curl -s -m 10 -o /dev/null -w '%{http_code}' https://academy.coralpetal.ai/)
+          echo "academy $code"
+          case "$code" in 200|503) ;; *) echo "::error::academy.coralpetal.ai answered $code"; exit 1;; esac
       - name: Remove key
         if: always()
         run: rm -f ~/.ssh/id
