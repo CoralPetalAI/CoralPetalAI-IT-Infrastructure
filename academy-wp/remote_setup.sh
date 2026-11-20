@@ -15,6 +15,9 @@ w theme is-installed twentytwentyfive || w theme install twentytwentyfive
 w theme activate coralpetal-academy
 w plugin is-installed tutor || w plugin install tutor
 w plugin is-active tutor || w plugin activate tutor
+# Lesson videos on Bunny Stream (Rohit 2026-11-20): Themeum's free add-on, works on Tutor free and Pro.
+w plugin is-installed tutor-lms-bunnynet-integration || w plugin install tutor-lms-bunnynet-integration
+w plugin is-active tutor-lms-bunnynet-integration || w plugin activate tutor-lms-bunnynet-integration
 
 w option update blogname "Coral Petal AI Academy"
 w option update blogdescription "End-to-end Generative and Agentic AI"
@@ -184,6 +187,8 @@ if w option get tutor_option >/dev/null 2>&1; then
     set -- $kv
     w option patch update tutor_option "$1" "$2" 2>/dev/null || w option patch insert tutor_option "$1" "$2" || true
   done
+  # Offer BunnyNet as a lesson video source next to the existing ones (add only, never remove).
+  w eval '$o = get_option("tutor_option"); $s = isset($o["supported_video_sources"]) ? (array) $o["supported_video_sources"] : array("html5","youtube","vimeo"); if (!in_array("bunnynet", $s, true)) { $s[] = "bunnynet"; $o["supported_video_sources"] = $s; update_option("tutor_option", $o); } echo "video sources: " . implode(",", $s) . PHP_EOL;' || true
 fi
 
 w rewrite flush
