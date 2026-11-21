@@ -6,7 +6,7 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 
 ### Added
 - Insights No. 001, "The Decryption Gap" (/insights/the-decryption-gap/): research brief on encrypted and confidential AI inference with a ciphertext hero, trust-ladder figure, confidential-inference diagram, two charts with data tables, provider table, timeline and 31 references. New stylesheet `css/insights.css`.
-- Insights newsletter sign-up (double opt-in) on /insights/ and every article: `site/api/subscribe.php` stores pending/confirmed/unsubscribed subscribers in the admin DB (`newsletter_subscribers`) and emails a confirmation link through Proton SMTP; honeypot, fill-time, 5/hour rate limit, 10-minute resend guard, unconfirmed rows deleted after 30 days.
+- Insights newsletter sign-up (double opt-in) on /insights/: `site/api/subscribe.php` stores pending/confirmed/unsubscribed subscribers in the admin DB (`newsletter_subscribers`) and emails a confirmation link through Proton SMTP; honeypot, fill-time, 5/hour rate limit, 10-minute resend guard, unconfirmed rows deleted after 30 days.
 - Page generator: optional `css:` (extra stylesheets) and `og_type:` metadata per page.
 - Contact form on /contact/ → admin DB (Admin → Inbox) + email to the topic's team address via Proton SMTP; honeypot, fill-time and 5/hour rate limit.
 - First-party, cookieless page counter (`site/api/hit.php`) on main site, Careers and Academy (theme 1.23.0); bots, DNT and GPC skipped; no IP or cookies stored.
@@ -14,7 +14,7 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 - Admin 1.4.0: Inbox, Applications (careers, status workflow, resume/cover PDFs streamed from private Azure storage with a read-only key), Traffic (views, visitors, top pages, sources); website tiles on the dashboard.
 
 ### Changed
-- Insights article layout v2 (Rohit: "better design and graphics"): cover with the artwork beside the title, "by the numbers" strip, sticky contents rail with reading progress and share buttons, icon-led takeaways and section markers, swimlane timeline, provider status pills, visual decision guide, dark bottom-line card, author box and "Coming up" tiles.
+- Insights article layout v2 (Rohit: "better design and graphics"): cover with the artwork beside the title, "by the numbers" strip, sticky contents rail with reading progress and share buttons, icon-led takeaways and section markers, swimlane timeline, provider status pills, visual decision guide and author box. Rohit approved it as the Insights article template with three changes: the bottom line is a highlighted light card in the article theme, the newsletter sign-up stays only on /insights/, and the "Coming up" tiles are removed from articles.
 - /insights/: the first published brief is featured, the mailto band is replaced by the newsletter sign-up, and the planned topics move under "Coming up".
 - Privacy policy: newsletter data, purpose and retention added (last updated November 21, 2026).
 

@@ -547,27 +547,11 @@ og_type: article
           <section class="ins-sec ins-watched" id="s8" aria-labelledby="s8-h">
             <div class="ins-sec-head"><span class="ins-sec-no">08</span><h2 id="s8-h">The bottom line</h2></div>
             <div class="ins-bottom">
-              <p class="ins-label">In one paragraph</p>
+              <p class="ins-label"><span class="ico-soft sm is-coral"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg></span>In one paragraph</p>
               <p>The decryption gap is narrowing from two directions. Hardware enclaves already let platforms promise that no one, including the operator, can read data during inference, for a few percent of throughput when the stack is tuned. Cryptography removes the need to trust hardware at all, and it is now fast enough for patient, high-value work. Until the frontier labs offer attested inference to enterprises, the strongest practical posture combines minimization, isolation and contracts, each chosen for the data it protects.</p>
             </div>
           </section>
 
-          <section class="nl" id="subscribe" aria-labelledby="nl-title">
-            <div class="nl-copy">
-              <p class="ins-label">Coral Petal AI Insights</p>
-              <h2 id="nl-title">Get the next brief in your inbox</h2>
-              <p>Research-backed briefs on enterprise and agentic AI. One email when a new brief is published, and one-click unsubscribe.</p>
-            </div>
-            <form class="nl-form" id="nl-form" action="/api/subscribe.php" method="post" novalidate>
-              <input type="hidden" name="t" id="nl-t" value="">
-              <input type="hidden" name="source" value="insights-001">
-              <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-              <label class="sr-only" for="nl-email">Work email</label>
-              <div class="nl-row"><input id="nl-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" maxlength="190" required><button class="btn" type="submit" id="nl-send">Subscribe</button></div>
-              <label class="nl-consent"><input type="checkbox" name="consent" value="1" required><span>Email me new Insights. I can unsubscribe at any time. See the <a href="/privacy/">privacy policy</a>.</span></label>
-              <p class="nl-msg" id="nl-msg" role="status" aria-live="polite"></p>
-            </form>
-          </section>
 
           <section class="ins-end ins-watched" id="references" aria-labelledby="refs-title">
             <div class="ins-about"><span class="ico-soft sm is-coral"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span><p><b>About this brief.</b> Evidence current to November 21, 2026. Values marked ≈ were read from published charts or rounded. Quotes are verbatim from the cited sources. This brief is for information only and is not legal or security advice.</p></div>
@@ -628,38 +612,12 @@ og_type: article
               <div class="cta-row"><a class="btn" href="/contact/">Talk to Coral Petal AI</a></div>
             </div>
           </div>
-
-          <section class="ins-more" aria-labelledby="more-title">
-            <p class="ins-label" id="more-title">Coming up in Insights</p>
-            <div class="grid g3 tiles">
-              <a class="tile" href="/insights/"><span class="ico-soft is-coral"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 10l-2 2 2 2M15 10l2 2-2 2"/></svg></span><h3>From chatbot to agent</h3><p>What changes when AI starts taking actions in your systems.</p><span class="pill-s p-grey tag">Architecture</span></a>
-              <a class="tile" href="/insights/"><span class="ico-soft is-green"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Guardrails that scale</h3><p>Evaluation, monitoring and human review in production.</p><span class="pill-s p-grey tag">Governance</span></a>
-              <a class="tile" href="/insights/"><span class="ico-soft is-violet"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c2.8.2 5.5 2.2 5.5 5.8"/></svg></span><h3>The full-stack Agentic AI engineer</h3><p>The skills enterprise teams need, and how to build them.</p><span class="pill-s p-grey tag">Skills</span></a>
-            </div>
-          </section>
         </div>
       </div>
     </article>
 
     <script>
     (function () {
-      // Newsletter sign-up: double opt-in through /api/subscribe.php
-      var f = document.getElementById('nl-form');
-      if (f) {
-        var msg = document.getElementById('nl-msg'), btn = document.getElementById('nl-send');
-        document.getElementById('nl-t').value = Date.now();
-        f.addEventListener('submit', function (e) {
-          e.preventDefault(); msg.className = 'nl-msg'; msg.textContent = '';
-          if (!f.checkValidity()) { f.reportValidity(); return; }
-          btn.disabled = true; btn.textContent = 'Subscribing…';
-          fetch(f.action, { method: 'POST', body: new FormData(f) }).then(function (r) { return r.json(); }).then(function (d) {
-            msg.textContent = d.message; msg.className = 'nl-msg ' + (d.ok ? 'ok' : 'bad');
-            if (d.ok) { f.querySelectorAll('.nl-row, .nl-consent').forEach(function (el) { el.style.display = 'none'; }); }
-            else { btn.disabled = false; btn.textContent = 'Subscribe'; }
-          }).catch(function () { msg.textContent = 'Network error. Please try again in a moment.'; msg.className = 'nl-msg bad'; btn.disabled = false; btn.textContent = 'Subscribe'; });
-        });
-      }
-
       // Copy citation and copy link
       function copyText(text, onDone, onFail) {
         try {
