@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Decryption Gap | Coral Petal AI Insights</title>
+  <meta name="description" content="How far encrypted and confidential AI inference has come by late 2026, what Anthropic, OpenAI, Google, Apple and Meta ship, and how enterprises should protect sensitive data. Insights No. 001.">
+  <link rel="canonical" href="https://coralpetal.ai/insights/the-decryption-gap/">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <meta property="og:title" content="The Decryption Gap | Coral Petal AI Insights">
+  <meta property="og:description" content="How far encrypted and confidential AI inference has come by late 2026, what Anthropic, OpenAI, Google, Apple and Meta ship, and how enterprises should protect sensitive data. Insights No. 001.">
+  <meta property="og:url" content="https://coralpetal.ai/insights/the-decryption-gap/">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://coralpetal.ai/img/og-main.png">
+  <meta property="og:site_name" content="Coral Petal AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FBFBFB">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css?v=20261118z">
+  <link rel="stylesheet" href="/css/insights.css?v=20261121a">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="/" aria-label="Coral Petal AI, home">
+        <img class="mark" src="/img/logo.svg" alt="" width="36" height="36">
+        <span>Coral <span class="accent">Petal AI</span><sup class="tm">™</sup></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <nav aria-label="Primary">
+        <ul id="primary-nav">
+          <li class="has-menu">
+            <details>
+              <summary class="pill">About <svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+              <ul class="submenu">
+                <li><a href="/about/">What we do</a></li>
+                <li><a href="/vision/">Core vision</a></li>
+                <li><a href="/industries/">Industries</a></li>
+              </ul>
+            </details>
+          </li>
+          <li class="has-menu">
+            <details>
+              <summary class="pill">Services <svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+              <ul class="submenu">
+                <li><a href="/services/">Overview</a></li>
+                <li><a href="/services/strategy/">AI strategy &amp; readiness</a></li>
+                <li><a href="/services/implementation/">Agentic AI implementation</a></li>
+                <li><a href="/services/governance/">Run &amp; govern</a></li>
+                <li><a href="/services/enablement/">Team enablement</a></li>
+              </ul>
+            </details>
+          </li>
+          <li class="has-menu">
+            <details>
+              <summary class="pill">Academy <svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+              <ul class="submenu">
+                <li><a href="https://academy.coralpetal.ai/">Coral Petal AI Academy</a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a class="pill" href="/insights/" aria-current="page">Insights</a></li>
+          <li><a class="pill" href="https://careers.coralpetal.ai/">Careers</a></li>
+          <li><a class="btn btn-small" href="/contact/">Contact us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="lock-closed" viewBox="0 0 12 12"><rect x="2" y="5.5" width="8" height="5.5" rx="1.3" fill="currentColor"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+        <symbol id="lock-open" viewBox="0 0 12 12"><rect x="2" y="5.5" width="8" height="5.5" rx="1.3" fill="currentColor"/><path d="M4 5.5V4a2 2 0 0 1 3.9-.65" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+      </defs>
+    </svg>
+
+    <article class="ins">
+      <section class="page-hero ins-head">
+        <div class="wrap">
+          <div class="ins-top">
+            <p class="eyebrow"><a href="/insights/">Insights</a> · AI security and privacy</p>
+            <h1>The Decryption Gap</h1>
+            <p class="lede">Frontier models from Anthropic, OpenAI and Google still read your data in plaintext while they work on it. Here is how far encrypted and confidential AI has come by late 2026, what the big platforms actually ship, and how an enterprise should choose.</p>
+            <div class="ins-byline">
+              <span class="author"><span class="avatar"><img src="/img/logo.svg" alt="" width="22" height="22"></span>Coral Petal AI Research</span>
+              <span>Published <time datetime="2026-11-21">November 21, 2026</time></span>
+              <span>15 min read</span>
+              <span class="issue">Insights No. 001</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap ins-main">
+        <figure class="ins-hero">
+          <div class="ins-art" role="img" aria-label="Illustration: a field of ciphertext with one window in the middle where a business prompt appears as readable text inside GPU memory during inference. Labels underneath show data encrypted at rest and in transit, and plaintext in use.">
+            <p class="ins-cipher" aria-hidden="true">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</p>
+            <div class="ins-window" aria-hidden="true">
+              <span class="ins-window-label">GPU memory · during inference</span>
+              <p class="ins-plain">Summarize the Project Lotus term sheet. List every change-of-control clause and each party's exit rights.<span class="ins-cursor"></span></p>
+            </div>
+            <div class="ins-states" aria-hidden="true">
+              <span class="ins-state"><svg><use href="#lock-closed"/></svg>At rest · encrypted</span>
+              <span class="ins-state"><svg><use href="#lock-closed"/></svg>In transit · encrypted</span>
+              <span class="ins-state hot"><svg><use href="#lock-open"/></svg>In use · plaintext</span>
+            </div>
+          </div>
+          <figcaption>Encryption protects data at rest and in transit. To run a model, the provider's accelerator has to hold your prompt as plaintext. That window is the decryption gap. The prompt shown is an illustration.</figcaption>
+        </figure>
+
+        <section class="ins-brief" aria-labelledby="brief-title">
+          <h2 class="ins-label" id="brief-title">The brief in one minute</h2>
+          <ol>
+            <li><span>Every mainstream LLM service decrypts your prompt on the provider's servers to run the model. Contracts such as zero data retention limit what happens afterward. They do not stop the provider's systems from seeing the data.</span></li>
+            <li><span>Hardware enclaves are the practical fix in 2026. Apple, Meta and Google run consumer AI inside attested confidential computing, and Apple now does it on Google Cloud. OpenAI has previewed the same idea for its API, and Anthropic has published a design and taken on a confidential-computing team.</span></li>
+            <li><span>Enclaves are cheap when tuned. Studies on NVIDIA H100 and Blackwell GPUs measure 1 to 7 percent lost throughput, though a default stack can lose 13 to 27 percent.</span></li>
+            <li><span>Fully homomorphic encryption, where the server never decrypts at all, passed a milestone in 2026: Llama 3 with 8 billion parameters now generates a token in 18 seconds under encryption. That suits overnight batch work. It is far too slow for chat.</span></li>
+            <li><span>Most enterprises should climb a ladder: minimize what they send, isolate what they can, demand attestation where it exists, and reserve cryptography for narrow, high-value jobs. India's DPDP Rules already name encryption, masking and tokens as baseline safeguards.</span></li>
+          </ol>
+        </section>
+
+        <div class="ins-prose">
+          <h2 id="s1"><span class="sec">01</span>Encryption has a blind spot</h2>
+          <p>Enterprise data is usually encrypted twice, at rest on disk and in transit across the network. Neither layer covers the moment the data is used. To answer a prompt, a language model multiplies large arrays of numbers that represent your words. Those numbers sit as plaintext in an accelerator's memory, together with any documents retrieved for context and the answer the model writes.</p>
+          <p>If you host an open-weight model yourself, that accelerator is yours. Frontier models such as Claude, GPT and Gemini work differently. Their weights never leave the provider, so your data travels to them and is decrypted on their hardware. That is the decryption gap. The J.P. Morgan team behind EncryptedLLM describes the trade-off plainly: outsourcing inference "risks leaking the clients' LLM queries to the cloud provider."<sup class="cite"><a href="#ref-1">1</a></sup></p>
+          <p>The exposure has measurable costs. IBM's 2025 breach study found that 13 percent of organizations reported breaches of AI models or applications, and 97 percent of those lacked proper AI access controls. Organizations with high levels of shadow AI paid about $670,000 more per breach than those with little or none.<sup class="cite"><a href="#ref-2">2</a></sup> Models are also imperfect custodians of what they see. In the CONFAIDE benchmark, GPT-4 and ChatGPT revealed private information in contexts where people would not 39 percent and 57 percent of the time.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+
+          <h2 id="s2"><span class="sec">02</span>Five ways to narrow the gap</h2>
+          <p>No single control closes the gap. The options form a ladder. Each rung removes a party you have to trust and adds cost, so the right height depends on the data.</p>
+        </div>
+
+        <figure class="ins-fig" aria-labelledby="f1-title">
+          <div class="ins-fig-head">
+            <p class="ins-fig-label">Figure 1</p>
+            <h3 class="ins-fig-title" id="f1-title">The trust ladder</h3>
+            <p class="ins-fig-sub">Each rung removes a party you must trust. Cost and latency rise as you climb.</p>
+          </div>
+          <div class="ins-fig-body">
+            <div class="ins-ladder">
+              <div class="ins-rung" style="--i:0">
+                <div class="ins-rung-top"><span class="ins-rung-no">1</span></div>
+                <h4>Contract</h4>
+                <p>Written promises: no training on your data, zero data retention, regional processing.</p>
+                <dl><dt>You still trust</dt><dd>The provider's systems and people</dd><dt>Cost today</dt><dd>None</dd><dt>Examples</dt><dd>Zero data retention at Anthropic and OpenAI</dd></dl>
+              </div>
+              <div class="ins-rung start" style="--i:1">
+                <div class="ins-rung-top"><span class="ins-rung-no">2</span><span class="ins-tag">Start here</span></div>
+                <h4>Minimize</h4>
+                <p>Redact, mask or tokenize identifiers before a prompt leaves your network.</p>
+                <dl><dt>You still trust</dt><dd>The provider, with less to see</dd><dt>Cost today</dt><dd>Low; some loss of context</dd><dt>Examples</dt><dd>DPDP Rule 6 names masking and virtual tokens</dd></dl>
+              </div>
+              <div class="ins-rung" style="--i:2">
+                <div class="ins-rung-top"><span class="ins-rung-no">3</span></div>
+                <h4>Isolate</h4>
+                <p>Run open-weight models in your own perimeter or an air-gapped cloud.</p>
+                <dl><dt>You still trust</dt><dd>Your own operations</dd><dt>Cost today</dt><dd>Hardware and staff; a capability gap to frontier models</dd><dt>Examples</dt><dd>gpt-oss, Gemini on Google Distributed Cloud</dd></dl>
+              </div>
+              <div class="ins-rung" style="--i:3">
+                <div class="ins-rung-top"><span class="ins-rung-no">4</span></div>
+                <h4>Attest</h4>
+                <p>Run inference in hardware enclaves that prove which code runs before any data arrives.</p>
+                <dl><dt>You still trust</dt><dd>Chip makers and the attestation chain</dd><dt>Cost today</dt><dd>About 1 to 7 percent when tuned</dd><dt>Examples</dt><dd>Apple PCC, Meta Private Processing, Google Private AI Compute</dd></dl>
+              </div>
+              <div class="ins-rung" style="--i:4">
+                <div class="ins-rung-top"><span class="ins-rung-no">5</span></div>
+                <h4>Encrypt in use</h4>
+                <p>The server computes on ciphertext and never sees the data.</p>
+                <dl><dt>You still trust</dt><dd>The mathematics; for MPC, that servers do not collude</dd><dt>Cost today</dt><dd>Seconds to minutes per token</dd><dt>Examples</dt><dd>EncryptedLLM, Sylph, PUMA</dd></dl>
+              </div>
+            </div>
+            <div class="ins-axis" aria-hidden="true"><span>Fewer parties to trust</span><span class="rule"></span><span>More cost and latency</span></div>
+          </div>
+          <figcaption class="ins-source">Source: Coral Petal AI analysis of the studies and product documents cited in this brief.</figcaption>
+        </figure>
+
+        <div class="ins-prose">
+          <p>The first two rungs are available today from every major provider. Under Anthropic's zero data retention arrangement, the company "does not store customer prompts or responses at rest after the API response is returned."<sup class="cite"><a href="#ref-4">4</a></sup> OpenAI makes the same promise to eligible API customers, and since September 2026 it has been rolling out Private Safety Processing, which runs abuse detection without staff access: "OpenAI personnel do not receive access to the customer content even when it is flagged."<sup class="cite"><a href="#ref-5">5</a></sup> Both are policies about what happens after inference. The plaintext still exists while the model runs.</p>
+          <p>Minimization is the cheapest rung and the one most teams skip. A gateway that swaps names, account numbers and other identifiers for tokens before a prompt leaves your network, then swaps them back in the answer, removes most of what an attacker or an insider could misuse. India's Digital Personal Data Protection Rules, 2025, list "encryption, obfuscation, masking or the use of virtual tokens mapped to that personal data" among the minimum safeguards a data fiduciary must apply.<sup class="cite"><a href="#ref-6">6</a></sup></p>
+          <p>Isolation trades capability for control. OpenAI's open-weight gpt-oss-120b runs on a single 80 GB GPU under an Apache 2.0 license and comes close to o4-mini on core reasoning benchmarks.<sup class="cite"><a href="#ref-7">7</a></sup> Google sells Gemini itself on Google Distributed Cloud, including fully air-gapped installations, generally available since August 2025.<sup class="cite"><a href="#ref-8">8</a></sup> Neither option puts Claude or the newest GPT models inside your own walls.</p>
+        </div>
+
+        <aside class="ins-callout">
+          <h3>What about differential privacy?</h3>
+          <p>Differential privacy protects training data by limiting what a model can memorize about any single record. It does nothing for a prompt at inference time, and it costs accuracy: Google's VaultGemma, a 1-billion-parameter model trained from scratch with differential privacy, performs roughly like GPT-2 1.5B on academic benchmarks.<sup class="cite"><a href="#ref-9">9</a></sup></p>
+        </aside>
+
+        <div class="ins-prose">
+          <h2 id="s3"><span class="sec">03</span>Confidential inference is how the big platforms ship private AI</h2>
+          <p>Confidential computing closes the gap with hardware. CPUs with Intel TDX or AMD SEV-SNP encrypt a virtual machine's memory, so the host operating system, the hypervisor and the cloud's administrators cannot read it. Since the H100, NVIDIA GPUs add a confidential mode that encrypts traffic between that virtual machine and the GPU. Remote attestation completes the design. Before a client sends anything, the enclave proves which code it runs, and the client releases its data only if that measurement matches a published one.</p>
+        </div>
+
+        <figure class="ins-fig" aria-labelledby="f2-title">
+          <div class="ins-fig-head">
+            <p class="ins-fig-label">Figure 2</p>
+            <h3 class="ins-fig-title" id="f2-title">How confidential inference keeps the operator out</h3>
+            <p class="ins-fig-sub">The client checks the enclave's code before it sends anything. Plaintext exists only inside the attested boundary.</p>
+          </div>
+          <div class="ins-fig-body ins-scroll">
+            <svg class="ins-diagram" viewBox="0 0 1000 410" role="img" aria-label="Diagram of confidential inference. Step 1: the client verifies the enclave's published code measurements with an attestation service. Step 2: the client sends an encrypted prompt through a relay that hides who is asking. Step 3: inside the attested boundary, a confidential VM and a GPU in confidential mode decrypt the prompt, run the model and discard the data. Step 4: an encrypted answer returns. The host OS, hypervisor and cloud admins stay outside the boundary.">
+              <defs>
+                <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-ink" d="M0,0 L10,5 L0,10 z"/></marker>
+                <marker id="ahc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-coral" d="M0,0 L10,5 L0,10 z"/></marker>
+              </defs>
+              <rect class="d-box" x="262" y="24" width="440" height="58" rx="12"/>
+              <text class="d-title" x="282" y="49">Attestation service and transparency log</text>
+              <text class="d-sub" x="282" y="69">Signed measurements of the exact code each enclave runs</text>
+              <rect class="d-zone" x="470" y="120" width="506" height="214" rx="18"/>
+              <text class="d-zone-label" x="494" y="146">ATTESTED TRUST BOUNDARY</text>
+              <rect class="d-box" x="494" y="164" width="200" height="132" rx="12"/>
+              <text class="d-title" x="512" y="192">Confidential VM</text>
+              <text class="d-sub" x="512" y="213">Intel TDX or AMD SEV-SNP</text>
+              <text class="d-sub" x="512" y="240">Memory encrypted</text>
+              <text class="d-sub" x="512" y="258">by the CPU; runs the</text>
+              <text class="d-sub" x="512" y="276">inference server</text>
+              <rect class="d-box" x="758" y="164" width="194" height="132" rx="12"/>
+              <text class="d-title" x="775" y="192">GPU in confidential mode</text>
+              <text class="d-sub" x="775" y="213">H100, H200 or Blackwell</text>
+              <rect class="d-chip" x="775" y="236" width="122" height="36" rx="8"/>
+              <text class="d-small" x="791" y="259">Model weights</text>
+              <line class="d-key" x1="698" y1="236" x2="754" y2="236" marker-start="url(#ahc)" marker-end="url(#ahc)"/>
+              <text class="d-small" x="726" y="226" text-anchor="middle">encrypted</text>
+              <circle class="d-num-c" cx="506" cy="316" r="11"/><text class="d-num-t" x="506" y="320" text-anchor="middle">3</text>
+              <text class="d-small" x="524" y="320">Decrypt, infer, discard: nothing is stored</text>
+              <rect class="d-op" x="470" y="352" width="506" height="44" rx="12"/>
+              <text class="d-sub" x="723" y="379" text-anchor="middle">Host OS, hypervisor and cloud admins stay outside the boundary</text>
+              <rect class="d-box" x="24" y="176" width="176" height="96" rx="12"/>
+              <text class="d-title" x="42" y="205">Your app or device</text>
+              <text class="d-sub" x="42" y="227">Checks attestation and</text>
+              <text class="d-sub" x="42" y="245">holds the session key</text>
+              <rect class="d-box" x="240" y="176" width="142" height="96" rx="12"/>
+              <text class="d-title" x="256" y="205">Relay</text>
+              <text class="d-sub" x="256" y="227">Hides who is asking;</text>
+              <text class="d-sub" x="256" y="245">sees only ciphertext</text>
+              <path class="d-line" d="M112,176 V53 H258" marker-end="url(#ah)"/>
+              <circle class="d-num-c" cx="112" cy="122" r="11"/><text class="d-num-t" x="112" y="126" text-anchor="middle">1</text>
+              <text class="d-small" x="130" y="126">verify the code</text>
+              <path class="d-line" d="M598,120 V86" marker-end="url(#ah)"/>
+              <text class="d-small" x="608" y="106">publishes measurements</text>
+              <line class="d-key" x1="200" y1="208" x2="236" y2="208" marker-end="url(#ahc)"/>
+              <line class="d-key" x1="382" y1="208" x2="490" y2="208" marker-end="url(#ahc)"/>
+              <circle class="d-num-c" cx="219" cy="208" r="11"/><text class="d-num-t" x="219" y="212" text-anchor="middle">2</text>
+              <text class="d-small" x="426" y="186" text-anchor="middle">encrypted</text>
+              <text class="d-small" x="426" y="199" text-anchor="middle">prompt</text>
+              <line class="d-key" x1="494" y1="252" x2="386" y2="252" marker-end="url(#ahc)"/>
+              <line class="d-key" x1="240" y1="252" x2="204" y2="252" marker-end="url(#ahc)"/>
+              <circle class="d-num-c" cx="221" cy="252" r="11"/><text class="d-num-t" x="221" y="256" text-anchor="middle">4</text>
+              <text class="d-small" x="426" y="272" text-anchor="middle">encrypted</text>
+              <text class="d-small" x="426" y="285" text-anchor="middle">answer</text>
+            </svg>
+          </div>
+          <figcaption class="ins-source">Source: Coral Petal AI composite of published designs from Anthropic, Apple, Meta and Microsoft.<sup class="cite"><a href="#ref-10">10</a>,<a href="#ref-11">11</a>,<a href="#ref-12">12</a>,<a href="#ref-13">13</a></sup> Relay and transparency-log details vary by platform.</figcaption>
+        </figure>
+
+        <div class="ins-prose">
+          <p>The consumer platforms adopted this first because their privacy promises are public. Apple's Private Cloud Compute, launched in June 2024, set the template: stateless processing, no privileged access for staff, and "verifiable transparency," which lets outside researchers inspect the software the servers run.<sup class="cite"><a href="#ref-11">11</a></sup> In June 2026 Apple extended it to Google Cloud, on Intel TDX and NVIDIA confidential GPUs.<sup class="cite"><a href="#ref-14">14</a></sup> Meta has run AI features for WhatsApp in confidential virtual machines under Private Processing since April 2025,<sup class="cite"><a href="#ref-12">12</a></sup> and Google launched Private AI Compute for Gemini features in November 2025, built on its TPUs and Titanium Intelligence Enclaves.<sup class="cite"><a href="#ref-15">15</a></sup> Microsoft offers a preview of confidential inferencing in Azure AI on H100 confidential virtual machines with Oblivious HTTP, starting with the Whisper speech model.<sup class="cite"><a href="#ref-13">13</a></sup></p>
+          <p>The frontier labs are a step behind for enterprise customers. Anthropic published its design with Pattern Labs in June 2025. A small trusted loader runs in an isolated virtual machine, presents itself as a "virtual accelerator" and accepts only programs signed by Anthropic's build system, and keys are released only to servers that prove their state.<sup class="cite"><a href="#ref-10">10</a></sup> Anthropic called the paper "a sketch of our research to start a conversation." In October 2026 the team of confidential AI startup Opaque Systems joined Anthropic in what reports describe as a license-and-hire deal. No product has been announced.<sup class="cite"><a href="#ref-16">16</a></sup> OpenAI grouped its data controls under the name Private Intelligence at DevDay in September 2026 and previewed Private Inference, which coverage describes as confidential computing for model inference. Technical details had not been published at the time of writing.<sup class="cite"><a href="#ref-17">17</a></sup></p>
+        </div>
+
+        <blockquote class="ins-pull">
+          <p>Sensitive data should remain encrypted except at the point where it's processed.</p>
+          <footer>Anthropic, <cite>Confidential Inference via Trusted Virtual Machines</cite>, June 2025<sup class="cite"><a href="#ref-10">10</a></sup></footer>
+        </blockquote>
+
+        <div class="ins-prose">
+          <p>Performance is no longer the obstacle. On H100 GPUs, overhead stayed below 7 percent for most typical LLM queries and approached zero for larger models and longer sequences.<sup class="cite"><a href="#ref-18">18</a></sup> On Blackwell, a tuned stack lost 1 to 3 percent of throughput,<sup class="cite"><a href="#ref-19">19</a></sup> and NVIDIA reports up to 98 percent of non-confidential performance on HGX B300.<sup class="cite"><a href="#ref-20">20</a></sup> Configuration matters. With default settings, Phala Network's engineers measured a 13 to 27 percent throughput loss and a 34-fold slowdown in model loading, traced to the serialized encrypted bridge between the virtual machine and the GPU.<sup class="cite"><a href="#ref-21">21</a></sup></p>
+        </div>
+
+        <figure class="ins-fig" aria-labelledby="f3-title">
+          <div class="ins-fig-head">
+            <p class="ins-fig-label">Figure 3</p>
+            <h3 class="ins-fig-title" id="f3-title">Hardware enclaves cost little when the stack is tuned</h3>
+            <p class="ins-fig-sub">Throughput lost when LLM inference runs in GPU confidential-computing mode, by study. Bars show the reported range.</p>
+          </div>
+          <div class="ins-fig-body">
+            <div class="ins-chart" role="group" aria-label="Throughput overhead of GPU confidential computing by study">
+              <div class="ins-row" tabindex="0" data-tip="Asad and Grunseid (2026): paired confidential and non-confidential runs on NVIDIA B200 with Intel TDX. With the stack configured correctly, throughput overhead was about 1 to 3 percent.">
+                <span><span class="ins-row-name">Tuned stack</span><span class="ins-row-meta">B200 with Intel TDX · Asad and Grunseid, 2026</span></span>
+                <span class="ins-track lin"><span class="ins-span ins-mark" style="left:3.33%;width:6.67%"></span><span class="ins-val r" style="left:10%">1–3%</span></span>
+              </div>
+              <div class="ins-row" tabindex="0" data-tip="NVIDIA (2026): vendor benchmarks on HGX B200 and B300 report confidential computing at up to 98% of non-confidential performance, with overhead below 5% on eight B200 GPUs.">
+                <span><span class="ins-row-name">NVIDIA's own benchmarks</span><span class="ins-row-meta">HGX B200 and B300 · NVIDIA, 2026</span></span>
+                <span class="ins-track lin"><span class="ins-span ins-mark" style="left:6.67%;width:10%"></span><span class="ins-val r" style="left:16.67%">≈2–5%</span></span>
+              </div>
+              <div class="ins-row" tabindex="0" data-tip="Zhu et al. (2024): H100 and H200 benchmark. Overhead stayed below 7% for most typical LLM queries, near zero for larger models and longer sequences. Time to first token showed higher overhead.">
+                <span><span class="ins-row-name">Typical LLM queries</span><span class="ins-row-meta">H100 and H200 · Zhu et al., 2024</span></span>
+                <span class="ins-track lin"><span class="ins-span ins-mark" style="left:0%;width:23.33%"></span><span class="ins-val r" style="left:23.33%">under 7%</span></span>
+              </div>
+              <div class="ins-row" tabindex="0" data-tip="Yin and Wang, Phala Network (2026): LLM serving under Intel TDX plus GPU confidential computing on Blackwell with default settings lost 13 to 27 percent of throughput; model loading slowed 34-fold.">
+                <span><span class="ins-row-name">Default serving stack</span><span class="ins-row-meta">Blackwell with Intel TDX · Yin and Wang, 2026</span></span>
+                <span class="ins-track lin"><span class="ins-span ins-mark" style="left:43.33%;width:46.67%"></span><span class="ins-val l" style="left:43.33%">13–27%</span></span>
+              </div>
+              <div class="ins-ticks" aria-hidden="true"><span style="left:0%">0%</span><span style="left:33.333%">10%</span><span style="left:66.667%">20%</span><span class="end" style="left:100%">30%</span></div>
+              <p class="ins-axis-title">Throughput lost versus the same hardware without confidential computing</p>
+            </div>
+            <details class="ins-data">
+              <summary>Show the data</summary>
+              <div class="ins-table-wrap">
+                <table>
+                  <thead><tr><th class="n">#</th><th>Setup</th><th>Hardware</th><th>Throughput lost</th><th>Source</th></tr></thead>
+                  <tbody>
+                    <tr><td class="n">1</td><td>Tuned stack</td><td>NVIDIA B200, Intel TDX</td><td class="tnum">1–3%</td><td>Asad and Grunseid, 2026<sup class="cite"><a href="#ref-19">19</a></sup></td></tr>
+                    <tr><td class="n">2</td><td>Vendor benchmarks</td><td>NVIDIA HGX B200 and B300</td><td class="tnum">≈2–5%</td><td>NVIDIA, 2026<sup class="cite"><a href="#ref-20">20</a></sup></td></tr>
+                    <tr><td class="n">3</td><td>Typical LLM queries</td><td>NVIDIA H100 and H200</td><td class="tnum">under 7%</td><td>Zhu et al., 2024<sup class="cite"><a href="#ref-18">18</a></sup></td></tr>
+                    <tr><td class="n">4</td><td>Default serving stack</td><td>NVIDIA Blackwell, Intel TDX</td><td class="tnum">13–27%</td><td>Yin and Wang, 2026<sup class="cite"><a href="#ref-21">21</a></sup></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+          </div>
+          <figcaption class="ins-source">Sources: references 18 to 21. Studies differ in models, batch sizes and settings; compare ranges, not single points.</figcaption>
+        </figure>
+
+        <div class="ins-prose">
+          <p>Enclaves move trust. They do not remove it. In October 2025 researchers disclosed TEE.fail, a memory-bus interposer built for under $1,000 that extracted attestation keys from Intel's and AMD's confidential computing and undermined NVIDIA's GPU attestation. Intel and AMD consider physical attacks outside their threat models.<sup class="cite"><a href="#ref-22">22</a></sup> Audits keep finding deployment gaps. NCC Group found a timing side channel in the relay that hides users' IP addresses in Google's system, which Google rated low risk,<sup class="cite"><a href="#ref-23">23</a></sup> and Trail of Bits' 2026 audit of WhatsApp's private inference found implementation and deployment gaps, including replayable attestation reports, that Meta has since fixed.<sup class="cite"><a href="#ref-24">24</a></sup> Verify attestation in your own code instead of taking the label on trust.</p>
+
+          <h2 id="s4"><span class="sec">04</span>The cryptographic frontier: computing on data no one can read</h2>
+          <p>Cryptography takes the hardware out of the trust equation. Fully homomorphic encryption (FHE) lets a server compute directly on ciphertext. The client encrypts its prompt, the server runs the model on the encrypted numbers, and only the client's key can read the result. Craig Gentry proved it possible in 2009,<sup class="cite"><a href="#ref-25">25</a></sup> and the CKKS scheme of 2017 made it practical for the approximate arithmetic neural networks use.<sup class="cite"><a href="#ref-26">26</a></sup> Secure multiparty computation (MPC) takes a different route. It splits the data into shares across several servers that must not collude.</p>
+          <p>The hard part is the nonlinear math inside a transformer. FHE natively adds and multiplies, so softmax, GeLU and layer normalization must be replaced with polynomial approximations, and the ciphertext must be refreshed periodically by an expensive step called bootstrapping. EncryptedLLM, presented at ICML 2025 by J.P. Morgan researchers, moved that work onto GPUs. An encrypted GPT-2 forward pass fell from roughly four hours on a CPU to about 69 seconds per token on one NVIDIA A100, at 128-bit security and with benchmark accuracy almost unchanged.<sup class="cite"><a href="#ref-1">1</a></sup> The authors are candid that "real-time chatbots under FHE remains out of reach," while summarization, drafting and fine-tuning on private data are now practical.</p>
+          <p>Then the curve bent again. In January 2026, CryptoLab and Seoul National University reported Sylph, which runs Llama-3-8B, a model about 65 times larger than GPT-2 small, on 128 encrypted input tokens: 20 seconds to read the input and 18 seconds per generated token on eight NVIDIA RTX PRO 6000 GPUs. The previous best system needed 295 seconds on eight H100s for the same reading step. Sylph also handles a 4,096-token prompt whose last 128 tokens are private, at 22 seconds per token.<sup class="cite"><a href="#ref-27">27</a></sup> For comparison, PUMA, the best-known MPC result, took about five minutes per token for LLaMA-7B in 2023.<sup class="cite"><a href="#ref-28">28</a></sup></p>
+        </div>
+
+        <figure class="ins-fig" aria-labelledby="f4-title">
+          <div class="ins-fig-head">
+            <p class="ins-fig-label">Figure 4</p>
+            <h3 class="ins-fig-title" id="f4-title">Encrypted inference is getting faster</h3>
+            <p class="ins-fig-sub">Seconds to generate one token while the server never sees the input, as each study reports it. Log scale. Coral marks the 2026 results.</p>
+          </div>
+          <div class="ins-fig-body">
+            <div class="ins-chart" role="group" aria-label="Seconds per generated token under cryptographic protection, by study">
+              <div class="ins-row" tabindex="0" data-tip="EncryptedLLM CPU baseline (2025): out-of-the-box OpenFHE on an Intel Xeon CPU, GPT-2 small (124M parameters), token at position 128, 128-bit security. About 15,000 seconds, read from the paper's Figure 2.">
+                <span><span class="ins-row-name">FHE on a CPU</span><span class="ins-row-meta">GPT-2 small, 124M · EncryptedLLM baseline, 2025</span></span>
+                <span class="ins-track log"><span class="ins-dot ins-mark" style="left:91.34%"></span><span class="ins-val l" style="left:91.34%">≈15,000 s (≈4 h)</span></span>
+              </div>
+              <div class="ins-row" tabindex="0" data-tip="PUMA (2023): three-party secure computation on LLaMA-7B. About five minutes to generate one token.">
+                <span><span class="ins-row-name">MPC across three servers</span><span class="ins-row-meta">LLaMA-7B · PUMA, 2023</span></span>
+                <span class="ins-track log"><span class="ins-dot ins-mark" style="left:42.48%"></span><span class="ins-val r" style="left:42.48%">≈300 s (≈5 min)</span></span>
+              </div>
+              <div class="ins-row" tabindex="0" data-tip="EncryptedLLM (ICML 2025): GPU-accelerated CKKS on one NVIDIA A100 80GB, GPT-2 small, token at position 128, 128-bit security, single unbatched evaluation. About 69 seconds; about 50 seconds when batched.">
+                <span><span class="ins-row-name">FHE on one A100 GPU</span><span class="ins-row-meta">GPT-2 small, 124M · EncryptedLLM, 2025</span></span>
+                <span class="ins-track log"><span class="ins-dot ins-mark" style="left:24.12%"></span><span class="ins-val r" style="left:24.12%">≈69 s</span></span>
+              </div>
+              <div class="ins-row" tabindex="0" data-tip="Sylph (2026): CKKS-based Llama-3-8B with 128 encrypted tokens on one NVIDIA RTX PRO 6000. 31 seconds per generated token; 116 seconds to read the input.">
+                <span><span class="ins-row-name">FHE on one RTX PRO 6000</span><span class="ins-row-meta">Llama-3-8B · Sylph, 2026</span></span>
+                <span class="ins-track log"><span class="ins-dot em ins-mark" style="left:14.13%"></span><span class="ins-val r" style="left:14.13%">31 s</span></span>
+              </div>
+              <div class="ins-row" tabindex="0" data-tip="Sylph (2026): CKKS-based Llama-3-8B with 128 encrypted tokens on eight NVIDIA RTX PRO 6000 GPUs. 18 seconds per generated token; 20 seconds to read the input.">
+                <span><span class="ins-row-name">FHE on eight RTX PRO 6000</span><span class="ins-row-meta">Llama-3-8B · Sylph, 2026</span></span>
+                <span class="ins-track log"><span class="ins-dot em ins-mark" style="left:7.34%"></span><span class="ins-val r" style="left:7.34%">18 s</span></span>
+              </div>
+              <div class="ins-ticks" aria-hidden="true"><span style="left:0%">10 s</span><span style="left:28.76%">100 s</span><span style="left:57.52%">1,000 s</span><span style="left:86.28%">10,000 s</span></div>
+              <p class="ins-axis-title">Seconds per generated token, log scale</p>
+            </div>
+            <details class="ins-data">
+              <summary>Show the data</summary>
+              <div class="ins-table-wrap">
+                <table>
+                  <thead><tr><th class="n">#</th><th>System</th><th>Model</th><th>Hardware</th><th>Seconds per token</th><th>Source</th></tr></thead>
+                  <tbody>
+                    <tr><td class="n">1</td><td>FHE, OpenFHE on CPU</td><td>GPT-2 small (124M)</td><td>Intel Xeon</td><td class="tnum">≈15,000</td><td>de Castro et al., 2025<sup class="cite"><a href="#ref-1">1</a></sup></td></tr>
+                    <tr><td class="n">2</td><td>MPC, three parties (PUMA)</td><td>LLaMA-7B</td><td>Three servers</td><td class="tnum">≈300</td><td>Dong et al., 2023<sup class="cite"><a href="#ref-28">28</a></sup></td></tr>
+                    <tr><td class="n">3</td><td>FHE on GPU (EncryptedLLM)</td><td>GPT-2 small (124M)</td><td>1× NVIDIA A100</td><td class="tnum">≈69</td><td>de Castro et al., 2025<sup class="cite"><a href="#ref-1">1</a></sup></td></tr>
+                    <tr><td class="n">4</td><td>FHE on GPU (Sylph)</td><td>Llama-3-8B</td><td>1× NVIDIA RTX PRO 6000</td><td class="tnum">31</td><td>Park et al., 2026<sup class="cite"><a href="#ref-27">27</a></sup></td></tr>
+                    <tr><td class="n">5</td><td>FHE on GPU (Sylph)</td><td>Llama-3-8B</td><td>8× NVIDIA RTX PRO 6000</td><td class="tnum">18</td><td>Park et al., 2026<sup class="cite"><a href="#ref-27">27</a></sup></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+          </div>
+          <figcaption class="ins-source">Sources: references 1, 27 and 28. Values marked ≈ were read from published charts or rounded from the authors' text. Models, hardware and protocols differ, so read the chart as a trajectory, not a benchmark.</figcaption>
+        </figure>
+
+        <div class="ins-prose">
+          <p>Three limits remain. Speed rules out chat and agent loops. The model owner has to run the encrypted model, so FHE helps only when a provider adopts it, and none of the frontier labs has announced FHE inference. The guarantees are also narrow: in EncryptedLLM's threat model the server learns nothing about the input, but nothing guarantees that the answer it returns is correct.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+
+          <h2 id="s5"><span class="sec">05</span>Where the major providers stand</h2>
+          <p>The table summarizes what each provider offers for sensitive data today and how far each has gone toward confidential or encrypted inference. A "reported" tag marks items that rest on press coverage rather than the company's own publication.</p>
+        </div>
+
+        <figure class="ins-fig" aria-labelledby="t1-title">
+          <div class="ins-fig-head">
+            <p class="ins-fig-label">Table 1</p>
+            <h3 class="ins-fig-title" id="t1-title">Where the major AI providers stand, November 2026</h3>
+          </div>
+          <div class="ins-fig-body">
+            <div class="ins-table-wrap">
+              <table class="ins-t-providers">
+                <thead><tr><th class="n">#</th><th>Provider</th><th>Shipping today for sensitive data</th><th>Confidential or encrypted inference</th></tr></thead>
+                <tbody>
+                  <tr><td class="n">1</td><td><b>Anthropic</b><br>Claude</td><td>Zero data retention by arrangement for eligible API features, including Claude on AWS and Google Cloud<sup class="cite"><a href="#ref-4">4</a></sup></td><td>Design paper with Pattern Labs, June 2025;<sup class="cite"><a href="#ref-10">10</a></sup> Opaque Systems team joins, October 2026 <span class="ins-reported">reported</span><sup class="cite"><a href="#ref-16">16</a></sup>; no product announced</td></tr>
+                  <tr><td class="n">2</td><td><b>OpenAI</b><br>GPT</td><td>Zero data retention for eligible API customers; Private Safety Processing rolling out since September 22, 2026;<sup class="cite"><a href="#ref-5">5</a></sup> open-weight gpt-oss for self-hosting<sup class="cite"><a href="#ref-7">7</a></sup></td><td>Private Inference previewed at DevDay, September 2026 <span class="ins-reported">reported</span><sup class="cite"><a href="#ref-17">17</a></sup>; technical details pending</td></tr>
+                  <tr><td class="n">3</td><td><b>Google</b><br>Gemini</td><td>Gemini on Google Distributed Cloud, including air-gapped, generally available August 2025<sup class="cite"><a href="#ref-8">8</a></sup></td><td>Private AI Compute for consumer Gemini features, November 2025;<sup class="cite"><a href="#ref-15">15</a></sup> hosts Apple's Private Cloud Compute since June 2026<sup class="cite"><a href="#ref-14">14</a></sup></td></tr>
+                  <tr><td class="n">4</td><td><b>Microsoft</b><br>Azure AI</td><td>Azure OpenAI within the Azure boundary</td><td>Confidential inferencing preview on H100 confidential VMs with Oblivious HTTP, starting with Whisper<sup class="cite"><a href="#ref-13">13</a></sup></td></tr>
+                  <tr><td class="n">5</td><td><b>Apple</b><br>Apple Intelligence</td><td>On-device models first</td><td>Private Cloud Compute since June 2024;<sup class="cite"><a href="#ref-11">11</a></sup> extended to Google Cloud on Intel TDX and NVIDIA confidential GPUs, June 2026<sup class="cite"><a href="#ref-14">14</a></sup></td></tr>
+                  <tr><td class="n">6</td><td><b>Meta</b><br>Meta AI</td><td>AI features in WhatsApp</td><td>Private Processing since April 2025;<sup class="cite"><a href="#ref-12">12</a></sup> audited by Trail of Bits, 2026;<sup class="cite"><a href="#ref-24">24</a></sup> extended to Meta AI glasses, September 2026<sup class="cite"><a href="#ref-29">29</a></sup></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <figcaption class="ins-source">Status as of November 21, 2026, from each company's publications and the reporting cited. Product availability changes quickly; confirm with each provider before deciding.</figcaption>
+        </figure>
+
+        <figure class="ins-fig" aria-labelledby="f5-title">
+          <div class="ins-fig-head">
+            <p class="ins-fig-label">Figure 5</p>
+            <h3 class="ins-fig-title" id="f5-title">From promise to proof, 2024 to 2026</h3>
+            <p class="ins-fig-sub">The milestones that moved private AI from research papers into shipping products, in order. Coral marks cryptographic results.</p>
+          </div>
+          <div class="ins-fig-body">
+            <div class="ins-timeline">
+              <div>
+                <p class="ins-year">2024</p>
+                <ol class="ins-tl">
+                  <li><span class="ins-tl-no">1</span><div><div class="ins-tl-when">Jun 2024</div><div class="ins-tl-what">Apple launches Private Cloud Compute<sup class="cite"><a href="#ref-11">11</a></sup></div><span class="ins-tl-type">Platform</span></div></li>
+                  <li><span class="ins-tl-no">2</span><div><div class="ins-tl-when">Sep 2024</div><div class="ins-tl-what">H100 study: under 7% overhead for most LLM queries<sup class="cite"><a href="#ref-18">18</a></sup></div><span class="ins-tl-type">Research</span></div></li>
+                  <li><span class="ins-tl-no">3</span><div><div class="ins-tl-when">Sep 2024</div><div class="ins-tl-what">Microsoft previews confidential inferencing in Azure AI<sup class="cite"><a href="#ref-13">13</a></sup></div><span class="ins-tl-type">Platform</span></div></li>
+                </ol>
+              </div>
+              <div>
+                <p class="ins-year">2025</p>
+                <ol class="ins-tl" start="4">
+                  <li><span class="ins-tl-no">4</span><div><div class="ins-tl-when">Apr 2025</div><div class="ins-tl-what">Meta launches Private Processing for WhatsApp<sup class="cite"><a href="#ref-12">12</a></sup></div><span class="ins-tl-type">Platform</span></div></li>
+                  <li><span class="ins-tl-no">5</span><div><div class="ins-tl-when">Jun 2025</div><div class="ins-tl-what">Anthropic and Pattern Labs publish a confidential inference design<sup class="cite"><a href="#ref-10">10</a></sup></div><span class="ins-tl-type">Research</span></div></li>
+                  <li class="em"><span class="ins-tl-no">6</span><div><div class="ins-tl-when">Jul 2025</div><div class="ins-tl-what">EncryptedLLM at ICML: encrypted GPT-2 at about a minute per token<sup class="cite"><a href="#ref-1">1</a></sup></div><span class="ins-tl-type">Research</span></div></li>
+                  <li><span class="ins-tl-no">7</span><div><div class="ins-tl-when">Aug 2025</div><div class="ins-tl-what">OpenAI releases open-weight gpt-oss; Gemini reaches air-gapped data centers<sup class="cite"><a href="#ref-7">7</a>,<a href="#ref-8">8</a></sup></div><span class="ins-tl-type">Platform</span></div></li>
+                  <li><span class="ins-tl-no">8</span><div><div class="ins-tl-when">Oct 2025</div><div class="ins-tl-what">TEE.fail extracts attestation keys with a sub-$1,000 interposer<sup class="cite"><a href="#ref-22">22</a></sup></div><span class="ins-tl-type risk">Risk</span></div></li>
+                  <li><span class="ins-tl-no">9</span><div><div class="ins-tl-when">Nov 2025</div><div class="ins-tl-what">Google launches Private AI Compute<sup class="cite"><a href="#ref-15">15</a></sup></div><span class="ins-tl-type">Platform</span></div></li>
+                  <li><span class="ins-tl-no">10</span><div><div class="ins-tl-when">Nov 2025</div><div class="ins-tl-what">India notifies the Digital Personal Data Protection Rules, 2025<sup class="cite"><a href="#ref-6">6</a></sup></div><span class="ins-tl-type">Policy</span></div></li>
+                </ol>
+              </div>
+              <div>
+                <p class="ins-year">2026</p>
+                <ol class="ins-tl" start="11">
+                  <li class="em"><span class="ins-tl-no">11</span><div><div class="ins-tl-when">Jan 2026</div><div class="ins-tl-what">Sylph runs Llama-3-8B under FHE at 18 seconds per token<sup class="cite"><a href="#ref-27">27</a></sup></div><span class="ins-tl-type">Research</span></div></li>
+                  <li><span class="ins-tl-no">12</span><div><div class="ins-tl-when">Apr 2026</div><div class="ins-tl-what">Trail of Bits audits WhatsApp's private inference; fixes follow<sup class="cite"><a href="#ref-24">24</a></sup></div><span class="ins-tl-type risk">Risk</span></div></li>
+                  <li><span class="ins-tl-no">13</span><div><div class="ins-tl-when">Jun 2026</div><div class="ins-tl-what">Apple runs Private Cloud Compute on Google Cloud<sup class="cite"><a href="#ref-14">14</a></sup></div><span class="ins-tl-type">Platform</span></div></li>
+                  <li><span class="ins-tl-no">14</span><div><div class="ins-tl-when">Aug 2026</div><div class="ins-tl-what">Blackwell benchmark: 1 to 3 percent overhead on a tuned stack<sup class="cite"><a href="#ref-19">19</a></sup></div><span class="ins-tl-type">Research</span></div></li>
+                  <li><span class="ins-tl-no">15</span><div><div class="ins-tl-when">Sep 2026</div><div class="ins-tl-what">OpenAI rolls out Private Safety Processing and previews Private Inference<sup class="cite"><a href="#ref-5">5</a>,<a href="#ref-17">17</a></sup></div><span class="ins-tl-type">Platform</span></div></li>
+                  <li><span class="ins-tl-no">16</span><div><div class="ins-tl-when">Oct 2026</div><div class="ins-tl-what">Opaque Systems' team joins Anthropic (reported)<sup class="cite"><a href="#ref-16">16</a></sup></div><span class="ins-tl-type">Platform</span></div></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <figcaption class="ins-source">Dates are the month of announcement or publication, from the references cited on each item.</figcaption>
+        </figure>
+
+        <div class="ins-prose">
+          <h2 id="s6"><span class="sec">06</span>Matching protection to your data</h2>
+          <p>For most enterprises the decision starts with a data inventory. Classify what an AI system will touch, then apply the lowest rung that meets the risk. Spend more only where the data demands it.</p>
+        </div>
+
+        <figure class="ins-fig" aria-labelledby="t2-title">
+          <div class="ins-fig-head">
+            <p class="ins-fig-label">Table 2</p>
+            <h3 class="ins-fig-title" id="t2-title">Matching protection to data</h3>
+          </div>
+          <div class="ins-fig-body">
+            <div class="ins-table-wrap">
+              <table class="ins-t-guide">
+                <thead><tr><th class="n">#</th><th>Data class</th><th>Start with</th><th>Add</th><th>Typical workload</th></tr></thead>
+                <tbody>
+                  <tr><td class="n">1</td><td><b>Public or low-risk internal</b></td><td>An enterprise API tier that does not train on your data</td><td>Zero data retention where your use qualifies</td><td>Drafting from published material</td></tr>
+                  <tr><td class="n">2</td><td><b>Confidential business data</b></td><td>A minimization gateway that redacts and tokenizes; private networking</td><td>Zero data retention; a log of every outbound prompt</td><td>Contract review with names and amounts tokenized</td></tr>
+                  <tr><td class="n">3</td><td><b>Regulated personal data</b></td><td>An open-weight model in your perimeter, or attested confidential inference you verify</td><td>Tokenized identifiers; keys held in your own key management</td><td>Claims triage on health or KYC records</td></tr>
+                  <tr><td class="n">4</td><td><b>Crown-jewel or multi-party data</b></td><td>FHE or MPC for narrow, latency-tolerant jobs</td><td>Air-gapped models for everything else</td><td>Overnight scoring on data pooled by several banks</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <figcaption class="ins-source">Source: Coral Petal AI guidance based on the evidence in this brief. It is general information, not legal advice for any specific regulation.</figcaption>
+        </figure>
+
+        <aside class="ins-callout">
+          <h3>Agents widen the gap</h3>
+          <p>An agent does not send one prompt. It retrieves documents, calls tools, writes to memory and leaves traces, and each of those steps holds plaintext somewhere. Classify every data flow an agent creates and give each one the rung it needs.</p>
+        </aside>
+
+        <div class="ins-prose">
+          <h2 id="s7"><span class="sec">07</span>What to watch in 2027</h2>
+          <ol class="ins-watch">
+            <li><span><b>Enterprise confidential inference from the frontier labs.</b> Watch OpenAI's Private Inference preview and what Anthropic builds with the Opaque team. Look for independent keyservers and published measurements, which Anthropic has said it is exploring.<sup class="cite"><a href="#ref-10">10</a>,<a href="#ref-16">16</a>,<a href="#ref-17">17</a></sup></span></li>
+            <li><span><b>Verification as a routine control.</b> Expect buyers to check attestation in their own code, to use open stacks such as OpenPCC, built on Intel TDX and H100 GPUs,<sup class="cite"><a href="#ref-30">30</a></sup> and to ask for third-party audits.</span></li>
+            <li><span><b>FHE pilots on real workloads.</b> At 18 seconds per token for an 8B model, encrypted summarization and scoring fit overnight batches. The next milestone to watch is single-digit seconds per token.</span></li>
+            <li><span><b>Compliance clocks.</b> India's DPDP Rules bring their main obligations into force in May 2027,<sup class="cite"><a href="#ref-6">6</a></sup> and Gartner predicts that by 2029 more than 75 percent of operations processed in untrusted infrastructure will be secured in use by confidential computing.<sup class="cite"><a href="#ref-31">31</a></sup></span></li>
+          </ol>
+
+          <h2 id="s8"><span class="sec">08</span>The bottom line</h2>
+          <p>The decryption gap is narrowing from two directions. Hardware enclaves already let platforms promise that no one, including the operator, can read data during inference, for a few percent of throughput when the stack is tuned. Cryptography removes the need to trust hardware at all, and it is now fast enough for patient, high-value work. Until the frontier labs offer attested inference to enterprises, the strongest practical posture combines minimization, isolation and contracts, each chosen for the data it protects.</p>
+        </div>
+
+        <div class="ins-cta">
+          <div class="cta-band">
+            <h2>Planning an AI rollout that touches sensitive data?</h2>
+            <p>Coral Petal AI helps enterprises design agentic AI systems end to end, including how each class of data reaches a model.</p>
+            <div class="cta-row"><a class="btn" href="/contact/">Talk to Coral Petal AI</a></div>
+          </div>
+        </div>
+
+        <section class="nl" id="subscribe" aria-labelledby="nl-title">
+          <div class="nl-copy">
+            <p class="ins-label">Coral Petal AI Insights</p>
+            <h2 id="nl-title">Get the next brief in your inbox</h2>
+            <p>Research-backed briefs on enterprise and agentic AI. One email when a new brief is published, and one-click unsubscribe.</p>
+          </div>
+          <form class="nl-form" id="nl-form" action="/api/subscribe.php" method="post" novalidate>
+            <input type="hidden" name="t" id="nl-t" value="">
+            <input type="hidden" name="source" value="insights-001">
+            <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            <label class="sr-only" for="nl-email">Work email</label>
+            <div class="nl-row"><input id="nl-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" maxlength="190" required><button class="btn" type="submit" id="nl-send">Subscribe</button></div>
+            <label class="nl-consent"><input type="checkbox" name="consent" value="1" required><span>Email me new Insights. I can unsubscribe at any time. See the <a href="/privacy/">privacy policy</a>.</span></label>
+            <p class="nl-msg" id="nl-msg" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="ins-end" aria-labelledby="refs-title">
+          <div class="ins-about"><p><b>About this brief.</b> Evidence current to November 21, 2026. Values marked ≈ were read from published charts or rounded. Quotes are verbatim from the cited sources. This brief is for information only and is not legal or security advice.</p></div>
+          <h2 id="refs-title">References</h2>
+          <ol class="ins-refs">
+            <li id="ref-1"><span>de Castro, L., Escudero, D., Agrawal, A., Polychroniadou, A., and Veloso, M. (2025). EncryptedLLM: Privacy-Preserving Large Language Model Inference via GPU-Accelerated Fully Homomorphic Encryption. <i>Proceedings of the 42nd International Conference on Machine Learning</i>, PMLR 267, 12677–12688. <a href="https://proceedings.mlr.press/v267/de-castro25a.html">proceedings.mlr.press/v267/de-castro25a.html</a></span></li>
+            <li id="ref-2"><span>IBM. (2025, July 30). IBM Report: 13% of organizations reported breaches of AI models or applications, 97% of which reported lacking proper AI access controls. Cost of a Data Breach Report 2025. <a href="https://newsroom.ibm.com/2025-07-30-ibm-report-13-of-organizations-reported-breaches-of-ai-models-or-applications,-97-of-which-reported-lacking-proper-ai-access-controls">newsroom.ibm.com</a></span></li>
+            <li id="ref-3"><span>Mireshghallah, N., Kim, H., Zhou, X., Tsvetkov, Y., Sap, M., Shokri, R., and Choi, Y. (2024). Can LLMs Keep a Secret? Testing Privacy Implications of Language Models via Contextual Integrity Theory. <i>ICLR 2024</i>. <a href="https://openreview.net/forum?id=gmg7t8b4s0">openreview.net/forum?id=gmg7t8b4s0</a></span></li>
+            <li id="ref-4"><span>Anthropic. API and data retention: zero data retention (ZDR). Claude Platform documentation, accessed November 21, 2026. <a href="https://platform.claude.com/docs/en/manage-claude/api-and-data-retention">platform.claude.com/docs/en/manage-claude/api-and-data-retention</a></span></li>
+            <li id="ref-5"><span>OpenAI. (2026, August 19; updated September 22). Offering Zero Data Retention for frontier models. <a href="https://openai.com/index/offering-zero-data-retention-for-frontier-models">openai.com/index/offering-zero-data-retention-for-frontier-models</a></span></li>
+            <li id="ref-6"><span>Ministry of Electronics and Information Technology, Government of India. (2025, November 13). Digital Personal Data Protection Rules, 2025, G.S.R. 846(E), Rule 6(1)(a); and Press Information Bureau, "DPDP Rules, 2025 Notified," November 17, 2025. <a href="https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc20251117695301.pdf">static.pib.gov.in</a></span></li>
+            <li id="ref-7"><span>OpenAI. (2025, August 5). Introducing gpt-oss. <a href="https://openai.com/index/introducing-gpt-oss/">openai.com/index/introducing-gpt-oss</a></span></li>
+            <li id="ref-8"><span>Google Cloud. (2025, August). Gemini is now available anywhere: Gemini on Google Distributed Cloud. <a href="https://cloud.google.com/blog/topics/hybrid-cloud/gemini-is-now-available-anywhere">cloud.google.com/blog</a></span></li>
+            <li id="ref-9"><span>Google Research. (2025, September). VaultGemma: The world's most capable differentially private LLM. <a href="https://research.google/blog/vaultgemma-the-worlds-most-capable-differentially-private-llm/">research.google/blog</a></span></li>
+            <li id="ref-10"><span>Anthropic, with Pattern Labs. (2025, June 18). Confidential Inference via Trusted Virtual Machines. <a href="https://www.anthropic.com/research/confidential-inference-trusted-vms">anthropic.com/research/confidential-inference-trusted-vms</a></span></li>
+            <li id="ref-11"><span>Apple Security Engineering and Architecture. (2024, June 10). Private Cloud Compute: A new frontier for AI privacy in the cloud. <a href="https://security.apple.com/blog/private-cloud-compute/">security.apple.com/blog/private-cloud-compute</a></span></li>
+            <li id="ref-12"><span>Meta Engineering. (2025, April 29). Building Private Processing for AI tools on WhatsApp. <a href="https://engineering.fb.com/2025/04/29/security/whatsapp-private-processing-ai-tools/">engineering.fb.com</a></span></li>
+            <li id="ref-13"><span>Microsoft. Azure AI Confidential Inferencing: Technical Deep-Dive. Microsoft Tech Community, 2024, updated December 2025. <a href="https://techcommunity.microsoft.com/blog/azure-ai-services-blog/azure-ai-confidential-inferencing-technical-deep-dive/4253150">techcommunity.microsoft.com</a></span></li>
+            <li id="ref-14"><span>Apple Security Engineering and Architecture. (2026, June 8). Expanding Private Cloud Compute. <a href="https://security.apple.com/blog/expanding-pcc">security.apple.com/blog/expanding-pcc</a>; and Google Cloud, "Powering the next era of confidential AI," June 2026. <a href="https://cloud.google.com/blog/products/identity-security/powering-the-next-era-of-confidential-ai">cloud.google.com/blog</a></span></li>
+            <li id="ref-15"><span>Google. (2025, November 11). Private AI Compute: our next step in building private and helpful AI. <a href="https://blog.google/technology/ai/google-private-ai-compute/">blog.google</a></span></li>
+            <li id="ref-16"><span>Constellation Research. (2026, October). Anthropic licenses, releases Opaque in acquihire. <a href="https://www.constellationr.com/insights/news/anthropic-licenses-releases-opaque-acquihire">constellationr.com</a>; and The New Stack, Anthropic and Opaque confidential computing, October 2026. <a href="https://thenewstack.io/anthropic-opaque-confidential-computing/">thenewstack.io</a></span></li>
+            <li id="ref-17"><span>VentureBeat. (2026, September). OpenAI's new "Private Intelligence" targets a growing enterprise concern: who can see your AI data? <a href="https://venturebeat.com/security/openais-new-private-intelligence-targets-a-growing-enterprise-concern-who-can-see-your-ai-data">venturebeat.com</a></span></li>
+            <li id="ref-18"><span>Zhu, J., Yin, H., Deng, P., Almeida, A., and Zhou, S. (2024). Confidential Computing on NVIDIA Hopper GPUs: A Performance Benchmark Study. arXiv:2409.03992. <a href="https://arxiv.org/abs/2409.03992">arxiv.org/abs/2409.03992</a></span></li>
+            <li id="ref-19"><span>Asad, A., and Grunseid, A. (2026, August 27). Benchmarking Confidential Computing Performance on NVIDIA Blackwell GPUs. arXiv:2608.26575. <a href="https://arxiv.org/abs/2608.26575">arxiv.org/abs/2608.26575</a></span></li>
+            <li id="ref-20"><span>NVIDIA Technical Blog. (2026). Hardware-Rooted AI Security That Won't Slow You Down. <a href="https://developer.nvidia.com/blog/hardware-rooted-ai-security-that-wont-slow-you-down/">developer.nvidia.com/blog</a></span></li>
+            <li id="ref-21"><span>Yin, H., and Wang, K. (2026, June 22). The Serialized Bridge: Understanding and Recovering LLM Serving Performance under Blackwell GPU Confidential Computing. arXiv:2606.23969. <a href="https://arxiv.org/abs/2606.23969">arxiv.org/abs/2606.23969</a></span></li>
+            <li id="ref-22"><span>The Hacker News. (2025, October). New TEE.Fail side-channel attack extracts secrets from Intel and AMD DDR5 secure enclaves. Research by Georgia Tech, Purdue University and Synkhronix. <a href="https://thehackernews.com/2025/10/new-teefail-side-channel-attack.html">thehackernews.com</a></span></li>
+            <li id="ref-23"><span>The Hacker News. (2025, November). Google launches Private AI Compute, citing NCC Group's assessment. <a href="https://thehackernews.com/2025/11/google-launches-private-ai-compute.html">thehackernews.com</a></span></li>
+            <li id="ref-24"><span>Trail of Bits. (2026, April 7). What we learned about TEE security from auditing WhatsApp's Private Inference. <a href="https://blog.trailofbits.com/2026/04/07/what-we-learned-about-tee-security-from-auditing-whatsapps-private-inference/">blog.trailofbits.com</a></span></li>
+            <li id="ref-25"><span>Gentry, C. (2009). Fully homomorphic encryption using ideal lattices. <i>Proceedings of the 41st ACM Symposium on Theory of Computing</i>, 169–178. <a href="https://doi.org/10.1145/1536414.1536440">doi.org/10.1145/1536414.1536440</a></span></li>
+            <li id="ref-26"><span>Cheon, J. H., Kim, A., Kim, M., and Song, Y. (2017). Homomorphic encryption for arithmetic of approximate numbers. <i>ASIACRYPT 2017</i>, 409–437. <a href="https://doi.org/10.1007/978-3-319-70694-8_15">doi.org/10.1007/978-3-319-70694-8_15</a></span></li>
+            <li id="ref-27"><span>Park, J., Park, S., Park, J. H., Ahn, J. H., Cheon, J. H., Hanrot, G., Kim, J. W., Park, M., and Stehlé, D. (2026). Scaling up FHE-based Privacy-Preserving ML: Higher Throughput, Longer Inputs for LLama-3-8B. arXiv:2601.18511. <a href="https://arxiv.org/abs/2601.18511">arxiv.org/abs/2601.18511</a></span></li>
+            <li id="ref-28"><span>Dong, Y., Lu, W.-j., Zheng, Y., Wu, H., Zhao, D., Tan, J., Huang, Z., Hong, C., Wei, T., and Cheng, W. (2023). PUMA: Secure Inference of LLaMA-7B in Five Minutes. arXiv:2307.12533. <a href="https://arxiv.org/abs/2307.12533">arxiv.org/abs/2307.12533</a></span></li>
+            <li id="ref-29"><span>Meta Engineering. (2026, September 23). Bringing Private Processing to Meta AI Glasses. <a href="https://engineering.fb.com/2026/09/23/security/private-processing-meta-ai-glasses/">engineering.fb.com</a></span></li>
+            <li id="ref-30"><span>Zhou, H., Zhao, S., Wang, C., and Lin, Z. (2026, June 9). OpenPCC: Open and Confidential LLM Serving on Commodity TEEs. arXiv:2606.11145. <a href="https://arxiv.org/abs/2606.11145">arxiv.org/abs/2606.11145</a></span></li>
+            <li id="ref-31"><span>Gartner. (2025, October 20). Gartner Identifies the Top Strategic Technology Trends for 2026. <a href="https://www.gartner.com/en/newsroom/press-releases/2025-10-20-gartner-identifies-the-top-strategic-technology-trends-for-2026">gartner.com/en/newsroom</a></span></li>
+          </ol>
+          <div class="ins-citebox">
+            <p><span class="ins-label">Cite this brief</span><span id="cite-text">Coral Petal AI Research. "The Decryption Gap." Coral Petal AI Insights, no. 001, November 21, 2026.</span></p>
+            <button class="btn btn-ghost" type="button" id="cite-copy">Copy citation</button>
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <script>
+    (function () {
+      // Newsletter sign-up: double opt-in through /api/subscribe.php
+      var f = document.getElementById('nl-form');
+      if (f) {
+        var msg = document.getElementById('nl-msg'), btn = document.getElementById('nl-send');
+        document.getElementById('nl-t').value = Date.now();
+        f.addEventListener('submit', function (e) {
+          e.preventDefault(); msg.className = 'nl-msg'; msg.textContent = '';
+          if (!f.checkValidity()) { f.reportValidity(); return; }
+          btn.disabled = true; btn.textContent = 'Subscribing…';
+          fetch(f.action, { method: 'POST', body: new FormData(f) }).then(function (r) { return r.json(); }).then(function (d) {
+            msg.textContent = d.message; msg.className = 'nl-msg ' + (d.ok ? 'ok' : 'bad');
+            if (d.ok) { f.querySelectorAll('.nl-row, .nl-consent').forEach(function (el) { el.style.display = 'none'; }); }
+            else { btn.disabled = false; btn.textContent = 'Subscribe'; }
+          }).catch(function () { msg.textContent = 'Network error. Please try again in a moment.'; msg.className = 'nl-msg bad'; btn.disabled = false; btn.textContent = 'Subscribe'; });
+        });
+      }
+
+      // Copy citation
+      var cb = document.getElementById('cite-copy'), ct = document.getElementById('cite-text');
+      if (cb && ct) {
+        cb.addEventListener('click', function () {
+          var text = ct.textContent.trim();
+          var select = function () { var r = document.createRange(); r.selectNodeContents(ct); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); cb.textContent = 'Selected: press Ctrl+C'; };
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).then(function () { cb.textContent = 'Copied'; setTimeout(function () { cb.textContent = 'Copy citation'; }, 1800); }, select);
+            } else { select(); }
+          } catch (err) { select(); }
+        });
+      }
+
+      // Chart tooltips on hover and keyboard focus; the data tables hold every value too.
+      var tip = document.createElement('div');
+      tip.className = 'ins-tip'; tip.setAttribute('role', 'tooltip'); tip.hidden = true;
+      document.body.appendChild(tip);
+      var hide = function () { tip.hidden = true; };
+      document.querySelectorAll('.ins-row[data-tip]').forEach(function (row) {
+        var show = function () {
+          var mark = row.querySelector('.ins-mark') || row;
+          tip.textContent = row.getAttribute('data-tip'); tip.hidden = false;
+          var r = mark.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+          var x = Math.max(8, Math.min(r.left + r.width / 2 - tw / 2, window.innerWidth - tw - 8));
+          var y = r.top - th - 12; if (y < 90) { y = r.bottom + 12; }
+          tip.style.left = x + 'px'; tip.style.top = y + 'px';
+        };
+        row.addEventListener('pointerenter', show); row.addEventListener('focus', show);
+        row.addEventListener('pointerleave', hide); row.addEventListener('blur', hide);
+      });
+      window.addEventListener('scroll', hide, { passive: true });
+    })();
+    </script>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a class="brand" href="/" aria-label="Coral Petal AI, home">
+            <img class="mark" src="/img/logo.svg" alt="" width="36" height="36">
+            <span>Coral <span class="accent">Petal AI</span><sup class="tm">™</sup></span>
+          </a>
+          <p style="margin-top:14px;max-width:36ch">Cutting-edge Agentic AI, within reach of every enterprise and government.</p>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">What we do</a></li>
+            <li><a href="/vision/">Core vision</a></li>
+            <li><a href="https://careers.coralpetal.ai/">Careers</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="/services/">Services</a></li>
+            <li><a href="/industries/">Industries</a></li>
+            <li><a href="/insights/">Insights</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Learn</h4>
+          <ul>
+            <li><a href="https://academy.coralpetal.ai/courses/gen-agentic-ai/">Signature Course</a></li>
+            <li><a href="https://academy.coralpetal.ai/courses/">Course catalog</a></li>
+            <li><a href="mailto:academy@coralpetal.ai">academy@coralpetal.ai</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year">2026</span> Coral Petal AI™ and the Petal Network logo are trademarks of The Coral Petal Company.<span class="foot-legal"><a href="https://coralpetal.ai/privacy/">Privacy</a><a href="https://coralpetal.ai/terms/">Terms</a><a href="https://coralpetal.ai/refund/">Refunds</a></span></span>
+        <span class="foot-right"><div class="social"><a class="s-li" href="https://www.linkedin.com/company/coralpetalai" target="_blank" rel="noopener" aria-label="Coral Petal AI on LinkedIn" title="Coral Petal AI on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a><a class="s-ig" href="https://www.instagram.com/coralpetalai/" target="_blank" rel="noopener" aria-label="Coral Petal AI on Instagram" title="Coral Petal AI on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="cp-ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".3" stop-color="#FA7E1E"/><stop offset=".6" stop-color="#D62976"/><stop offset=".85" stop-color="#962FBF"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="url(#cp-ig)" stroke-width="2"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="url(#cp-ig)" stroke-width="2"/><circle cx="17.6" cy="6.4" r="1.3" fill="#D62976"/></svg></a><a class="s-x" href="https://x.com/CoralPetalAI" target="_blank" rel="noopener" aria-label="Coral Petal AI on X" title="Coral Petal AI on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-7.4 8.5L23.3 22h-6.8l-5.3-6.9L5 22H1.9l7.9-9.1L1.6 2h7l4.8 6.3L18.9 2zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20z"/></svg></a></div><a href="mailto:contact@coralpetal.ai">contact@coralpetal.ai</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    (function () {
+      var b = document.querySelector('.menu-toggle'), m = document.getElementById('primary-nav');
+      b.addEventListener('click', function () {
+        var open = m.classList.toggle('open');
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      // Dropdowns: one open at a time; close on outside click or Escape.
+      var ds = document.querySelectorAll('.nav details');
+      ds.forEach(function (d) {
+        d.addEventListener('toggle', function () {
+          if (d.open) ds.forEach(function (o) { if (o !== d) o.open = false; });
+        });
+      });
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.nav details')) ds.forEach(function (d) { d.open = false; });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') ds.forEach(function (d) { d.open = false; });
+      });
+    })();
+  </script>
+  <script>/* First-party, cookieless page count (admin dashboard). No cookies, no IP stored. */(function(){try{if(navigator.doNotTrack==='1'||!navigator.sendBeacon)return;var u=(/^dev[.-]/.test(location.hostname)?'https://dev.coralpetal.ai':'https://coralpetal.ai')+'/api/hit.php';navigator.sendBeacon(u,new Blob([JSON.stringify({p:location.pathname,r:document.referrer})],{type:'text/plain'}));}catch(e){}})();</script>
+</body>
+</html>

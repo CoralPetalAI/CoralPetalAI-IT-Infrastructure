@@ -1,6 +1,6 @@
-# Site API: only the two endpoints are reachable; the shared lib is not.
+# Site API: only the three endpoints are reachable; the shared lib is not.
 Options -Indexes
-<FilesMatch "^(?!(contact|hit)\.php$).*">
+<FilesMatch "^(?!(contact|hit|subscribe)\.php$).*">
   Require all denied
 </FilesMatch>
 <IfModule mod_headers.c>

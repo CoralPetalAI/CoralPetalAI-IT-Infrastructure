@@ -11,6 +11,8 @@ file in site-data/pages/<slug>.html that starts with a metadata block:
   nav: services            (which nav item is current)
   title: Page title
   description: Meta description
+  css: /css/insights.css   (optional: extra stylesheet(s), comma-separated)
+  og_type: article         (optional: Open Graph type, default "website")
   -->
   ...body HTML...
 
@@ -25,6 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "site-data"
 SITE = ROOT / "site"
 CSS_VERSION = "20261118z"
+PAGE_CSS_VERSION = "20261121a"  # extra stylesheets named by a page's "css:" metadata (Insights)
 # Website assistant (ElevenLabs Agents widget, voice + text), home page only (Rohit 2026-11-18).
 # Public agent id from the ElevenLabs dashboard (Agents → the agent → Widget). Empty = no widget.
 # Setup and the agent's prompt: chatbot/README.md.
@@ -110,7 +113,11 @@ def main():
         meta, body = parse(page)
         path = meta["path"].strip("/")
         url = "https://coralpetal.ai/" + (path + "/" if path else "")
+        extra = "".join(f'\n  <link rel="stylesheet" href="{h.strip()}?v={PAGE_CSS_VERSION}">'
+                        for h in meta.get("css", "").split(",") if h.strip())
         html = (tpl.replace("{{title}}", meta["title"])
+                   .replace("{{og_type}}", meta.get("og_type", "website"))
+                   .replace("{{extra_head}}", extra)
                    .replace("{{description}}", meta["description"])
                    .replace("{{canonical}}", url)
                    .replace("{{css_version}}", CSS_VERSION)

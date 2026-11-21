@@ -5,10 +5,17 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 ## [Unreleased]
 
 ### Added
+- Insights No. 001, "The Decryption Gap" (/insights/the-decryption-gap/): research brief on encrypted and confidential AI inference with a ciphertext hero, trust-ladder figure, confidential-inference diagram, two charts with data tables, provider table, timeline and 31 references. New stylesheet `css/insights.css`.
+- Insights newsletter sign-up (double opt-in) on /insights/ and every article: `site/api/subscribe.php` stores pending/confirmed/unsubscribed subscribers in the admin DB (`newsletter_subscribers`) and emails a confirmation link through Proton SMTP; honeypot, fill-time, 5/hour rate limit, 10-minute resend guard, unconfirmed rows deleted after 30 days.
+- Page generator: optional `css:` (extra stylesheets) and `og_type:` metadata per page.
 - Contact form on /contact/ → admin DB (Admin → Inbox) + email to the topic's team address via Proton SMTP; honeypot, fill-time and 5/hour rate limit.
 - First-party, cookieless page counter (`site/api/hit.php`) on main site, Careers and Academy (theme 1.23.0); bots, DNT and GPC skipped; no IP or cookies stored.
 - Academy: Tutor LMS BunnyNet Integration add-on (free, Themeum) installed and BunnyNet offered as a lesson video source, for paid lesson videos on Bunny Stream.
 - Admin 1.4.0: Inbox, Applications (careers, status workflow, resume/cover PDFs streamed from private Azure storage with a read-only key), Traffic (views, visitors, top pages, sources); website tiles on the dashboard.
+
+### Changed
+- /insights/: the first published brief is featured, the mailto band is replaced by the newsletter sign-up, and the planned topics move under "Coming up".
+- Privacy policy: newsletter data, purpose and retention added (last updated November 21, 2026).
 
 ## [Release 1.0003] - 2026-11-18
 
