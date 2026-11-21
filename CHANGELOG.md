@@ -14,6 +14,7 @@ All notable changes to coralpetal.ai, academy and careers. Format: [Keep a Chang
 - Admin 1.4.0: Inbox, Applications (careers, status workflow, resume/cover PDFs streamed from private Azure storage with a read-only key), Traffic (views, visitors, top pages, sources); website tiles on the dashboard.
 
 ### Changed
+- Insights article layout v2 (Rohit: "better design and graphics"): cover with the artwork beside the title, "by the numbers" strip, sticky contents rail with reading progress and share buttons, icon-led takeaways and section markers, swimlane timeline, provider status pills, visual decision guide, dark bottom-line card, author box and "Coming up" tiles.
 - /insights/: the first published brief is featured, the mailto band is replaced by the newsletter sign-up, and the planned topics move under "Coming up".
 - Privacy policy: newsletter data, purpose and retention added (last updated November 21, 2026).
 
