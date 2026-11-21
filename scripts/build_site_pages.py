@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "site-data"
 SITE = ROOT / "site"
 CSS_VERSION = "20261118z"
-PAGE_CSS_VERSION = "20261121b"  # extra stylesheets named by a page's "css:" metadata (Insights)
+PAGE_CSS_VERSION = "20261121c"  # extra stylesheets named by a page's "css:" metadata (Insights)
 # Website assistant (ElevenLabs Agents widget, voice + text), home page only (Rohit 2026-11-18).
 # Public agent id from the ElevenLabs dashboard (Agents → the agent → Widget). Empty = no widget.
 # Setup and the agent's prompt: chatbot/README.md.
