@@ -1,5 +1,5 @@
 <?php
-// Shared helpers for the main site's small PHP endpoints (contact form, page-view beacon). 2026-11-18.
+// Shared helpers for the main site's small PHP endpoints (contact form, page-view beacon, newsletter). 2026-11-18.
 // Writes go to the ADMIN database (same server), so the admin app shows them.
 // Config (never in git): ~/.coralpetal/admin-config-dev.json (dev.coralpetal.ai) or admin-config.json (prod),
 // written by scripts/deploy_admin.sh. SMTP: ~/.coralpetal/academy-smtp.php (Proton SMTP token, academy@).
@@ -45,6 +45,17 @@ function cpx_tables( PDO $db ): void {
 		id BIGINT AUTO_INCREMENT PRIMARY KEY, at DATETIME NOT NULL, day DATE NOT NULL, site VARCHAR(20) NOT NULL,
 		path VARCHAR(255) NOT NULL, ref_host VARCHAR(120) NULL, visitor CHAR(16) NOT NULL, device VARCHAR(10) NOT NULL,
 		INDEX (day), INDEX (site, day), INDEX (visitor, day)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" );
+}
+
+/** Insights newsletter subscribers (2026-11-21). Double opt-in; see api/subscribe.php. */
+function cpx_newsletter_table( PDO $db ): void {
+	$db->exec( "CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+		id INT AUTO_INCREMENT PRIMARY KEY, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, env VARCHAR(8) NOT NULL,
+		email VARCHAR(190) NOT NULL, status VARCHAR(16) NOT NULL DEFAULT 'pending', token CHAR(48) NOT NULL,
+		source VARCHAR(40) NOT NULL DEFAULT 'insights', consent_at DATETIME NOT NULL, confirmed_at DATETIME NULL,
+		unsubscribed_at DATETIME NULL, mailed_at DATETIME NULL, ip VARCHAR(45) NULL,
+		UNIQUE KEY env_email (env, email), UNIQUE KEY token (token), INDEX (status), INDEX (ip, updated_at)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" );
 }
 
